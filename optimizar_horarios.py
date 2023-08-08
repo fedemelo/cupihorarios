@@ -379,7 +379,7 @@ def imprimir_solucion_aletosamente() -> None:
 
     s = ""
 
-    matrix = [["", "", "", "", "", "", "", "", "", ""] for _ in range(19)]
+    matrix = [["", "", "", "", "", "", "", "", "", ""] for _ in range(20)]
     # matrix[horario][dia(primario/secundario)]
 
     count_asis = 0
