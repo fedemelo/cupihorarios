@@ -3,26 +3,8 @@ ASISTENTES = ['A', 'E', 'F', 'M', 'N', 'W', 'Z']
 
 # Copy paste directo del Excel, sin asco.
 # Los días están separados por \t (es un TSV). Uno no ve los tabs por ser humano, pero ahí están
-DISPONIBILIDAD = """N-Z-M-W	N-W	Z	N-Z-A	Z-N
-N-Z-M-W	N-W	Z	N-Z-A	Z-N
-N-Z-M	N-Z-W	Z	N-Z-A	Z
-N-M	N-E-W	E	A-N-Z-E	Z
-N-M	E-N-W	E	A-N-Z-E	Z
-N-M	A-E-W	E	A-N-Z-E	Z
-Z-M	A-Z-E-W	A-E	A-E	A-E-N-M
-Z-M	A-Z-E-W	A-E	A-E	A-E-N-M
-Z-M	A-E-W-F	A-E-N	A-E-F	A-E-N-M
-A-E	A-E-W-F	A-E-F	A-E-W-F	A-E-F
-A-E	A-E-W-F	A-E-F	A-E-W-F	A-E-F
-A-E-Z	W-F	A-E-W-F	A-E-F	A-E-F
-A-E-M	N-M-W	A-E-W-F	A-E-N-M-F	A-E-F
-A-E-M	N-M-W	A-E-W-F	A-E-N-M-F	A-E-F
-A-E-M-W	N-M	A-E-N-Z-W	A-E	A-E
-A-E-N-M-W	N-M	A-N-W	A-E	A-Z-E-W
-A-E-N-M-W	N-M	A-N-W	A-E	A-Z-E-W
-A-E-N-M-W	A-E-N-M	A-N-W	A-E	A-E-W
-E-N-M-W	E-N-M	A-N-W	A-E	A-E-W
-E-N-M-W	E-N-M	A-N-W	A-E	A-E-W"""
+DISPONIBILIDAD = open('dispo_mas_reciente_del_excel.txt', 'r').read()
+print(DISPONIBILIDAD)
 
 
 def listar_todos_turnos() -> list:
@@ -111,10 +93,7 @@ def escribir_dispo_en_TXT()-> None:
     fhandle = open("diponibilidad.txt", "w")
     fhandle.write(s)
     fhandle.close()
+    print("Se han escrito los parámetros para el modelo en disponibilidad.txt")
 
 
-for A in ASISTENTES:
-    print(f"""m.esta_disponible_{A} = Constraint(
-    m.horarios,
-    rule=(lambda m, h: m.primario_{A}[h]+m.secundario_{A}[h] <= m.dispo_{A}[h])
-)""")
+escribir_dispo_en_TXT()

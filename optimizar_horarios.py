@@ -54,7 +54,7 @@ m.dispo_A = {'Lun, 8:00-9:00': 0, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 0, 'Jue
              'Lun, 15:00-15:30': 1, 'Mar, 15:00-15:30': 0, 'Mie, 15:00-15:30': 1, 'Jue, 15:00-15:30': 1, 'Vie, 15:00-15:30': 1,
              'Lun, 15:30-16:30': 1, 'Mar, 15:30-16:30': 0, 'Mie, 15:30-16:30': 1, 'Jue, 15:30-16:30': 1, 'Vie, 15:30-16:30': 1,
              'Lun, 16:30-17:00': 1, 'Mar, 16:30-17:00': 1, 'Mie, 16:30-17:00': 1, 'Jue, 16:30-17:00': 1, 'Vie, 16:30-17:00': 1,
-             'Lun, 17:00-18:00': 0, 'Mar, 17:00-18:00': 0, 'Mie, 17:00-18:00': 1, 'Jue, 17:00-18:00': 1, 'Vie, 17:00-18:00': 1}
+             'Lun, 17:00-18:00': 0, 'Mar, 17:00-18:00': 0, 'Mie, 17:00-18:00': 1, 'Jue, 17:00-18:00': 1, 'Vie, 17:00-18:00': 0}
 
 m.dispo_E = {'Lun, 8:00-9:00': 0, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 0, 'Jue, 8:00-9:00': 0, 'Vie, 8:00-9:00': 0,
              'Lun, 9:00-9:30': 0, 'Mar, 9:00-9:30': 0, 'Mie, 9:00-9:30': 0, 'Jue, 9:00-9:30': 0, 'Vie, 9:00-9:30': 0,
@@ -74,12 +74,12 @@ m.dispo_F = {'Lun, 8:00-9:00': 0, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 0, 'Jue
              'Lun, 9:00-9:30': 0, 'Mar, 9:00-9:30': 0, 'Mie, 9:00-9:30': 0, 'Jue, 9:00-9:30': 0, 'Vie, 9:00-9:30': 0,
              'Lun, 9:30-10:30': 0, 'Mar, 9:30-10:30': 0, 'Mie, 9:30-10:30': 0, 'Jue, 9:30-10:30': 0, 'Vie, 9:30-10:30': 0,
              'Lun, 10:30-11:00': 0, 'Mar, 10:30-11:00': 0, 'Mie, 10:30-11:00': 0, 'Jue, 10:30-11:00': 0, 'Vie, 10:30-11:00': 0,
-             'Lun, 11:00-12:00': 0, 'Mar, 11:00-12:00': 0, 'Mie, 11:00-12:00': 0, 'Jue, 11:00-12:00': 0, 'Vie, 11:00-12:00': 0,
-             'Lun, 12:00-12:30': 0, 'Mar, 12:00-12:30': 1, 'Mie, 12:00-12:30': 0, 'Jue, 12:00-12:30': 1, 'Vie, 12:00-12:30': 0,
+             'Lun, 11:00-12:00': 0, 'Mar, 11:00-12:00': 1, 'Mie, 11:00-12:00': 1, 'Jue, 11:00-12:00': 1, 'Vie, 11:00-12:00': 0,
+             'Lun, 12:00-12:30': 0, 'Mar, 12:00-12:30': 1, 'Mie, 12:00-12:30': 1, 'Jue, 12:00-12:30': 1, 'Vie, 12:00-12:30': 1,
              'Lun, 12:30-13:30': 0, 'Mar, 12:30-13:30': 1, 'Mie, 12:30-13:30': 1, 'Jue, 12:30-13:30': 1, 'Vie, 12:30-13:30': 1,
              'Lun, 13:30-14:00': 0, 'Mar, 13:30-14:00': 1, 'Mie, 13:30-14:00': 1, 'Jue, 13:30-14:00': 1, 'Vie, 13:30-14:00': 1,
              'Lun, 14:00-15:00': 0, 'Mar, 14:00-15:00': 0, 'Mie, 14:00-15:00': 1, 'Jue, 14:00-15:00': 0, 'Vie, 14:00-15:00': 1,
-             'Lun, 15:00-15:30': 0, 'Mar, 15:00-15:30': 0, 'Mie, 15:00-15:30': 0, 'Jue, 15:00-15:30': 0, 'Vie, 15:00-15:30': 0,
+             'Lun, 15:00-15:30': 0, 'Mar, 15:00-15:30': 0, 'Mie, 15:00-15:30': 1, 'Jue, 15:00-15:30': 0, 'Vie, 15:00-15:30': 1,
              'Lun, 15:30-16:30': 0, 'Mar, 15:30-16:30': 0, 'Mie, 15:30-16:30': 0, 'Jue, 15:30-16:30': 0, 'Vie, 15:30-16:30': 0,
              'Lun, 16:30-17:00': 0, 'Mar, 16:30-17:00': 0, 'Mie, 16:30-17:00': 0, 'Jue, 16:30-17:00': 0, 'Vie, 16:30-17:00': 0,
              'Lun, 17:00-18:00': 0, 'Mar, 17:00-18:00': 0, 'Mie, 17:00-18:00': 0, 'Jue, 17:00-18:00': 0, 'Vie, 17:00-18:00': 0}
@@ -98,7 +98,7 @@ m.dispo_M = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 0, 'Jue
              'Lun, 16:30-17:00': 1, 'Mar, 16:30-17:00': 1, 'Mie, 16:30-17:00': 0, 'Jue, 16:30-17:00': 0, 'Vie, 16:30-17:00': 0,
              'Lun, 17:00-18:00': 1, 'Mar, 17:00-18:00': 1, 'Mie, 17:00-18:00': 0, 'Jue, 17:00-18:00': 0, 'Vie, 17:00-18:00': 0}
 
-m.dispo_N = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 1, 'Mie, 8:00-9:00': 0, 'Jue, 8:00-9:00': 1, 'Vie, 8:00-9:00': 1,
+m.dispo_N = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 1, 'Mie, 8:00-9:00': 1, 'Jue, 8:00-9:00': 1, 'Vie, 8:00-9:00': 1,
              'Lun, 9:00-9:30': 1, 'Mar, 9:00-9:30': 1, 'Mie, 9:00-9:30': 0, 'Jue, 9:00-9:30': 1, 'Vie, 9:00-9:30': 0,
              'Lun, 9:30-10:30': 1, 'Mar, 9:30-10:30': 1, 'Mie, 9:30-10:30': 0, 'Jue, 9:30-10:30': 1, 'Vie, 9:30-10:30': 0,
              'Lun, 10:30-11:00': 1, 'Mar, 10:30-11:00': 0, 'Mie, 10:30-11:00': 0, 'Jue, 10:30-11:00': 1, 'Vie, 10:30-11:00': 0,
@@ -126,10 +126,10 @@ m.dispo_W = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 1, 'Mie, 8:00-9:00': 0, 'Jue
              'Lun, 16:30-17:00': 1, 'Mar, 16:30-17:00': 0, 'Mie, 16:30-17:00': 1, 'Jue, 16:30-17:00': 0, 'Vie, 16:30-17:00': 1,
              'Lun, 17:00-18:00': 1, 'Mar, 17:00-18:00': 0, 'Mie, 17:00-18:00': 1, 'Jue, 17:00-18:00': 0, 'Vie, 17:00-18:00': 1}
 
-m.dispo_Z = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 1, 'Jue, 8:00-9:00': 0, 'Vie, 8:00-9:00': 1,
-             'Lun, 9:00-9:30': 1, 'Mar, 9:00-9:30': 1, 'Mie, 9:00-9:30': 1, 'Jue, 9:00-9:30': 0, 'Vie, 9:00-9:30': 1,
-             'Lun, 9:30-10:30': 0, 'Mar, 9:30-10:30': 0, 'Mie, 9:30-10:30': 0, 'Jue, 9:30-10:30': 0, 'Vie, 9:30-10:30': 1,
-             'Lun, 10:30-11:00': 0, 'Mar, 10:30-11:00': 0, 'Mie, 10:30-11:00': 0, 'Jue, 10:30-11:00': 0, 'Vie, 10:30-11:00': 1,
+m.dispo_Z = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 1, 'Jue, 8:00-9:00': 1, 'Vie, 8:00-9:00': 1,
+             'Lun, 9:00-9:30': 1, 'Mar, 9:00-9:30': 1, 'Mie, 9:00-9:30': 1, 'Jue, 9:00-9:30': 1, 'Vie, 9:00-9:30': 1,
+             'Lun, 9:30-10:30': 0, 'Mar, 9:30-10:30': 0, 'Mie, 9:30-10:30': 0, 'Jue, 9:30-10:30': 1, 'Vie, 9:30-10:30': 1,
+             'Lun, 10:30-11:00': 0, 'Mar, 10:30-11:00': 0, 'Mie, 10:30-11:00': 0, 'Jue, 10:30-11:00': 1, 'Vie, 10:30-11:00': 1,
              'Lun, 11:00-12:00': 1, 'Mar, 11:00-12:00': 1, 'Mie, 11:00-12:00': 0, 'Jue, 11:00-12:00': 0, 'Vie, 11:00-12:00': 0,
              'Lun, 12:00-12:30': 1, 'Mar, 12:00-12:30': 0, 'Mie, 12:00-12:30': 0, 'Jue, 12:00-12:30': 0, 'Vie, 12:00-12:30': 0,
              'Lun, 12:30-13:30': 0, 'Mar, 12:30-13:30': 0, 'Mie, 12:30-13:30': 0, 'Jue, 12:30-13:30': 0, 'Vie, 12:30-13:30': 0,
@@ -147,12 +147,12 @@ m.dispo_Z = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 1, 'Jue
 
 m.ocupado_primario = {"Lun, 8:00-9:00": 0, "Lun, 9:00-9:30": 0, "Lun, 9:30-10:30": 0, "Lun, 10:30-11:00": 0, "Lun, 11:00-12:00": 0, "Lun, 12:00-12:30": 0, "Lun, 12:30-13:30": 0, "Lun, 13:30-14:00": 0, "Lun, 14:00-15:00": 0, "Lun, 15:00-15:30": 0, "Lun, 15:30-16:30": 0, "Lun, 16:30-17:00": 0, "Lun, 17:00-18:00": 0,
                       "Mar, 8:00-9:00": 0, "Mar, 9:00-9:30": 0, "Mar, 9:30-10:30": 0, "Mar, 10:30-11:00": 0, "Mar, 11:00-12:00": 0, "Mar, 12:00-12:30": 0, "Mar, 12:30-13:30": 0, "Mar, 13:30-14:00": 0, "Mar, 14:00-15:00": 0, "Mar, 15:00-15:30": 0, "Mar, 15:30-16:30": 0, "Mar, 16:30-17:00": 0, "Mar, 17:00-18:00": 0,
-                      "Mie, 8:00-9:00": 0, "Mie, 9:00-9:30": 0, "Mie, 9:30-10:30": 0, "Mie, 10:30-11:00": 0, "Mie, 11:00-12:00": 0, "Mie, 12:00-12:30": 0, "Mie, 12:30-13:30": 0, "Mie, 13:30-14:00": 0, "Mie, 14:00-15:00": 0, "Mie, 15:00-15:30": 0, "Mie, 15:30-16:30": 0, "Mie, 16:30-17:00": 0, "Mie, 17:00-18:00": 0,
+                      "Mie, 8:00-9:00": 0, "Mie, 9:00-9:30": 0, "Mie, 9:30-10:30": 1, "Mie, 10:30-11:00": 0, "Mie, 11:00-12:00": 0, "Mie, 12:00-12:30": 0, "Mie, 12:30-13:30": 0, "Mie, 13:30-14:00": 0, "Mie, 14:00-15:00": 0, "Mie, 15:00-15:30": 0, "Mie, 15:30-16:30": 0, "Mie, 16:30-17:00": 0, "Mie, 17:00-18:00": 0,
                       "Jue, 8:00-9:00": 0, "Jue, 9:00-9:30": 0, "Jue, 9:30-10:30": 0, "Jue, 10:30-11:00": 0, "Jue, 11:00-12:00": 0, "Jue, 12:00-12:30": 0, "Jue, 12:30-13:30": 0, "Jue, 13:30-14:00": 0, "Jue, 14:00-15:00": 0, "Jue, 15:00-15:30": 0, "Jue, 15:30-16:30": 0, "Jue, 16:30-17:00": 0, "Jue, 17:00-18:00": 0,
-                      "Vie, 8:00-9:00": 0, "Vie, 9:00-9:30": 0, "Vie, 9:30-10:30": 0, "Vie, 10:30-11:00": 0, "Vie, 11:00-12:00": 0, "Vie, 12:00-12:30": 0, "Vie, 12:30-13:30": 0, "Vie, 13:30-14:00": 0, "Vie, 14:00-15:00": 0, "Vie, 15:00-15:30": 0, "Vie, 15:30-16:30": 0, "Vie, 16:30-17:00": 0, "Vie, 17:00-18:00": 0}
+                      "Vie, 8:00-9:00": 0, "Vie, 9:00-9:30": 0, "Vie, 9:30-10:30": 1, "Vie, 10:30-11:00": 0, "Vie, 11:00-12:00": 0, "Vie, 12:00-12:30": 0, "Vie, 12:30-13:30": 0, "Vie, 13:30-14:00": 0, "Vie, 14:00-15:00": 0, "Vie, 15:00-15:30": 0, "Vie, 15:30-16:30": 0, "Vie, 16:30-17:00": 0, "Vie, 17:00-18:00": 0}
 m.ocupado_secundario = {"Lun, 8:00-9:00": 0, "Lun, 9:00-9:30": 0, "Lun, 9:30-10:30": 0, "Lun, 10:30-11:00": 0, "Lun, 11:00-12:00": 0, "Lun, 12:00-12:30": 0, "Lun, 12:30-13:30": 0, "Lun, 13:30-14:00": 0, "Lun, 14:00-15:00": 0, "Lun, 15:00-15:30": 0, "Lun, 15:30-16:30": 0, "Lun, 16:30-17:00": 0, "Lun, 17:00-18:00": 0,
                         "Mar, 8:00-9:00": 0, "Mar, 9:00-9:30": 0, "Mar, 9:30-10:30": 0, "Mar, 10:30-11:00": 0, "Mar, 11:00-12:00": 0, "Mar, 12:00-12:30": 0, "Mar, 12:30-13:30": 0, "Mar, 13:30-14:00": 0, "Mar, 14:00-15:00": 0, "Mar, 15:00-15:30": 0, "Mar, 15:30-16:30": 0, "Mar, 16:30-17:00": 0, "Mar, 17:00-18:00": 0,
-                        "Mie, 8:00-9:00": 1, "Mie, 9:00-9:30": 1, "Mie, 9:30-10:30": 1, "Mie, 10:30-11:00": 1, "Mie, 11:00-12:00": 0, "Mie, 12:00-12:30": 0, "Mie, 12:30-13:30": 0, "Mie, 13:30-14:00": 0, "Mie, 14:00-15:00": 0, "Mie, 15:00-15:30": 0, "Mie, 15:30-16:30": 0, "Mie, 16:30-17:00": 0, "Mie, 17:00-18:00": 0,
+                        "Mie, 8:00-9:00": 0, "Mie, 9:00-9:30": 1, "Mie, 9:30-10:30": 1, "Mie, 10:30-11:00": 1, "Mie, 11:00-12:00": 0, "Mie, 12:00-12:30": 0, "Mie, 12:30-13:30": 0, "Mie, 13:30-14:00": 0, "Mie, 14:00-15:00": 0, "Mie, 15:00-15:30": 0, "Mie, 15:30-16:30": 0, "Mie, 16:30-17:00": 0, "Mie, 17:00-18:00": 0,
                         "Jue, 8:00-9:00": 0, "Jue, 9:00-9:30": 0, "Jue, 9:30-10:30": 0, "Jue, 10:30-11:00": 0, "Jue, 11:00-12:00": 0, "Jue, 12:00-12:30": 0, "Jue, 12:30-13:30": 0, "Jue, 13:30-14:00": 0, "Jue, 14:00-15:00": 0, "Jue, 15:00-15:30": 0, "Jue, 15:30-16:30": 0, "Jue, 16:30-17:00": 0, "Jue, 17:00-18:00": 0,
                         "Vie, 8:00-9:00": 0, "Vie, 9:00-9:30": 1, "Vie, 9:30-10:30": 1, "Vie, 10:30-11:00": 1, "Vie, 11:00-12:00": 0, "Vie, 12:00-12:30": 0, "Vie, 12:30-13:30": 0, "Vie, 13:30-14:00": 0, "Vie, 14:00-15:00": 0, "Vie, 15:00-15:30": 0, "Vie, 15:30-16:30": 0, "Vie, 16:30-17:00": 0, "Vie, 17:00-18:00": 0}
 
@@ -267,57 +267,72 @@ m.esta_disponible_Z = Constraint(
 
 # Las horas de primario de preg deben sumar 5
 m.horas_primario_F = Constraint(
-    rule=(lambda m: sum(m.primario_F[h]*m.peso_horarios[h] for h in m.horarios) == 5)
+    rule=(lambda m: sum(m.primario_F[h]*m.peso_horarios[h]
+          for h in m.horarios) == 5)
 )
 m.horas_primario_M = Constraint(
-    rule=(lambda m: sum(m.primario_M[h]*m.peso_horarios[h] for h in m.horarios) == 5)
+    rule=(lambda m: sum(m.primario_M[h]*m.peso_horarios[h]
+          for h in m.horarios) == 5)
 )
 m.horas_primario_N = Constraint(
-    rule=(lambda m: sum(m.primario_N[h]*m.peso_horarios[h] for h in m.horarios) == 5)
+    rule=(lambda m: sum(m.primario_N[h]*m.peso_horarios[h]
+          for h in m.horarios) == 5)
 )
 m.horas_primario_W = Constraint(
-    rule=(lambda m: sum(m.primario_W[h]*m.peso_horarios[h] for h in m.horarios) == 5)
+    rule=(lambda m: sum(m.primario_W[h]*m.peso_horarios[h]
+          for h in m.horarios) == 5)
 )
 m.horas_primario_Z = Constraint(
-    rule=(lambda m: sum(m.primario_Z[h]*m.peso_horarios[h] for h in m.horarios) == 5)
+    rule=(lambda m: sum(m.primario_Z[h]*m.peso_horarios[h]
+          for h in m.horarios) == 5)
 )
 
-# Las horas de secundario de preg deben sumar menos de 5 
+# Las horas de secundario de preg deben sumar menos de 5
 m.horas_secundario_F = Constraint(
-    rule=(lambda m: sum(m.secundario_F[h]*m.peso_horarios[h] for h in m.horarios) == 4)
+    rule=(lambda m: sum(
+        m.secundario_F[h]*m.peso_horarios[h] for h in m.horarios) == 5)
 )
 m.horas_secundario_M = Constraint(
-    rule=(lambda m: sum(m.secundario_M[h]*m.peso_horarios[h] for h in m.horarios) == 4)
+    rule=(lambda m: sum(
+        m.secundario_M[h]*m.peso_horarios[h] for h in m.horarios) == 5)
 )
 m.horas_secundario_W = Constraint(
-    rule=(lambda m: sum(m.secundario_W[h]*m.peso_horarios[h] for h in m.horarios) == 4)
+    rule=(lambda m: sum(
+        m.secundario_W[h]*m.peso_horarios[h] for h in m.horarios) == 5)
 )
 m.horas_secundario_Z = Constraint(
-    rule=(lambda m: sum(m.secundario_Z[h]*m.peso_horarios[h] for h in m.horarios) == 4)
+    rule=(lambda m: sum(
+        m.secundario_Z[h]*m.peso_horarios[h] for h in m.horarios) == 5)
 )
 
 # Las horas de primario de Nico deben sumar 8
 m.horas_primario_N = Constraint(
-    rule=(lambda m: sum(m.primario_N[h]*m.peso_horarios[h] for h in m.horarios) == 8)
+    rule=(lambda m: sum(m.primario_N[h]*m.peso_horarios[h]
+          for h in m.horarios) == 8)
 )
 # Las horas de secundario de Nico deben sumar 8 o menos
 m.horas_secundario_N = Constraint(
-    rule=(lambda m: sum(m.secundario_N[h]*m.peso_horarios[h] for h in m.horarios) == 8)
+    rule=(lambda m: sum(
+        m.secundario_N[h]*m.peso_horarios[h] for h in m.horarios) == 6)
 )
 
 # Las horas de primario de maestria deben sumar 11
 m.horas_primario_A = Constraint(
-    rule=(lambda m: sum(m.primario_A[h]*m.peso_horarios[h] for h in m.horarios) == 11)
+    rule=(lambda m: sum(m.primario_A[h]*m.peso_horarios[h]
+          for h in m.horarios) == 10)
 )
 m.horas_primario_E = Constraint(
-    rule=(lambda m: sum(m.primario_E[h]*m.peso_horarios[h] for h in m.horarios) == 11)
+    rule=(lambda m: sum(m.primario_E[h]*m.peso_horarios[h]
+          for h in m.horarios) == 10)
 )
 # Las horas de secundario de maestria deben sumar 10
 m.horas_secundario_A = Constraint(
-    rule=(lambda m: sum(m.secundario_A[h]*m.peso_horarios[h] for h in m.horarios) <= 10)
+    rule=(lambda m: sum(
+        m.secundario_A[h]*m.peso_horarios[h] for h in m.horarios) == 10)
 )
 m.horas_secundario_E = Constraint(
-    rule=(lambda m: sum(m.secundario_E[h]*m.peso_horarios[h] for h in m.horarios) <= 11)
+    rule=(lambda m: sum(
+        m.secundario_E[h]*m.peso_horarios[h] for h in m.horarios) == 10)
 )
 
 # Solve
@@ -336,7 +351,6 @@ def imprimir_solucion_aletosamente() -> None:
         else:
             return ["Lun", "Mar", "Mie", "Jue", "Vie"].index(dia)*2 + 1
 
-        
     def get_indice_hora(name: str) -> int:
         "primario_F['Jue, 14:00-15:00']"
         name = name.replace("secundario", "primario")
@@ -344,7 +358,7 @@ def imprimir_solucion_aletosamente() -> None:
             valor = int(name[17:19]) + (0.5 if int(name[20:22]) == 30 else 0)
         except ValueError:
             valor = int(name[17:18]) + (0.5 if int(name[19:21]) == 30 else 0)
-        
+
         match valor:
             case 8:
                 return 0
@@ -373,9 +387,10 @@ def imprimir_solucion_aletosamente() -> None:
             case 17:
                 return 18
 
-    primarios = [m.primario_A, m.primario_E, m.primario_F, m.primario_M, m.primario_N, m.primario_W, m.primario_Z]
-    secundarios = [m.secundario_A, m.secundario_E, m.secundario_F, m.secundario_M, m.secundario_N, m.secundario_W, m.secundario_Z]
-
+    primarios = [m.primario_A, m.primario_E, m.primario_F,
+                 m.primario_M, m.primario_N, m.primario_W, m.primario_Z]
+    secundarios = [m.secundario_A, m.secundario_E, m.secundario_F,
+                   m.secundario_M, m.secundario_N, m.secundario_W, m.secundario_Z]
 
     s = ""
 
@@ -388,7 +403,8 @@ def imprimir_solucion_aletosamente() -> None:
         for a in sorted(i.values(), key=lambda x: x.name):
             s += f"{a.name, a.value}\n"
             if a.value:
-                matrix[get_indice_hora(a.name)][get_indice_dia(a.name)] = asis[count_asis]
+                matrix[get_indice_hora(a.name)][get_indice_dia(
+                    a.name)] = asis[count_asis]
         s += "\n\n"
         count_asis += 1
         count_asis %= len(asis)
@@ -403,7 +419,6 @@ def imprimir_solucion_aletosamente() -> None:
         if matrix[row_num] == ["", "", "", "", "", "", "", "", "", ""]:
             matrix[row_num] = matrix[row_num-1]
         row_num += 1
-    
 
     joined_rows: list[str] = []
     for row_num in matrix:
@@ -414,6 +429,5 @@ def imprimir_solucion_aletosamente() -> None:
     fhandle.write(pal_excel)
     fhandle.close()
 
-imprimir_solucion_aletosamente()
-   
 
+imprimir_solucion_aletosamente()

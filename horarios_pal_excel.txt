@@ -1,20 +1,20 @@
-N	Z	N	W	Z		A	N	N	Z
-N	Z	N	W	Z		A	N	N	Z
-Z	N	N	Z	Z		N	A	Z	
-M	N	N	E	E		A	E	Z	
-M	N	N	E	E		A	E	Z	
-M	N	W	A	E		N	E	Z	
-M	Z	E	W	E	A	E	A	N	A
-M	Z	E	W	E	A	E	A	N	A
-M	Z	F	W	N	E	A	F	N	A
-E	A	F	E	A	F	F	E	A	F
-E	A	F	E	A	F	F	E	A	F
-Z	A	F	W	W	F	A	F	A	F
-A	E	W	M	F	A	M	E	F	E
-A	E	W	M	F	A	M	E	F	E
-W	M	N	M	Z	E	E	A	A	E
-E	N	M	N	A	N	E	A	E	W
-E	N	M	N	A	N	E	A	E	W
-W	N	A	N	W	A	A	E	W	E
-E	M	E	M	A	N	A	E	W	A
-E	M	E	M	A	N	A	E	W	A
+W	M	N	W	N	Z	A	Z	Z	N
+W	M	N	W	N	Z	A	Z	Z	N
+N	Z	N	Z	Z		N	Z	Z	
+M	N	E	W			A	E		
+M	N	E	W			A	E		
+N	M	W	A	E		A	Z	Z	
+Z	M	E	F	F	A	F	E	N	E
+Z	M	E	F	F	A	F	E	N	E
+Z	M	W	F	N	A	A	F	F	N
+A	E	E	F	E	A	E	W	F	A
+A	E	E	F	E	A	E	W	F	A
+A	Z	W	F	W	F	A	E	A	F
+E	A	M	N	F	A	M	E	E	A
+E	A	M	N	F	A	M	E	E	A
+W	M	N	M	F	Z	A	E	A	F
+A	E	M	N	W	N	A	E	Z	A
+A	E	M	N	W	N	A	E	Z	A
+W	N	N	A	N	W	E	A	A	W
+M	E	E	M	N	A	A	E	E	W
+M	E	E	M	N	A	A	E	E	W
