@@ -1,7 +1,7 @@
 from src.schemas.scheduled_slot import ScheduledSlotCreate, ScheduledSlotUpdate, ScheduledSlotResponse
-from src.exceptions import ITEM_NOT_FOUND
 from fastapi import APIRouter, Depends, HTTPException, Body, status
 import src.services.scheduled_slot as service
+from src.exceptions import ITEM_NOT_FOUND
 from src.config.db_config import get_db
 from sqlalchemy.orm import Session
 from typing import Dict
@@ -27,6 +27,13 @@ def read_scheduled_slot(schedule_id: UUID, assistant_availability_id: UUID, db: 
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", f"{schedule_id}/{assistant_availability_id}"))
     return scheduled_slot
+
+
+def read_scheduled_slots(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """
+    Retrieve all scheduled slots
+    """
+    return service.get_scheduled_slots(db, skip, limit)
 
 
 @router.post("/", response_model=ScheduledSlotResponse, status_code=status.HTTP_201_CREATED)
@@ -57,3 +64,11 @@ def delete_scheduled_slot(schedule_id: UUID, assistant_availability_id: UUID, db
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", f"{schedule_id}/{assistant_availability_id}"))
     return service.delete_scheduled_slot(db, schedule_id, assistant_availability_id)
+
+
+@router.delete("/", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+def delete_all_scheduled_slots(db: Session = Depends(get_db)):
+    """
+    Delete all scheduled slots
+    """
+    return service.delete_all_scheduled_slots(db)

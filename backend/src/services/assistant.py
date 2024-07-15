@@ -20,7 +20,7 @@ def get_assistant_by_login(db: Session, assistant_login: str) -> Assistant:
 
 
 def get_assistants(db: Session, skip: int = 0, limit: int = 100) -> list[Assistant]:
-    return db.query(Assistant).offset(skip).limit(limit).all()
+    return db.query(Assistant).order_by(Assistant.code).offset(skip).limit(limit).all()
 
 
 def update_assistant(db: Session, assistant_code: int, assistant: AssistantUpdate) -> Assistant:
@@ -39,4 +39,4 @@ def delete_assistant(db: Session, assistant_code: int) -> dict:
 def delete_all_assistants(db: Session) -> dict:
     db.query(Assistant).delete()
     db.commit()
-    return {"message": "All Assistants deleted successfully"}
+    return {"message": "All assistants deleted successfully"}

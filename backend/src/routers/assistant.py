@@ -1,6 +1,6 @@
 from src.schemas.assistant import AssistantCreate, AssistantUpdate, AssistantResponse
-from src.exceptions import ITEM_NOT_FOUND, ITEM_ALREADY_EXISTS
 from fastapi import APIRouter, Depends, HTTPException, Body, status
+from src.exceptions import ITEM_NOT_FOUND, ITEM_ALREADY_EXISTS
 import src.services.assistant as service
 from src.config.db_config import get_db
 from sqlalchemy.orm import Session
@@ -39,6 +39,14 @@ def read_assistant_by_login(assistant_login: str, db: Session = Depends(get_db))
     return assistant
 
 
+@router.get("/", response_model=list[AssistantResponse], status_code=status.HTTP_200_OK)
+def read_assistants(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """
+    Retrieve all assistants
+    """
+    return service.get_assistants(db, skip=skip, limit=limit)
+
+
 @router.post("/", response_model=AssistantResponse, status_code=status.HTTP_201_CREATED)
 def create_assistant(assistant: AssistantCreate = Body(...), db: Session = Depends(get_db)):
     """
@@ -75,3 +83,11 @@ def delete_assistant(assistant_code: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "code", assistant_code))
     return service.delete_assistant(db, assistant_code)
+
+
+@router.delete("/", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+def delete_all_assistants(db: Session = Depends(get_db)):
+    """
+    Delete all assistants
+    """
+    return service.delete_all_assistants(db)

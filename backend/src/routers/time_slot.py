@@ -65,3 +65,11 @@ def delete_time_slot(time_slot_id: UUID, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", time_slot_id))
     return service.delete_time_slot(db, time_slot_id)
+
+
+@router.delete("/", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+def delete_all_time_slots(db: Session = Depends(get_db)):
+    """
+    Delete all time slots
+    """
+    return service.delete_all_time_slots(db)

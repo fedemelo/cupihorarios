@@ -1,7 +1,7 @@
 from src.schemas.assistant_availability import AssistantAvailabilityCreate, AssistantAvailabilityUpdate, AssistantAvailabilityResponse
-from src.exceptions import ITEM_NOT_FOUND
 from fastapi import APIRouter, Depends, HTTPException, Body, status
 import src.services.assistant_availability as service
+from src.exceptions import ITEM_NOT_FOUND
 from src.config.db_config import get_db
 from sqlalchemy.orm import Session
 from typing import Dict
@@ -27,6 +27,14 @@ def read_assistant_availability_by_id(assistant_availability_id: UUID, db: Sessi
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", assistant_availability_id))
     return assistant_availability
+
+
+@router.get("/", response_model=list[AssistantAvailabilityResponse], status_code=status.HTTP_200_OK)
+def read_assistant_availabilities(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """
+    Retrieve all assistant availabilities
+    """
+    return service.get_assistant_availabilities(db, skip, limit)
 
 
 @router.post("/", response_model=AssistantAvailabilityResponse, status_code=status.HTTP_201_CREATED)
@@ -57,3 +65,11 @@ def delete_assistant_availability(assistant_availability_id: UUID, db: Session =
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", assistant_availability_id))
     return service.delete_assistant_availability(db, assistant_availability_id)
+
+
+@router.delete("/", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+def delete_all_assistant_availabilities(db: Session = Depends(get_db)):
+    """
+    Delete all assistant availabilities
+    """
+    return service.delete_all_assistant_availabilities(db)
