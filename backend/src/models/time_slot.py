@@ -1,10 +1,11 @@
-from sqlalchemy import Column, Integer, Enum, UUID
+from sqlalchemy import Column, Integer, Enum as SQLAEnum, UUID
 from sqlalchemy.orm import relationship
 from src.config.db_config import Base
-import uuid
+from enum import Enum
+from uuid import uuid4
 
 
-class Day(str, Enum):
+class Day(Enum):
     MONDAY = "MONDAY"
     TUESDAY = "TUESDAY"
     WEDNESDAY = "WEDNESDAY"
@@ -20,10 +21,10 @@ class TimeSlot(Base):
     """
     __tablename__ = "time_slots"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     start_hour = Column(Integer, nullable=False)
     end_hour = Column(Integer, nullable=False)
-    day = Column(Enum(Day), nullable=False)
+    day = Column(SQLAEnum(Day), nullable=False)
 
     assistant_availabilities = relationship(
         "AssistantAvailability", back_populates="time_slot")

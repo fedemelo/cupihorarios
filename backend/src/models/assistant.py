@@ -16,5 +16,5 @@ class Assistant(Base):
     last_names = Column(String, nullable=False)
     nickname = Column(String)
 
-    # assistant_availabilities = relationship(
-    #     "AssistantAvailability", back_populates="assistant")
+    assistant_availabilities = relationship(
+        "AssistantAvailability", back_populates="assistant")

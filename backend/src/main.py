@@ -6,7 +6,11 @@ from src.config.settings import Settings
 from fastapi.security import HTTPBearer
 from fastapi import FastAPI
 from src.routers import (
-    assistant
+    assistant_availability,
+    assistant,
+    schedule,
+    scheduled_slot,
+    time_slot
 )
 
 
@@ -18,7 +22,11 @@ Base.metadata.create_all(bind=engine)
 token_auth_scheme = HTTPBearer()
 
 
+app.include_router(assistant_availability.router)
 app.include_router(assistant.router)
+app.include_router(schedule.router)
+app.include_router(scheduled_slot.router)
+app.include_router(time_slot.router)
 
 
 @app.get("/")

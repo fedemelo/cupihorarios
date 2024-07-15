@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, Boolean, UUID, ForeignKey
 from sqlalchemy.orm import relationship
 from src.config.db_config import Base
-import uuid
+from uuid import uuid4
 
 
 class AssistantAvailability(Base):
@@ -10,7 +10,7 @@ class AssistantAvailability(Base):
     """
     __tablename__ = "assistant_availabilities"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     assistant_code = Column(Integer, ForeignKey(
         'assistants.code'), nullable=False)
     time_slot_id = Column(UUID(as_uuid=True), ForeignKey(

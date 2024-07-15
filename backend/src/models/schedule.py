@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Boolean, UUID
 from sqlalchemy.orm import relationship
 from src.config.db_config import Base
-import uuid
+from uuid import uuid4
 
 
 class Schedule(Base):
@@ -10,7 +10,7 @@ class Schedule(Base):
     """
     __tablename__ = "schedules"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     name = Column(String, nullable=False)
     is_official = Column(Boolean, nullable=False)
 

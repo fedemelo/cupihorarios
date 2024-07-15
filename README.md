@@ -60,7 +60,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
 
    ```shell
    cd db
-   sh restore_db_backup.sh
+   sh restore-db-backup.sh
    ```
 
    Windows:

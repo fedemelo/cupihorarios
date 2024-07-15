@@ -9,8 +9,12 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.DB_USER}:{settings.DB_PASSWOR
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 with engine.connect() as con:
-    statement = text("CREATE EXTENSION IF NOT EXISTS unaccent;COMMIT;")
-    con.execute(statement)
+    con.execute(text("""
+                     CREATE EXTENSION IF NOT EXISTS unaccent;
+                     COMMIT;
+                     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+                     COMMIT;
+                     """))
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

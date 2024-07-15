@@ -39,8 +39,8 @@ class TimeSlotCreate(TimeSlotBase):
         json_schema_extra = {
             "example": {
                 "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
-                "start_hour": 9,
-                "end_hour": 11,
+                "start_hour": 900,
+                "end_hour": 1100,
                 "day": "MONDAY"
             }
         }
@@ -62,8 +62,8 @@ class TimeSlotUpdate(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "start_hour": 10,
-                "end_hour": 12,
+                "start_hour": 1000,
+                "end_hour": 1200,
                 "day": "TUESDAY"
             }
         }
@@ -78,8 +78,8 @@ class TimeSlotResponse(TimeSlotBase):
         json_schema_extra = {
             "example": {
                 "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
-                "start_hour": 9,
-                "end_hour": 11,
+                "start_hour": 900,
+                "end_hour": 1100,
                 "day": "MONDAY"
             }
         }
