@@ -10,11 +10,11 @@ class ScheduledSlotBase(BaseModel):
     Attributes:
         scheduleId (UUID): The schedule's unique identifier.
         assistant_availability_id (UUID): The available slot's unique identifier.
-        is_virtual (bool): Indicates if the slot is virtual.
+        is_remote (bool): Indicates if the slot is remote.
     """
     scheduleId: UUID
     assistant_availability_id: UUID
-    is_virtual: bool
+    is_remote: bool
 
 
 class ScheduledSlotCreate(ScheduledSlotBase):
@@ -27,7 +27,7 @@ class ScheduledSlotCreate(ScheduledSlotBase):
             "example": {
                 "scheduleId": "a3bb189e-8bf9-3888-9912-ace4e6543002",
                 "assistant_availability_id": "d2bb189e-8bf9-3888-9912-ace4e6543002",
-                "is_virtual": True
+                "is_remote": True
             }
         }
 
@@ -37,14 +37,14 @@ class ScheduledSlotUpdate(BaseModel):
     Represents the schema for updating a scheduled slot.
 
     Attributes:
-        is_virtual (Optional[bool]): Indicates if the slot is virtual.
+        is_remote (Optional[bool]): Indicates if the slot is remote.
     """
-    is_virtual: Optional[bool] = None
+    is_remote: Optional[bool] = None
 
     class Config:
         json_schema_extra = {
             "example": {
-                "is_virtual": False
+                "is_remote": False
             }
         }
 
@@ -59,6 +59,6 @@ class ScheduledSlotResponse(ScheduledSlotBase):
             "example": {
                 "scheduleId": "a3bb189e-8bf9-3888-9912-ace4e6543002",
                 "assistant_availability_id": "d2bb189e-8bf9-3888-9912-ace4e6543002",
-                "is_virtual": True
+                "is_remote": True
             }
         }

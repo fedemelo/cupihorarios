@@ -107,7 +107,7 @@ days_mapping = {'Lun': 'MONDAY', 'Mar': 'TUESDAY',
 
 
 sql_template = """
-INSERT INTO assistant_availabilities (id, assistant_code, time_slot_id, virtual_only) 
+INSERT INTO assistant_availabilities (id, assistant_code, time_slot_id, remote_only) 
 VALUES (uuid_generate_v4(), {}, (SELECT id FROM time_slots WHERE day = '{}' AND start_hour = {}), false);
 """
 

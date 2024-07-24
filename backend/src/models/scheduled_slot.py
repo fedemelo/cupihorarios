@@ -14,7 +14,7 @@ class ScheduledSlot(Base):
         'schedules.id'), primary_key=True, default=uuid4)
     assistant_availability_id = Column(UUID(as_uuid=True), ForeignKey(
         'assistant_availabilities.id'), primary_key=True, default=uuid4)
-    is_virtual = Column(Boolean, nullable=False)
+    is_remote = Column(Boolean, nullable=False)
 
     schedule = relationship("Schedule", back_populates="scheduled_slots")
     assistant_availability = relationship(

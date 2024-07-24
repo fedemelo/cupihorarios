@@ -15,7 +15,7 @@ class AssistantAvailability(Base):
         'assistants.code'), nullable=False)
     time_slot_id = Column(UUID(as_uuid=True), ForeignKey(
         'time_slots.id'), nullable=False)
-    virtual_only = Column(Boolean, nullable=False)
+    remote_only = Column(Boolean, nullable=False)
 
     assistant = relationship(
         "Assistant", back_populates="assistant_availabilities")

@@ -8,5 +8,4 @@ INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (
 INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (201913554, 'am.ochoat', 'Andres Martin', 'Ochoa Toro', NULL);
 INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (201820147, 'ce.rozob', 'Camilo Esteban', 'Rozo Benitez', NULL);
 INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (201922019, 'n.carvajalc', 'Nicolas', 'Carvajal Chaves', 'Nico');
--- INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (202021113, 'd.fuquen', 'David Alejandro', 'Fuquen Florez', 'Dave');
-INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (194821525, 'm.laserna', 'Mario Alberto', 'Laserna Pinzon', NULL);
+INSERT INTO assistants (code, login, first_names, last_names, nickname) VALUES (202021113, 'd.fuquen', 'David Alejandro', 'Fuquen Florez', 'Dave');
