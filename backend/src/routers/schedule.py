@@ -1,4 +1,4 @@
-from src.schemas.schedule import ScheduleCreate, ScheduleUpdate, ScheduleResponse
+from src.schemas.schedule import ScheduleCreate, ScheduleUpdate, ScheduleResponse, FullScheduleResponse
 from fastapi import APIRouter, Depends, HTTPException, Body, status
 from src.exceptions import ITEM_NOT_FOUND
 import src.services.schedule as service
@@ -18,7 +18,7 @@ router = APIRouter(
 NAME: str = "Schedule"
 
 
-@router.get("/{schedule_id}", response_model=ScheduleResponse, status_code=status.HTTP_200_OK)
+@router.get("/{schedule_id}", response_model=FullScheduleResponse, status_code=status.HTTP_200_OK)
 def read_schedule_by_id(schedule_id: UUID, db: Session = Depends(get_db)):
     """
     Retrieve a schedule by its ID
@@ -26,17 +26,6 @@ def read_schedule_by_id(schedule_id: UUID, db: Session = Depends(get_db)):
     if not (schedule := service.get_schedule_by_id(db, schedule_id)):
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", schedule_id))
-    return schedule
-
-
-@router.get("/official", response_model=ScheduleResponse, status_code=status.HTTP_200_OK)
-def read_official_schedule(db: Session = Depends(get_db)):
-    """
-    Retrieve the official schedule
-    """
-    if not (schedule := service.get_official_schedule(db)):
-        raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
-            NAME, "is_official", "True"))
     return schedule
 
 
@@ -65,17 +54,6 @@ def update_schedule(schedule_id: UUID, schedule: ScheduleUpdate = Body(...), db:
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", schedule_id))
     return service.update_schedule(db, schedule_id, schedule)
-
-
-@router.put("/official/{schedule_id}", response_model=ScheduleResponse, status_code=status.HTTP_200_OK)
-def set_schedule_as_official(schedule_id: UUID, db: Session = Depends(get_db)):
-    """
-    Set a schedule as official
-    """
-    if not service.get_schedule_by_id(db, schedule_id):
-        raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
-            NAME, "ID", schedule_id))
-    return service.set_schedule_as_official(db, schedule_id)
 
 
 @router.delete("/{schedule_id}", response_model=Dict[str, str], status_code=status.HTTP_200_OK)

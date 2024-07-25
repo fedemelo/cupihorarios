@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from src.routers import (
     assistant_availability,
     assistant,
+    official_schedule,
     schedule,
     scheduled_slot,
     time_slot
@@ -24,6 +25,7 @@ token_auth_scheme = HTTPBearer()
 
 app.include_router(assistant_availability.router)
 app.include_router(assistant.router)
+app.include_router(official_schedule.router)
 app.include_router(schedule.router)
 app.include_router(scheduled_slot.router)
 app.include_router(time_slot.router)

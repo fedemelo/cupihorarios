@@ -84,10 +84,20 @@ class FullScheduleResponse(ScheduleBase):
                     {
                         "is_remote": True,
                         "assistant_availability": {
-                            "id": "d2bb189e-8bf9-3888-9912-ace4e6543002",
-                            "assistant_code": 123456,
-                            "time_slot_id": "e2bb189e-8bf9-3888-9912-ace4e6543002",
-                            "remote_only": True
+                            "remote_only": False,
+                            "assistant": {
+                                "code": 194821525,
+                                "login": "m.laserna",
+                                "first_names": "Mario Alberto",
+                                "last_names": "Laserna Pinzón",
+                                "nickname": "Marito"
+                            },
+                            "time_slot": {
+                                "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
+                                "start_hour": 900,
+                                "end_hour": 1100,
+                                "day": "MONDAY"
+                            }
                         }
                     }
                 ]
