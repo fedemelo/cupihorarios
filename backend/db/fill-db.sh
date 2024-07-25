@@ -11,3 +11,5 @@ gunzip -c ./backups/cupihorarios-empty.sql.gz | psql -U postgres cupihorarios
 psql -U postgres -d cupihorarios -f insert-assistants.sql
 psql -U postgres -d cupihorarios -f insert-time-slots.sql
 psql -U postgres -d cupihorarios -f insert-assistant-availabilities.sql
+psql -U postgres -d cupihorarios -f insert-schedule.sql
+psql -U postgres -d cupihorarios -f insert-scheduled-slots.sql
