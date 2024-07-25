@@ -55,6 +55,14 @@ def create_assistant_availability(assistant_availability: AssistantAvailabilityC
     return service.create_assistant_availability(db, assistant_availability)
 
 
+@router.post("/many", response_model=list[AssistantAvailabilityResponse], status_code=status.HTTP_201_CREATED)
+def create_many_assistant_availabilities(assistant_availabilities: list[AssistantAvailabilityCreate], db: Session = Depends(get_db)):
+    """
+    Create many assistant availabilities
+    """
+    return service.create_many_assistant_availabilities(db, assistant_availabilities)
+
+
 @router.put("/{assistant_availability_id}", response_model=AssistantAvailabilityResponse, status_code=status.HTTP_200_OK)
 def update_assistant_availability(assistant_availability_id: UUID, assistant_availability: AssistantAvailabilityUpdate = Body(...), db: Session = Depends(get_db)):
     """

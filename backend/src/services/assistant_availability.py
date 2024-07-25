@@ -14,6 +14,15 @@ def create_assistant_availability(db: Session, assistant_availability: Assistant
     return db_assistant_availability
 
 
+def create_many_assistant_availabilities(db: Session, assistant_availabilities: list[AssistantAvailabilityCreate]) -> List[AssistantAvailability]:
+    db_availabilities = [AssistantAvailability(
+        **availability.model_dump(exclude_none=True)) for availability in assistant_availabilities]
+    db.add_all(db_availabilities)
+    db.commit()
+    db.refresh(db_availabilities)
+    return db_availabilities
+
+
 def get_assistant_availability_by_id(db: Session, assistant_availability_id: UUID) -> AssistantAvailability:
     return db.query(AssistantAvailability).filter(AssistantAvailability.id == assistant_availability_id).first()
 
