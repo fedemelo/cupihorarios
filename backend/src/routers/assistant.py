@@ -68,9 +68,7 @@ def update_assistant(assistant_code: int, assistant: AssistantUpdate = Body(...)
     """
     Update an existing assistant
     """
-    if not service.get_assistant_by_code(db, assistant_code):
-        raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
-            NAME, "code", assistant_code))
+    check_assistant_exists(assistant_code, db)
     return service.update_assistant(db, assistant_code, assistant)
 
 
@@ -79,9 +77,7 @@ def delete_assistant(assistant_code: int, db: Session = Depends(get_db)):
     """
     Delete an existing assistant
     """
-    if not service.get_assistant_by_code(db, assistant_code):
-        raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
-            NAME, "code", assistant_code))
+    check_assistant_exists(assistant_code, db)
     return service.delete_assistant(db, assistant_code)
 
 
@@ -91,3 +87,13 @@ def delete_all_assistants(db: Session = Depends(get_db)):
     Delete all assistants
     """
     return service.delete_all_assistants(db)
+
+
+def check_assistant_exists(assistant_code: int, db: Session = Depends(get_db)):
+    """
+    Check if an assistant exists
+    """
+    if not service.get_assistant_by_code(db, assistant_code):
+        raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
+            NAME, "code", assistant_code))
+    return True

@@ -1,5 +1,6 @@
 from src.schemas.assistant_availability import AssistantAvailabilityCreate, AssistantAvailabilityUpdate, AssistantAvailabilityResponse
 from fastapi import APIRouter, Depends, HTTPException, Body, status
+from src.routers.assistant import check_assistant_exists
 import src.services.assistant_availability as service
 from src.exceptions import ITEM_NOT_FOUND
 from src.config.db_config import get_db
@@ -29,12 +30,21 @@ def read_assistant_availability_by_id(assistant_availability_id: UUID, db: Sessi
     return assistant_availability
 
 
+@router.get("/assistant/{assistant_code}", response_model=list[AssistantAvailabilityResponse], status_code=status.HTTP_200_OK)
+def read_an_assistants_availabilities(assistant_code: int, db: Session = Depends(get_db)):
+    """
+    Retrieve an assistant's availabilities by their code
+    """
+    check_assistant_exists(assistant_code, db)
+    return service.get_an_assistants_availabilities(db, assistant_code)
+
+
 @router.get("/", response_model=list[AssistantAvailabilityResponse], status_code=status.HTTP_200_OK)
-def read_assistant_availabilities(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_all_assistants_availabilities(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     Retrieve all assistant availabilities
     """
-    return service.get_assistant_availabilities(db, skip, limit)
+    return service.get_all_assistants_availabilities(db, skip, limit)
 
 
 @router.post("/", response_model=AssistantAvailabilityResponse, status_code=status.HTTP_201_CREATED)

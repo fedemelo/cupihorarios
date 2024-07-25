@@ -19,13 +19,13 @@ def get_time_slot_by_id(db: Session, time_slot_id: UUID) -> TimeSlot:
 
 def get_time_slots(db: Session, skip: int = 0, limit: int = 100) -> list[TimeSlot]:
     day_order = case(
-        (TimeSlot.day == Day.MONDAY, 1),
-        (TimeSlot.day == Day.TUESDAY, 2),
-        (TimeSlot.day == Day.WEDNESDAY, 3),
-        (TimeSlot.day == Day.THURSDAY, 4),
-        (TimeSlot.day == Day.FRIDAY, 5),
-        (TimeSlot.day == Day.SATURDAY, 6),
-        (TimeSlot.day == Day.SUNDAY, 7)
+        (TimeSlot.day == Day.MONDAY, 0),
+        (TimeSlot.day == Day.TUESDAY, 1),
+        (TimeSlot.day == Day.WEDNESDAY, 2),
+        (TimeSlot.day == Day.THURSDAY, 3),
+        (TimeSlot.day == Day.FRIDAY, 4),
+        (TimeSlot.day == Day.SATURDAY, 5),
+        (TimeSlot.day == Day.SUNDAY, 6)
     )
     return db.query(TimeSlot).order_by(day_order, asc(TimeSlot.start_hour)).offset(skip).limit(limit).all()
 

@@ -1,6 +1,7 @@
 from src.schemas.assistant_availability import AssistantAvailabilityCreate, AssistantAvailabilityUpdate
 from src.models.assistant_availability import AssistantAvailability
 from sqlalchemy.orm import Session
+from typing import List
 from uuid import UUID
 
 
@@ -17,8 +18,25 @@ def get_assistant_availability_by_id(db: Session, assistant_availability_id: UUI
     return db.query(AssistantAvailability).filter(AssistantAvailability.id == assistant_availability_id).first()
 
 
-def get_assistant_availabilities(db: Session, skip: int = 0, limit: int = 100) -> list[AssistantAvailability]:
-    return db.query(AssistantAvailability).offset(skip).limit(limit).all()
+def get_an_assistants_availabilities(db: Session, assistant_code: int) -> list[AssistantAvailability]:
+    return _sort_availabilities(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code).all())
+
+
+def get_all_assistants_availabilities(db: Session, skip: int = 0, limit: int = 100) -> List[AssistantAvailability]:
+    return _sort_availabilities(db.query(AssistantAvailability).offset(skip).limit(limit).all())
+
+
+def _sort_availabilities(availabilities: List[AssistantAvailability]) -> List[AssistantAvailability]:
+    day_order = {
+        'MONDAY': 0,
+        'TUESDAY': 1,
+        'WEDNESDAY': 2,
+        'THURSDAY': 3,
+        'FRIDAY': 4,
+        'SATURDAY': 5,
+        'SUNDAY': 6
+    }
+    return sorted(availabilities, key=lambda x: (day_order[x.time_slot.day.value], x.time_slot.start_hour))
 
 
 def update_assistant_availability(db: Session, assistant_availability_id: UUID, assistant_availability: AssistantAvailabilityUpdate) -> AssistantAvailability:
