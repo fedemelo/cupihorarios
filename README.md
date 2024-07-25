@@ -86,7 +86,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    The server will be running on `http://localhost:8003/v1.0`.
 
 
-## Instrucciones
+## Instrucciones (deprecated)
 
 Si alguno modifica su disponibilidad, puede re generar el horario sin problema. Acá están los pasos.
 
