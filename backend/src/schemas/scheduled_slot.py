@@ -9,11 +9,11 @@ class ScheduledSlotBase(BaseModel):
     Represents the base schema for a scheduled slot.
 
     Attributes:
-        scheduleId (UUID): The schedule's unique identifier.
+        schedule_id (UUID): The schedule's unique identifier.
         assistant_availability_id (UUID): The available slot's unique identifier.
         is_remote (bool): Indicates if the slot is remote.
     """
-    scheduleId: UUID
+    schedule_id: UUID
     assistant_availability_id: UUID
     is_remote: bool
 
@@ -26,7 +26,7 @@ class ScheduledSlotCreate(ScheduledSlotBase):
     class Config:
         json_schema_extra = {
             "example": {
-                "scheduleId": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+                "schedule_id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
                 "assistant_availability_id": "d2bb189e-8bf9-3888-9912-ace4e6543002",
                 "is_remote": True
             }

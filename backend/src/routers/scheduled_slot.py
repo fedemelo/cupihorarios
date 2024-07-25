@@ -4,7 +4,7 @@ import src.services.scheduled_slot as service
 from src.exceptions import ITEM_NOT_FOUND
 from src.config.db_config import get_db
 from sqlalchemy.orm import Session
-from typing import Dict
+from typing import Dict, List
 from uuid import UUID
 
 
@@ -29,6 +29,7 @@ def read_scheduled_slot(schedule_id: UUID, assistant_availability_id: UUID, db: 
     return scheduled_slot
 
 
+@router.get("/", response_model=List[ScheduledSlotResponse], status_code=status.HTTP_200_OK)
 def read_scheduled_slots(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     Retrieve all scheduled slots
