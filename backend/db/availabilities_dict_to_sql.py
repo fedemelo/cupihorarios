@@ -100,7 +100,7 @@ Dave = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 1, 'Jue, 8:0
         'Lun, 17:00-18:00': 0, 'Mar, 17:00-18:00': 0, 'Mie, 17:00-18:00': 0, 'Jue, 17:00-18:00': 0, 'Vie, 17:00-18:00': 0}
 
 assistants = [Andres, Camilo, Federico, Mariana, Nicolas, Santiago, Dave]
-assistant_codes = [201913554, 201820147, 202021525,
+assistant_codes = [201913554, 202020609, 202021525,
                    202011140, 201922019, 202112020, 202021113]
 days_mapping = {'Lun': 'MONDAY', 'Mar': 'TUESDAY',
                 'Mie': 'WEDNESDAY', 'Jue': 'THURSDAY', 'Vie': 'FRIDAY'}

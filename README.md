@@ -54,7 +54,11 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
 
     The output should be the path to the `glpsol` executable.
 
-5. Create the database
+5. Create the database.
+
+   There are three alternatives to create the database: creating an empty database, create an database with dummy data or restore a database backup. The scripts to perform these actions are located in the `db` directory, and are, respectively, `create-db.sh`, `fill-db.sh` and `restore-db-backup.sh`.
+
+   E.g., to restore a database backup, run the following command:
 
    Unix:
 
@@ -65,7 +69,9 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
 
    Windows:
 
-   The script is not compatible with Windows. To restore the database in a Windows machine, the following commands must be run in the `db` directory:
+   The scripts are not compatible with Windows. To restore the database in a Windows machine, the commands on the sceipt must be run manually in the `db` directory.
+
+   For example, to restore a database backup, run the following commands:
 
    ```batch
    psql -U postgres -c "DROP DATABASE IF EXISTS \"cupihorarios\";"
@@ -73,11 +79,34 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    "C:\Program Files\7-Zip\7z.exe" e ./backups/cupihorarios-backup.sql.gz -o./backups
    psql -U postgres -d postgres -f ./backups/cupihorarios-backup.sql
    ```
-
    The decompression tool used is 7-Zip, but any other tool can be used, replacing the path on the command accordingly.
 
 
-6. Run the server. In the `backend` directory, run the following command:
+6. (Optional). Fill the database with dummy data
+
+   Unix:
+
+   ```shell
+   cd db
+   sh fill-db.sh
+   ```
+
+   Windows:
+
+   The script is not compatible with Windows. To fill the database with dummy data in a Windows machine, the following commands must be run in the `db` directory:
+
+   ```batch
+   psql -U postgres -c "DROP DATABASE IF EXISTS \"cupihorarios\";"
+   psql -U postgres -c "CREATE DATABASE \"cupihorarios\";"
+   gunzip -c ./backups/cupihorarios-empty.sql.gz | psql -U postgres cupihorarios
+
+   psql -U postgres -d cupihorarios -f insert-assistants.sql
+   psql -U postgres -d cupihorarios -f insert-time-slots.sql
+   psql -U postgres -d cupihorarios -f insert-assistant-availabilities.sql
+   ```
+
+
+7. Run the server. In the `backend` directory, run the following command:
 
    ```shell
    uvicorn src.main:app --reload --host 0.0.0.0 --port 8003
