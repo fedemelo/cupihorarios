@@ -1,6 +1,8 @@
+from src.schemas.assistant import AssistantResponse
+from src.schemas.time_slot import TimeSlotResponse
 from pydantic import BaseModel
-from uuid import UUID
 from typing import Optional
+from uuid import UUID
 
 
 class AssistantAvailabilityBase(BaseModel):
@@ -49,16 +51,30 @@ class AssistantAvailabilityUpdate(BaseModel):
         }
 
 
-class AssistantAvailabilityResponse(AssistantAvailabilityBase):
+class AssistantAvailabilityResponse(BaseModel):
     """
-    Represents the schema for the response of assistant availability.
+    Represents the schema for the response of assistant availability with assistant and time slot details.
     """
+    remote_only: bool
+    assistant: AssistantResponse
+    time_slot: TimeSlotResponse
 
     class Config:
         json_schema_extra = {
             "example": {
-                "assistant_code": 194821525,
-                "time_slot_id": "c3bb189e-8bf9-3888-9912-ace4e6543002",
-                "remote_only": False
+                "remote_only": False,
+                "assistant": {
+                    "code": 194821525,
+                    "login": "m.laserna",
+                    "first_names": "Mario Alberto",
+                    "last_names": "Laserna Pinzón",
+                    "nickname": "Marito"
+                },
+                "time_slot": {
+                    "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
+                    "start_hour": 900,
+                    "end_hour": 1100,
+                    "day": "MONDAY"
+                }
             }
         }

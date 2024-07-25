@@ -1,5 +1,6 @@
+from src.schemas.scheduled_slot import ScheduledSlotResponse
+from typing import List, Optional
 from pydantic import BaseModel
-from typing import Optional
 from uuid import UUID
 
 
@@ -26,7 +27,7 @@ class ScheduleCreate(ScheduleBase):
         json_schema_extra = {
             "example": {
                 "id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
-                "name": "Fall 2024 Schedule",
+                "name": "2024-20 A",
                 "is_official": True
             }
         }
@@ -46,7 +47,7 @@ class ScheduleUpdate(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "name": "Spring 2025 Schedule",
+                "name": "2024-20 B",
                 "is_official": False
             }
         }
@@ -61,7 +62,34 @@ class ScheduleResponse(ScheduleBase):
         json_schema_extra = {
             "example": {
                 "id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
-                "name": "Fall 2024 Schedule",
+                "name": "2024-20 A",
                 "is_official": True
+            }
+        }
+
+
+class FullScheduleResponse(ScheduleBase):
+    """
+    Represents the schema for the response of a full schedule.
+    """
+    scheduled_slots: List[ScheduledSlotResponse]
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+                "name": "2024-20 A",
+                "is_official": True,
+                "scheduled_slots": [
+                    {
+                        "is_remote": True,
+                        "assistant_availability": {
+                            "id": "d2bb189e-8bf9-3888-9912-ace4e6543002",
+                            "assistant_code": 123456,
+                            "time_slot_id": "e2bb189e-8bf9-3888-9912-ace4e6543002",
+                            "remote_only": True
+                        }
+                    }
+                ]
             }
         }

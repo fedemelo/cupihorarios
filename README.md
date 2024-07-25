@@ -77,7 +77,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    The decompression tool used is 7-Zip, but any other tool can be used, replacing the path on the command accordingly.
 
 
-6. Run the server. In the root of the project, run the following command:
+6. Run the server. In the `backend` directory, run the following command:
 
    ```shell
    uvicorn src.main:app --reload --host 0.0.0.0 --port 8003
