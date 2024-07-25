@@ -67,6 +67,8 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    sh restore-db-backup.sh
    ```
 
+   There's also a script to save a backup of the current database, `save-db-backup.sh`.
+
    Windows:
 
    The scripts are not compatible with Windows. To restore the database in a Windows machine, the commands on the sceipt must be run manually in the `db` directory.
