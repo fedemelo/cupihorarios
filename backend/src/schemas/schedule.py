@@ -1,6 +1,8 @@
+from src.models.schedule import Schedule
 from src.schemas.scheduled_slot import ScheduledSlotResponse
+from pydantic import BaseModel, model_validator
+from src.services.time_slot import DAYS_ORDER
 from typing import List, Optional
-from pydantic import BaseModel
 from uuid import UUID
 
 
@@ -72,6 +74,13 @@ class FullScheduleResponse(ScheduleBase):
     """
     Represents the schema for the response of a full schedule.
     """
+
+    @model_validator(mode="before")
+    def sort_scheduled_slots(cls, schedule: Schedule):
+        schedule.scheduled_slots = _sort_by_time_slots(
+            schedule.scheduled_slots)
+        return schedule
+
     scheduled_slots: List[ScheduledSlotResponse]
 
     class Config:
@@ -103,3 +112,7 @@ class FullScheduleResponse(ScheduleBase):
                 ]
             }
         }
+
+
+def _sort_by_time_slots(scheduled_slots: List[ScheduledSlotResponse]) -> List[ScheduledSlotResponse]:
+    return sorted(scheduled_slots, key=lambda slot: (DAYS_ORDER[slot.assistant_availability.time_slot.day.value], slot.assistant_availability.time_slot.start_hour))

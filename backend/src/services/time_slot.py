@@ -1,8 +1,18 @@
 from src.schemas.time_slot import TimeSlotCreate, TimeSlotUpdate
 from src.models.time_slot import Day, TimeSlot
 from sqlalchemy.orm import Session
-from sqlalchemy import case, asc
 from uuid import UUID
+
+
+DAYS_ORDER = {
+    Day.MONDAY.value: 0,
+    Day.TUESDAY.value: 1,
+    Day.WEDNESDAY.value: 2,
+    Day.THURSDAY.value: 3,
+    Day.FRIDAY.value: 4,
+    Day.SATURDAY.value: 5,
+    Day.SUNDAY.value: 6
+}
 
 
 def create_time_slot(db: Session, time_slot: TimeSlotCreate) -> TimeSlot:
@@ -18,16 +28,11 @@ def get_time_slot_by_id(db: Session, time_slot_id: UUID) -> TimeSlot:
 
 
 def get_time_slots(db: Session, skip: int = 0, limit: int = 100) -> list[TimeSlot]:
-    day_order = case(
-        (TimeSlot.day == Day.MONDAY, 0),
-        (TimeSlot.day == Day.TUESDAY, 1),
-        (TimeSlot.day == Day.WEDNESDAY, 2),
-        (TimeSlot.day == Day.THURSDAY, 3),
-        (TimeSlot.day == Day.FRIDAY, 4),
-        (TimeSlot.day == Day.SATURDAY, 5),
-        (TimeSlot.day == Day.SUNDAY, 6)
-    )
-    return db.query(TimeSlot).order_by(day_order, asc(TimeSlot.start_hour)).offset(skip).limit(limit).all()
+    return _sort_by_day_and_start_hour(db.query(TimeSlot).offset(skip).limit(limit).all())
+
+
+def _sort_by_day_and_start_hour(time_slots: list[TimeSlot]) -> list[TimeSlot]:
+    return sorted(time_slots, key=lambda time_slot: (DAYS_ORDER[time_slot.day.value], time_slot.start_hour))
 
 
 def update_time_slot(db: Session, time_slot_id: UUID, time_slot: TimeSlotUpdate) -> TimeSlot:

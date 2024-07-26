@@ -1,5 +1,6 @@
 from src.schemas.assistant_availability import AssistantAvailabilityCreate, AssistantAvailabilityUpdate
 from src.models.assistant_availability import AssistantAvailability
+from src.services.time_slot import DAYS_ORDER
 from sqlalchemy.orm import Session
 from typing import List
 from uuid import UUID
@@ -28,24 +29,11 @@ def get_assistant_availability_by_id(db: Session, assistant_availability_id: UUI
 
 
 def get_an_assistants_availabilities(db: Session, assistant_code: int) -> list[AssistantAvailability]:
-    return _sort_availabilities(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code).all())
+    return _sort_by_time_slots(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code).all())
 
 
 def get_all_assistants_availabilities(db: Session, skip: int = 0, limit: int = 100) -> List[AssistantAvailability]:
-    return _sort_availabilities(db.query(AssistantAvailability).offset(skip).limit(limit).all())
-
-
-def _sort_availabilities(availabilities: List[AssistantAvailability]) -> List[AssistantAvailability]:
-    day_order = {
-        'MONDAY': 0,
-        'TUESDAY': 1,
-        'WEDNESDAY': 2,
-        'THURSDAY': 3,
-        'FRIDAY': 4,
-        'SATURDAY': 5,
-        'SUNDAY': 6
-    }
-    return sorted(availabilities, key=lambda x: (day_order[x.time_slot.day.value], x.time_slot.start_hour))
+    return _sort_by_time_slots(db.query(AssistantAvailability).offset(skip).limit(limit).all())
 
 
 def update_assistant_availability(db: Session, assistant_availability_id: UUID, assistant_availability: AssistantAvailabilityUpdate) -> AssistantAvailability:
@@ -66,3 +54,7 @@ def delete_all_assistant_availabilities(db: Session) -> dict:
     db.query(AssistantAvailability).delete()
     db.commit()
     return {"message": "All assistant availabilities deleted successfully"}
+
+
+def _sort_by_time_slots(assistant_availabilities: List[AssistantAvailability]) -> List[AssistantAvailability]:
+    return sorted(assistant_availabilities, key=lambda availability: (DAYS_ORDER[availability.time_slot.day.value], availability.time_slot.start_hour))
