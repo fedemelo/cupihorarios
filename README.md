@@ -61,7 +61,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
 
 5. Create the database.
 
-   There are three alternatives to create the database: creating an empty database, create an database with dummy data or restore a database backup. The scripts to perform these actions are located in the `db` directory, and are, respectively, `create-db.sh`, `fill-db.sh` and `restore-db-backup.sh`.
+   There are three alternatives to create the database: creating an empty database, create an database with dummy data or restore a database backup. The scripts to perform these actions are located in the `db` directory, and are, respectively, `create-empty-db.sh`, `create-full-test-db.sh` and `restore-db-backup.sh`.
 
    E.g., to restore a database backup, run the following command:
 
@@ -76,7 +76,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
 
    Windows:
 
-   The scripts are not compatible with Windows. To restore the database in a Windows machine, the commands on the sceipt must be run manually in the `db` directory.
+   The scripts are not compatible with Windows. To restore the database in a Windows machine, the commands on the script must be run manually in the `db` directory.
 
    For example, to restore a database backup, run the following commands:
 

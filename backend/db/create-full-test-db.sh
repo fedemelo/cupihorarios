@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Fill the database with initial data.
-# Delete the database if it exists and create a new one based on the cupihorarios-empty schema.
+# Delete the database if it exists and creates a new one full of test data.
 
 cd "$(dirname "$0")"
 
