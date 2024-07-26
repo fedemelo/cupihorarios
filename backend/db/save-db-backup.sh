@@ -1,9 +1,11 @@
 #!/bin/bash
 
+# Create a backup of the cupihorarios database and compress it with gzip.
+
 cd "$(dirname "$0")"
-FILE="cupihorarios-backup.sql"
+DB_NAME="cupihorarios"
+FILE="${DB_NAME}-backup.sql"
 BACKUP_DIR="./backups"
 
-# Create a backup of the db to the ./backups/cupihorarios-backup.sql.gz file and compress it with gzip.
-pg_dump -U postgres cupihorarios > $BACKUP_DIR/$FILE
+pg_dump -U postgres $DB_NAME > $BACKUP_DIR/$FILE
 gzip $BACKUP_DIR/$FILE
