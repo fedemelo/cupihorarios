@@ -6,6 +6,11 @@ CupiHorarios is a RESTful API, built with FastAPI, that generates optimal schedu
 
 It may happen that due to the availability of the assistants, it is impossible to generate a schedule that covers all intended time slots. In such case, the best possible schedule will be generated.
 
+## Design
+
+1. [User Stories](https://github.com/fedemelo/cupi-horarios/wiki/User-Stories)
+3. [Backend Design](https://github.com/fedemelo/cupi-horarios/wiki/Backend-Design)
+
 ## Instructions to Set Up the Local Development Environment
 
 The project must be run using [Python 3.11.3](https://www.python.org/downloads/release/python-3113/).
