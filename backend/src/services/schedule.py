@@ -1,11 +1,14 @@
+from src.optimization_model.generate_optimal_schedule import generate_scheduled_slots_based_on_availability
 from src.schemas.schedule import ScheduleCreate, ScheduleUpdate
 from src.models.schedule import Schedule
 from sqlalchemy.orm import Session
-from uuid import UUID
+from uuid import UUID, uuid4
 
 
 def create_schedule(db: Session, schedule: ScheduleCreate) -> Schedule:
-    db_schedule = Schedule(**schedule.model_dump(exclude_none=True))
+    db_schedule = Schedule(
+        **schedule.model_dump(exclude_none=True), id=uuid4())
+    generate_scheduled_slots_based_on_availability(db)
     db.add(db_schedule)
     db.commit()
     db.refresh(db_schedule)

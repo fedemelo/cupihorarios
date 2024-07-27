@@ -1,7 +1,7 @@
 from src.schemas.time_slot import TimeSlotCreate, TimeSlotUpdate
 from src.models.time_slot import Day, TimeSlot
 from sqlalchemy.orm import Session
-from uuid import UUID
+from uuid import UUID, uuid4
 
 
 DAYS_ORDER = {
@@ -16,7 +16,8 @@ DAYS_ORDER = {
 
 
 def create_time_slot(db: Session, time_slot: TimeSlotCreate) -> TimeSlot:
-    db_time_slot = TimeSlot(**time_slot.model_dump(exclude_none=True))
+    db_time_slot = TimeSlot(
+        **time_slot.model_dump(exclude_none=True), id=uuid4())
     db.add(db_time_slot)
     db.commit()
     db.refresh(db_time_slot)

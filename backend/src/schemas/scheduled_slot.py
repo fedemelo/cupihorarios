@@ -75,7 +75,7 @@ class ScheduledSlotResponse(BaseModel):
                         "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
                         "start_hour": 900,
                         "end_hour": 1100,
-                        "day": "MONDAY"
+                        "day": "Monday"
                     }
                 }
             }

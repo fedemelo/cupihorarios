@@ -167,8 +167,8 @@ assistant_codes = {
     "Dave": 202021113,
 }
 
-days_mapping = {'LUN': 'MONDAY', 'MAR': 'TUESDAY',
-                'MIE': 'WEDNESDAY', 'JUE': 'THURSDAY', 'VIE': 'FRIDAY'}
+days_mapping = {'LUN': 'Monday', 'MAR': 'Tuesday',
+                'MIE': 'Wednesday', 'JUE': 'Thursday', 'VIE': 'Friday'}
 
 
 sql_template = """
