@@ -17,6 +17,7 @@ class AssistantBase(BaseModel):
     login: str
     first_names: str
     last_names: str
+    hired_hours: float
     nickname: Optional[str] = None
 
 

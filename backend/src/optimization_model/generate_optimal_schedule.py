@@ -1,6 +1,4 @@
 from src.services.assistant_availability import get_an_assistants_availabilities
-from src.models.assistant_availability import AssistantAvailability
-from src.models.time_slot import TimeSlot
 from src.services.assistant import get_assistants
 from src.models.scheduled_slot import ScheduledSlot
 from src.services.time_slot import get_time_slots
@@ -15,6 +13,12 @@ from pyomo.environ import (
     Binary,
 )
 from pyomo.opt import SolverFactory
+
+# The model aims for each assistant to have an assigned number of hours as
+# proportional as possible to the number of hours they were hired for in
+# relation to the total number of hours available.
+# The margin of error below may need to be adjusted depending on the assistants' availabilities.
+PROPORTIONAL_HIRED_HOURS_MARGIN = 1.
 
 model = ConcreteModel()
 
@@ -39,7 +43,7 @@ def generate_scheduled_slots_based_on_availability(db: Session) -> List[Schedule
         assistants_availabilities)
 
     # Hardcoded for now
-    assistants_required_hours = {
+    assistants_hired_hours = {
         201913554: 10,
         202020609: 10,
         202021525: 5,
@@ -49,7 +53,7 @@ def generate_scheduled_slots_based_on_availability(db: Session) -> List[Schedule
         202021113: 5
     }
 
-    assistants_required_hours_sec = {
+    assistants_hired_hours_sec = {
         201913554: 10,
         202020609: 10,
         202021525: 5,
@@ -134,11 +138,11 @@ def generate_scheduled_slots_based_on_availability(db: Session) -> List[Schedule
 
     # Respect contract hours
     contract_hour_bounds = {
-        'max_hours': lambda total_hours, contract_hours: total_hours <= contract_hours + 1,
-        'min_hours': lambda total_hours, contract_hours: total_hours >= contract_hours - 1
+        'max_hours': lambda total_hours, hired_hrs: total_hours <= hired_hrs + PROPORTIONAL_HIRED_HOURS_MARGIN,
+        'min_hours': lambda total_hours, hired_hrs: total_hours >= hired_hrs - PROPORTIONAL_HIRED_HOURS_MARGIN
     }
 
-    for assistant, hours in assistants_required_hours.items():
+    for assistant, hours in assistants_hired_hours.items():
         for bound_name, compare_funct in contract_hour_bounds.items():
             setattr(
                 model,
@@ -157,7 +161,7 @@ def generate_scheduled_slots_based_on_availability(db: Session) -> List[Schedule
                 ),
             )
 
-    for assistant, hours in assistants_required_hours_sec.items():
+    for assistant, hours in assistants_hired_hours_sec.items():
         for bound_name, compare_funct in contract_hour_bounds.items():
             setattr(
                 model,

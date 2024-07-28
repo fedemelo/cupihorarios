@@ -4,7 +4,7 @@
 
 cd "$(dirname "$0")"
 DB_NAME="cupihorarios"
-FILE="${DB_NAME}-empty.sql"
+FILE="${DB_NAME}-backup.sql"
 BACKUP_DIR="./backups"
 
 pg_dump -U postgres $DB_NAME > $BACKUP_DIR/$FILE
