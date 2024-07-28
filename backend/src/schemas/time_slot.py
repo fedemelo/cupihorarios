@@ -1,17 +1,16 @@
 from pydantic import BaseModel
 from typing import Optional
-from uuid import UUID
 from enum import Enum
 
 
 class Day(str, Enum):
-    MONDAY = "MONDAY"
-    TUESDAY = "TUESDAY"
-    WEDNESDAY = "WEDNESDAY"
-    THURSDAY = "THURSDAY"
-    FRIDAY = "FRIDAY"
-    SATURDAY = "SATURDAY"
-    SUNDAY = "SUNDAY"
+    MONDAY = "Monday"
+    TUESDAY = "Tuesday"
+    WEDNESDAY = "Wednesday"
+    THURSDAY = "Thursday"
+    FRIDAY = "Friday"
+    SATURDAY = "Saturday"
+    SUNDAY = "Sunday"
 
 
 class TimeSlotBase(BaseModel):
@@ -19,12 +18,10 @@ class TimeSlotBase(BaseModel):
     Represents the base schema for a time slot.
 
     Attributes:
-        id (UUID): The time slot's unique identifier.
         start_hour (int): The start hour of the time slot.
         end_hour (int): The end hour of the time slot.
         day (Day): The day of the time slot.
     """
-    id: UUID
     start_hour: int
     end_hour: int
     day: Day
@@ -38,10 +35,9 @@ class TimeSlotCreate(TimeSlotBase):
     class Config:
         json_schema_extra = {
             "example": {
-                "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
                 "start_hour": 900,
                 "end_hour": 1100,
-                "day": "MONDAY"
+                "day": "Monday"
             }
         }
 
@@ -64,7 +60,7 @@ class TimeSlotUpdate(BaseModel):
             "example": {
                 "start_hour": 1000,
                 "end_hour": 1200,
-                "day": "TUESDAY"
+                "day": "Tuesday"
             }
         }
 
@@ -73,13 +69,14 @@ class TimeSlotResponse(TimeSlotBase):
     """
     Represents the schema for the response of a time slot.
     """
+    id: str
 
     class Config:
         json_schema_extra = {
             "example": {
-                "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
-                "start_hour": 900,
-                "end_hour": 1100,
-                "day": "MONDAY"
+                "id": "Monday, 09:30-10:00",
+                "start_hour": 930,
+                "end_hour": 1000,
+                "day": "Monday"
             }
         }

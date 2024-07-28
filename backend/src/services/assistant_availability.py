@@ -8,11 +8,18 @@ from uuid import UUID
 
 def create_assistant_availability(db: Session, assistant_availability: AssistantAvailabilityCreate) -> AssistantAvailability:
     db_assistant_availability = AssistantAvailability(
-        **assistant_availability.model_dump(exclude_none=True))
+        **assistant_availability.model_dump(exclude_none=True),
+        id=_build_assistant_availability_id(assistant_availability.assistant_code,
+                                            assistant_availability.time_slot_id)
+    )
     db.add(db_assistant_availability)
     db.commit()
     db.refresh(db_assistant_availability)
     return db_assistant_availability
+
+
+def _build_assistant_availability_id(assistant_code: int, time_slot_id: str) -> str:
+    return f"{assistant_code}: {time_slot_id}"
 
 
 def create_many_assistant_availabilities(db: Session, assistant_availabilities: list[AssistantAvailabilityCreate]) -> List[AssistantAvailability]:
@@ -30,6 +37,10 @@ def get_assistant_availability_by_id(db: Session, assistant_availability_id: UUI
 
 def get_an_assistants_availabilities(db: Session, assistant_code: int) -> list[AssistantAvailability]:
     return _sort_by_time_slots(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code).all())
+
+
+def get_an_assistants_on_site_availabilities(db: Session, assistant_code: int) -> list[AssistantAvailability]:
+    return _sort_by_time_slots(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code, ~AssistantAvailability.remote_only).all())
 
 
 def get_all_assistants_availabilities(db: Session, skip: int = 0, limit: int = 100) -> List[AssistantAvailability]:

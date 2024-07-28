@@ -23,6 +23,10 @@ def get_assistants(db: Session, skip: int = 0, limit: int = 100) -> list[Assista
     return db.query(Assistant).order_by(Assistant.code).offset(skip).limit(limit).all()
 
 
+def get_hired_hours_of_all_assistants(db: Session) -> float:
+    return sum([assistant.hired_hours for assistant in db.query(Assistant).all()])
+
+
 def update_assistant(db: Session, assistant_code: int, assistant: AssistantUpdate) -> Assistant:
     db.query(Assistant).filter(Assistant.code ==
                                assistant_code).update(assistant.model_dump(exclude_none=True))

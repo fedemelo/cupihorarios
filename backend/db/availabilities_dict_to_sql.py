@@ -108,7 +108,12 @@ days_mapping = {'Lun': 'MONDAY', 'Mar': 'TUESDAY',
 
 sql_template = """
 INSERT INTO assistant_availabilities (id, assistant_code, time_slot_id, remote_only) 
-VALUES (uuid_generate_v4(), {}, (SELECT id FROM time_slots WHERE day = '{}' AND start_hour = {}), false);
+VALUES (
+    CONCAT({0}, ': ', (SELECT id FROM time_slots WHERE day = '{1}' AND start_hour = {2})),
+    {0},
+    (SELECT id FROM time_slots WHERE day = '{1}' AND start_hour = {2}),
+    false
+);
 """
 
 sql_script = """

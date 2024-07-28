@@ -37,7 +37,7 @@ def read_schedules(skip: int = 0, limit: int = 100, db: Session = Depends(get_db
     return service.get_schedules(db, skip, limit)
 
 
-@router.post("/", response_model=ScheduleResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=FullScheduleResponse, status_code=status.HTTP_201_CREATED)
 def create_schedule(schedule: ScheduleCreate = Body(...), db: Session = Depends(get_db)):
     """
     Create a new schedule

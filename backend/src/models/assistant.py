@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
 from src.config.db_config import Base
 
@@ -14,6 +14,7 @@ class Assistant(Base):
     login = Column(String, unique=True, nullable=False)
     first_names = Column(String, nullable=False)
     last_names = Column(String, nullable=False)
+    hired_hours = Column(Float, nullable=False)
     nickname = Column(String)
 
     assistant_availabilities = relationship(

@@ -4,6 +4,7 @@
 -- SQL script to insert an example of scheduled slots belonging to a schedule.
 -- Execute with `psql -U postgres -d cupihorarios -f insert-scheduled-slots.sql`.
 
+BEGIN;
 
 INSERT INTO scheduled_slots (schedule_id, assistant_availability_id, is_remote)
 VALUES ('a3bb189e-8bf9-3888-9912-ace4e6543002', 
@@ -736,3 +737,5 @@ VALUES ('a3bb189e-8bf9-3888-9912-ace4e6543002',
   (SELECT id FROM assistant_availabilities WHERE assistant_code = 202021113 AND time_slot_id =
     (SELECT id FROM time_slots WHERE day = 'FRIDAY' AND start_hour = 800))
 , true);
+
+END;

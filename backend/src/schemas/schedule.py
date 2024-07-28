@@ -11,13 +11,10 @@ class ScheduleBase(BaseModel):
     Represents the base schema for a schedule.
 
     Attributes:
-        id (UUID): The schedule's unique identifier.
         name (str): The schedule's name.
         is_official (bool): Indicates if the schedule is official.
     """
-    id: UUID
     name: str
-    is_official: bool
 
 
 class ScheduleCreate(ScheduleBase):
@@ -28,7 +25,6 @@ class ScheduleCreate(ScheduleBase):
     class Config:
         json_schema_extra = {
             "example": {
-                "id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
                 "name": "2024-20 A",
                 "is_official": True
             }
@@ -59,6 +55,8 @@ class ScheduleResponse(ScheduleBase):
     """
     Represents the schema for the response of a schedule.
     """
+    id: UUID
+    is_official: bool
 
     class Config:
         json_schema_extra = {
@@ -70,7 +68,7 @@ class ScheduleResponse(ScheduleBase):
         }
 
 
-class FullScheduleResponse(ScheduleBase):
+class FullScheduleResponse(ScheduleResponse):
     """
     Represents the schema for the response of a full schedule.
     """
@@ -102,10 +100,10 @@ class FullScheduleResponse(ScheduleBase):
                                 "nickname": "Marito"
                             },
                             "time_slot": {
-                                "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
-                                "start_hour": 900,
-                                "end_hour": 1100,
-                                "day": "MONDAY"
+                                "id": "Monday, 09:30-10:00",
+                                "start_hour": 930,
+                                "end_hour": 1000,
+                                "day": "Monday"
                             }
                         }
                     }

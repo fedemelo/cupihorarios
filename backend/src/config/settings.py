@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     DB_USER: str = "postgres"
     DB_PASSWORD: str = "postgres"
     DB_HOST: str = "localhost"
-    DB_PORT: str = "5434"
+    DB_PORT: str = "5432"
 
     class Config:
         case_sensitive = True
