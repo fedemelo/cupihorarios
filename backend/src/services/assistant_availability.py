@@ -32,6 +32,10 @@ def get_an_assistants_availabilities(db: Session, assistant_code: int) -> list[A
     return _sort_by_time_slots(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code).all())
 
 
+def get_an_assistants_on_site_availabilities(db: Session, assistant_code: int) -> list[AssistantAvailability]:
+    return _sort_by_time_slots(db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code, ~AssistantAvailability.remote_only).all())
+
+
 def get_all_assistants_availabilities(db: Session, skip: int = 0, limit: int = 100) -> List[AssistantAvailability]:
     return _sort_by_time_slots(db.query(AssistantAvailability).offset(skip).limit(limit).all())
 
