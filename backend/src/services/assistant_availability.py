@@ -8,11 +8,18 @@ from uuid import UUID
 
 def create_assistant_availability(db: Session, assistant_availability: AssistantAvailabilityCreate) -> AssistantAvailability:
     db_assistant_availability = AssistantAvailability(
-        **assistant_availability.model_dump(exclude_none=True))
+        **assistant_availability.model_dump(exclude_none=True),
+        id=_build_assistant_availability_id(assistant_availability.assistant_code,
+                                            assistant_availability.time_slot_id)
+    )
     db.add(db_assistant_availability)
     db.commit()
     db.refresh(db_assistant_availability)
     return db_assistant_availability
+
+
+def _build_assistant_availability_id(assistant_code: int, time_slot_id: str) -> str:
+    return f"{assistant_code}: {time_slot_id}"
 
 
 def create_many_assistant_availabilities(db: Session, assistant_availabilities: list[AssistantAvailabilityCreate]) -> List[AssistantAvailability]:

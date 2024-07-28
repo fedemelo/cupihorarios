@@ -10,11 +10,11 @@ class ScheduledSlotBase(BaseModel):
 
     Attributes:
         schedule_id (UUID): The schedule's unique identifier.
-        assistant_availability_id (UUID): The available slot's unique identifier.
+        assistant_availability_id (str): The slot in which the assistant is available's unique identifier.
         is_remote (bool): Indicates if the slot is remote.
     """
     schedule_id: UUID
-    assistant_availability_id: UUID
+    assistant_availability_id: str
     is_remote: bool
 
 
@@ -27,7 +27,7 @@ class ScheduledSlotCreate(ScheduledSlotBase):
         json_schema_extra = {
             "example": {
                 "schedule_id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
-                "assistant_availability_id": "d2bb189e-8bf9-3888-9912-ace4e6543002",
+                "assistant_availability_id": "194821525: Monday, 09:30-10:00",
                 "is_remote": True
             }
         }
@@ -72,9 +72,9 @@ class ScheduledSlotResponse(BaseModel):
                         "nickname": "Marito"
                     },
                     "time_slot": {
-                        "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
-                        "start_hour": 900,
-                        "end_hour": 1100,
+                        "id": "Monday, 09:30-10:00",
+                        "start_hour": 930,
+                        "end_hour": 1000,
                         "day": "Monday"
                     }
                 }

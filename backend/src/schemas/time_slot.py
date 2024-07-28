@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import Optional
-from uuid import UUID
 from enum import Enum
 
 
@@ -70,14 +69,14 @@ class TimeSlotResponse(TimeSlotBase):
     """
     Represents the schema for the response of a time slot.
     """
-    id: UUID
+    id: str
 
     class Config:
         json_schema_extra = {
             "example": {
-                "id": "b3bb189e-8bf9-3888-9912-ace4e6543002",
-                "start_hour": 900,
-                "end_hour": 1100,
+                "id": "Monday, 09:30-10:00",
+                "start_hour": 930,
+                "end_hour": 1000,
                 "day": "Monday"
             }
         }

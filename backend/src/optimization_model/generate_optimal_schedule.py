@@ -19,6 +19,15 @@ model = ConcreteModel()
 
 
 def generate_scheduled_slots_based_on_availability(db: Session) -> List[ScheduledSlot]:
+    """
+    Uses a Pyomo optimization model to generate an optimal schedule based on assistant availability.
+
+    The model is a binary integer linear program that assigns each assistant to a time slot as primary or secondary,
+    and tries to assign a primary and secondary assistant to each time slot.
+
+    Returns a list of ScheduledSlot objects with the generated schedule.
+    """
+
     add_sets_to_model(db, model)
     add_parameters_to_model(db, model)
     add_variables_for_assistants(db, model)
