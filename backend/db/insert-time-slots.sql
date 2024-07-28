@@ -3,80 +3,82 @@
 -- SQL script to create time slots for each day of the week, according to the usual slots offered by CupiTaller.
 -- Execute with `psql -U postgres -d cupihorarios -f insert-time-slots.sql`.
 
+BEGIN;
+
 -- MONDAY
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'Monday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'Monday');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'MONDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'MONDAY');
 
 -- TUESDAY
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'Tuesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'Tuesday');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'TUESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'TUESDAY');
 
 -- WEDNESDAY
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'Wednesday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'Wednesday');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'WEDNESDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'WEDNESDAY');
 
 -- THURSDAY
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'Thursday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'Thursday');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'THURSDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'THURSDAY');
 
 -- FRIDAY
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'Friday');
-INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'Friday');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 900, 930, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 930, 1030, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1030, 1100, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1100, 1200, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1200, 1230, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1230, 1330, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1330, 1400, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1400, 1500, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1500, 1530, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'FRIDAY');
+INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'FRIDAY');
 
 -- SATURDAY
 -- INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 800, 900, 'Saturday');
@@ -107,3 +109,5 @@ INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(
 -- INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1530, 1630, 'Sunday');
 -- INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1630, 1700, 'Sunday');
 -- INSERT INTO time_slots (id, start_hour, end_hour, day) VALUES (uuid_generate_v4(), 1700, 1800, 'Sunday');
+
+END;

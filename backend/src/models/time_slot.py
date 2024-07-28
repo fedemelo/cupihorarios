@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Enum as SQLAEnum, UUID
+from sqlalchemy import Column, Integer, UUID, Enum as SQLAEnum
 from sqlalchemy.orm import relationship
 from src.config.db_config import Base
 from enum import Enum

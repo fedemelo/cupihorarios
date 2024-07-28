@@ -102,8 +102,8 @@ Dave = {'Lun, 8:00-9:00': 1, 'Mar, 8:00-9:00': 0, 'Mie, 8:00-9:00': 1, 'Jue, 8:0
 assistants = [Andres, Ardilla, Fede, Maru, Nico, Santi, Dave]
 assistant_codes = [201913554, 202020609, 202021525,
                    202011140, 201922019, 202112020, 202021113]
-days_mapping = {'Lun': 'Monday', 'Mar': 'Tuesday',
-                'Mie': 'Wednesday', 'Jue': 'Thursday', 'Vie': 'Friday'}
+days_mapping = {'Lun': 'MONDAY', 'Mar': 'TUESDAY',
+                'Mie': 'WEDNESDAY', 'Jue': 'THURSDAY', 'Vie': 'FRIDAY'}
 
 
 sql_template = """

@@ -68,7 +68,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    Unix:
 
    ```shell
-   cd db
+   cd backend/db
    sh restore-db-backup.sh
    ```
 
@@ -95,6 +95,30 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    ```
 
    The server will be running on `http://localhost:8003/v1.0`.
+
+
+## Setting up Postgres
+
+If Postgres is not installed in the local machine, the server will fail to establish a connection to a database and be unable to run.
+
+The application was built with Postgres 14. To install it and start the service:
+
+Mac:
+```shell
+brew install postgresql@14
+brew services restart postgresql@14
+```
+
+After installing Postgres, the service might still fail as it is designed to run with a specific database user and password. In order to create a new role in Postgres, run the following commands:
+
+Unix:
+
+```shell
+psql -U $(whoami) -d postgres
+CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'postgres';
+```
+
+In the example above, a role `postgres` with password `postgres` is created. After that, the application should start correctly and the scripts should work as well.
 
 
 ## Instrucciones (deprecated)
