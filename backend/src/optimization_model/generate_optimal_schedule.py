@@ -13,6 +13,8 @@ from pyomo.environ import (
     Var,
     Objective,
     Binary,
+    minimize,
+    TerminationCondition
 )
 from pyomo.opt import SolverFactory
 
@@ -26,16 +28,36 @@ def generate_scheduled_slots_based_on_availability(db: Session, schedule: Schedu
     The model is a binary integer linear program that assigns each assistant to a time slot as primary or secondary,
     and tries to assign a primary and secondary assistant to each time slot.
 
+    A margin of 0.5 (half an hour) is added to the hired hours of each assistant to ensure that the model is feasible.
+    I.e., the model will try for each assistant to work proportionally to the number of hours they are hired for,
+    in comparison to the total number of hours available and other assistants' hours.
+    However, the exact number of hours each assistant works may vary slightly.
+    The value for the margin increases by 0.5 until the model is feasible.
+
     Returns a list of ScheduledSlot objects with the generated schedule.
     """
 
-    add_sets_to_model(db, model)
-    add_parameters_to_model(db, model)
-    add_variables_for_assistants(db, model)
-    define_objective_function(db, model)
-    add_constraints_to_model(db, model)
+    is_infeasible = True
+    hired_hours_margin = 0.5
+    while is_infeasible:
+        add_sets_to_model(db, model)
+        add_parameters_to_model(db, model)
+        add_variables_for_assistants(db, model)
+        define_objective_function(db, model)
+        add_constraints_to_model(db, model, hired_hours_margin)
 
-    SolverFactory("glpk").solve(model, tee=True)
+        results = SolverFactory("glpk").solve(model, tee=True)
+
+        if results.solver.termination_condition == TerminationCondition.infeasible:
+            hired_hours_margin += 0.5
+        else:
+            is_infeasible = False
+
+    for time_slot in model.time_slots:
+        for assistant_code in get_assistants_codes(db):
+            for type in ['primary', 'secondary']:
+                if getattr(model, f'{type}_{assistant_code}')[time_slot].value:
+                    print(f'{type} {assistant_code} at {time_slot}')
 
     return create_scheduled_slots_from_model(db, model, schedule)
 
@@ -75,10 +97,8 @@ def add_variables_for_assistants(db: Session, model: ConcreteModel) -> None:
 def define_objective_function(db: Session, model: ConcreteModel) -> None:
     """
     Defines the objective function of the model.
-    The objective is to minimize the sum of all primary and secondary variables for each assistant at each time slot.
 
-    TODO: The objective is to minimize the difference between the number of hours each assistant works and the 
-    number of hours they were hired for, in proportion to the total number of hours the center will operate.
+    This objective function simply tries to minimize the number of hours each assistant works.
     """
     model.obj = Objective(
         expr=sum(
@@ -88,5 +108,6 @@ def define_objective_function(db: Session, model: ConcreteModel) -> None:
                 for assistant_code in get_assistants_codes(db)
             )
             for time_slot in model.time_slots
-        )
+        ),
+        sense=minimize
     )

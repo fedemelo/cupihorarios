@@ -15,7 +15,6 @@ class ScheduleBase(BaseModel):
         is_official (bool): Indicates if the schedule is official.
     """
     name: str
-    is_official: bool
 
 
 class ScheduleCreate(ScheduleBase):
@@ -57,6 +56,7 @@ class ScheduleResponse(ScheduleBase):
     Represents the schema for the response of a schedule.
     """
     id: UUID
+    is_official: bool
 
     class Config:
         json_schema_extra = {

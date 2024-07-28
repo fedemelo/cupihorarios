@@ -59,7 +59,23 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
 
     The output should be the path to the `glpsol` executable.
 
-5. Create the database.
+5. **Install IPOPT solver**
+
+    Mac:
+
+    ```shell
+    brew install ipopt
+    ```
+
+    After the installation, verify that the solver is correctly installed and accessible by running the following command:
+
+    ```shell
+    which ipopt
+    ```
+
+    The output should be the path to the `ipopt` executable.
+
+6. Create the database.
 
    There are three alternatives to create the database: creating an empty database, create an database with dummy data or restore a database backup. The scripts to perform these actions are located in the `db` directory, and are, respectively, `create-empty-db.sh`, `create-full-test-db.sh` and `restore-db-backup.sh`.
 
@@ -88,7 +104,7 @@ The project must be run using [Python 3.11.3](https://www.python.org/downloads/r
    ```
    The decompression tool used is 7-Zip, but any other tool can be used, replacing the path on the command accordingly.
 
-6. Run the server. In the `backend` directory, run the following command:
+7. Run the server. In the `backend` directory, run the following command:
 
    ```shell
    uvicorn src.main:app --reload --host 0.0.0.0 --port 8003

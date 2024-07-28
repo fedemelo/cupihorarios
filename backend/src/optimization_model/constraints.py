@@ -7,19 +7,12 @@ from pyomo.environ import (
 )
 
 
-# The model aims for each assistant to have an assigned number of hours as
-# proportional as possible to the number of hours they were hired for in
-# relation to the total number of hours available.
-# The margin of error below may need to be adjusted depending on the assistants' availabilities.
-PROPORTIONAL_HIRED_HOURS_MARGIN = 1.
-
-
-def add_constraints_to_model(db: Session, model: ConcreteModel) -> None:
+def add_constraints_to_model(db: Session, model: ConcreteModel, hired_hours_margin: float) -> None:
     _add_constraint_each_time_slot_has_one_primary_and_one_secondary_assistant(
         db, model)
     _add_constraint_to_assign_only_if_available(db, model)
     _add_constraint_no_assistant_is_omnipresent(db, model)
-    _add_constraint_respect_contract_hours(db, model)
+    _add_constraint_respect_contract_hours(db, model, hired_hours_margin)
 
 
 def _add_constraint_each_time_slot_has_one_primary_and_one_secondary_assistant(db: Session, model: ConcreteModel) -> None:
@@ -42,9 +35,12 @@ def _add_constraint_each_time_slot_has_one_primary_and_one_secondary_assistant(d
                           getattr(model,
                                   f'{slot_type}_{assistant}')[time_slot]
                           for assistant in assistants_codes
-                      ) + getattr(model, f'no_assistant_is_available_{type}')[time_slot]
-                      + (getattr(model, f'one_assistant_is_available_{type}')[
-                         time_slot] if slot_type == 'secondary' else 0)
+                      )
+                      + getattr(model,
+                                f'no_assistant_is_available_{type}')[time_slot]
+                      + (getattr(model,
+                                 f'one_assistant_is_available_{type}')[time_slot]
+                         if slot_type == 'secondary' else 0)
                       == 1
                       )
             )
@@ -90,14 +86,18 @@ def _add_constraint_no_assistant_is_omnipresent(db: Session, model: ConcreteMode
         )
 
 
-def _add_constraint_respect_contract_hours(db: Session, model: ConcreteModel) -> None:
+def _add_constraint_respect_contract_hours(db: Session, model: ConcreteModel, hired_hours_margin) -> None:
     """
-    Adds constraints to the model to ensure that each assistant works the number of hours they were hired for, 
+    Adds constraints to the model to (try to) ensure that each assistant works the number of hours they were hired for,
     in proportion to the total number of hours the center will operate.
+
+    The `hired_hours_margin` parameter is a margin of error to account for the assistants' availabilities.
+    I.e., depending on the configuration of the availabilities, the model may not be able to respect proportionality
+          and ensure that each assistant works exactly the number of hours they were hired for.
     """
     contract_hour_bounds = {
-        'max_hours': lambda total_hours, hired_hrs: total_hours <= hired_hrs + PROPORTIONAL_HIRED_HOURS_MARGIN,
-        'min_hours': lambda total_hours, hired_hrs: total_hours >= hired_hrs - PROPORTIONAL_HIRED_HOURS_MARGIN
+        'max_hours': lambda total_hours, hired_hrs: total_hours <= hired_hrs + hired_hours_margin,
+        'min_hours': lambda total_hours, hired_hrs: total_hours >= hired_hrs - hired_hours_margin
     }
 
     for assistant_code in get_assistants_codes(db):
