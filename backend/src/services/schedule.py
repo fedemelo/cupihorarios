@@ -8,7 +8,8 @@ from uuid import UUID, uuid4
 def create_schedule(db: Session, schedule: ScheduleCreate) -> Schedule:
     db_schedule = Schedule(
         **schedule.model_dump(exclude_none=True), id=uuid4())
-    generate_scheduled_slots_based_on_availability(db)
+    db_schedule.scheduled_slots = generate_scheduled_slots_based_on_availability(
+        db, db_schedule)
     db.add(db_schedule)
     db.commit()
     db.refresh(db_schedule)

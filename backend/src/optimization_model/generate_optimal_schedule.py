@@ -1,3 +1,4 @@
+from src.models.schedule import Schedule
 from .constraints import add_constraints_to_model
 from .params import add_parameters_to_model
 from .utils import get_assistants_codes
@@ -18,7 +19,7 @@ from pyomo.opt import SolverFactory
 model = ConcreteModel()
 
 
-def generate_scheduled_slots_based_on_availability(db: Session) -> List[ScheduledSlot]:
+def generate_scheduled_slots_based_on_availability(db: Session, schedule: Schedule) -> List[ScheduledSlot]:
     """
     Uses a Pyomo optimization model to generate an optimal schedule based on assistant availability.
 
@@ -36,14 +37,24 @@ def generate_scheduled_slots_based_on_availability(db: Session) -> List[Schedule
 
     SolverFactory("glpk").solve(model, tee=True)
 
-    assistants_codes = get_assistants_codes(db)
-    with open('funciona_endpoints.txt', 'w') as f:
-        for h in model.time_slots:
-            primary_str = ''.join(f'P: {assistant} ' if getattr(model, f'primary_{assistant}')[
-                h].value else '' for assistant in assistants_codes)
-            secondary_str = ''.join(f'S: {assistant} ' if getattr(model, f'secondary_{assistant}')[
-                                    h].value else '' for assistant in assistants_codes)
-            f.write(f'{h}: {primary_str}{secondary_str}\n')
+    return create_scheduled_slots_from_model(db, model, schedule)
+
+
+def create_scheduled_slots_from_model(db: Session, model: ConcreteModel, schedule: Schedule) -> List[ScheduledSlot]:
+    """
+    Creates ScheduledSlot objects from the solved Pyomo optimization model.
+    """
+    scheduled_slots = []
+    for time_slot in model.time_slots:
+        for assistant_code in get_assistants_codes(db):
+            for type in ['primary', 'secondary']:
+                if getattr(model, f'{type}_{assistant_code}')[time_slot].value:
+                    scheduled_slots.append(ScheduledSlot(
+                        schedule_id=schedule.id,
+                        is_remote=True if type == 'secondary' else False,
+                        assistant_availability_id=f"{assistant_code}: {time_slot}"
+                    ))
+    return scheduled_slots
 
 
 def add_variables_for_assistants(db: Session, model: ConcreteModel) -> None:
