@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Button } from '@mui/material';
 import { PersonPinCircle, Laptop } from '@mui/icons-material';
 import { fetchTimeSlots, TimeSlot } from '../requests/fetchUtils';
 import { postAssistantAvailability, Availability } from '../requests/postUtils';
+import { fetchAssistantAvailability } from '../requests/fetchUtils';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
@@ -16,13 +17,33 @@ const ScheduleSelector = () => {
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchTimeSlots().then((slots) => setTimeSlots(slots));
+    fetchAssistantAvailability(202021525).then((availability: any) => {
+      const formattedAvailability = availability.map((item: any) => ({
+        id: item.time_slot.id,
+        local: !item.remote_only,
+        remote: true,
+      }));
+      setSelectedSlots(formattedAvailability);
+    });
   }, []);
 
-  const handleButtonGroupChange = (event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
+
+  const handleButtonGroupChange = (_event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
     setSelectedSlots((prev) => {
       const existingSlot = prev.find((slot) => slot.id === slotId);
+      const localSelected = newSelection.includes('local');
+      const remoteSelected = newSelection.includes('remote');
+
+      if (localSelected && !remoteSelected) {
+        newSelection = ['local', 'remote'];
+      }
+
+      if (existingSlot && existingSlot.local && existingSlot.remote && !remoteSelected) {
+        newSelection = [];
+      }
+
       if (existingSlot) {
         return prev.map((slot) =>
           slot.id === slotId
@@ -46,7 +67,8 @@ const ScheduleSelector = () => {
     });
   };
 
-  const getTimeSlotLabel = (slot: any) => {
+
+  const getTimeSlotLabel = (slot: TimeSlot) => {
     return `${slot.start_hour.toString().padStart(4, '0').slice(0, 2)}:${slot.start_hour
       .toString()
       .padStart(4, '0')

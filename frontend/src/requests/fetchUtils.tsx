@@ -19,3 +19,19 @@ export const fetchTimeSlots = async (): Promise<TimeSlot[]> => {
       return [];
   }
 };
+
+
+export const fetchAssistantAvailability = async (assistantCode: number): Promise<any> => {
+  try {
+      const response = await fetch(`http://localhost:8003/v1.0/assistant-availability/assistant/${assistantCode}`);
+      if (response.ok) {
+          return await response.json();
+      } else {
+          console.error(`Error fetching assistant availability: ${response.status}`);
+          return [];
+      }
+  } catch (error) {
+      console.error(`Error fetching assistant availability: ${(error as Error).message}`);
+      return [];
+  }
+}
