@@ -11,6 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { AccountInfo, IPublicClientApplication } from "@azure/msal-browser";
 import { useMsal } from "@azure/msal-react";
+import { Link } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
 
 interface MenuAppBarProps {
   user: AccountInfo;
@@ -35,6 +36,7 @@ export default function MenuAppBar({
   function handleLogout() {
     logout(instance);
   }
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -54,8 +56,8 @@ export default function MenuAppBar({
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link} // Usa el componente Link de react-router-dom
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -69,20 +71,29 @@ export default function MenuAppBar({
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link} // Usa el componente Link de react-router-dom
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-
               color: "inherit",
               textDecoration: "none",
             }}
           >
             CupiHorarios
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }} />
+
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ display: 'flex', gap: '1rem' }}>
+              <Typography component={Link} to="/schedule" sx={{ color: 'inherit', textDecoration: 'none' }}>
+                Horario
+              </Typography>
+              <Typography component={Link} to="/" sx={{ color: 'inherit', textDecoration: 'none' }}>
+                Disponibilidad
+              </Typography>
+            </Box>
+          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Box
@@ -135,7 +146,6 @@ export default function MenuAppBar({
                     if (setAdminView) {
                       setAdminView((prev) => !prev);
                     }
-
                     handleCloseUserMenu();
                   }}
                 >
