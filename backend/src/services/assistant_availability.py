@@ -23,12 +23,7 @@ def _build_assistant_availability_id(assistant_code: int, time_slot_id: str) -> 
 
 
 def create_many_assistant_availabilities(db: Session, assistant_availabilities: list[AssistantAvailabilityCreate]) -> List[AssistantAvailability]:
-    db_availabilities = [AssistantAvailability(
-        **availability.model_dump(exclude_none=True)) for availability in assistant_availabilities]
-    db.add_all(db_availabilities)
-    db.commit()
-    db.refresh(db_availabilities)
-    return db_availabilities
+    return list(map(lambda assistant_availability: create_assistant_availability(db, assistant_availability), assistant_availabilities))
 
 
 def get_assistant_availability_by_id(db: Session, assistant_availability_id: UUID) -> AssistantAvailability:
