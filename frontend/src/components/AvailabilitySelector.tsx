@@ -5,29 +5,44 @@ import { fetchTimeSlots, TimeSlot } from '../requests/fetchUtils';
 import { postAssistantAvailability, Availability } from '../requests/postUtils';
 import { fetchAssistantAvailability } from '../requests/fetchUtils';
 
-const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
 interface SlotAvailability {
   id: string;
   local: boolean;
   remote: boolean;
 }
 
-const ScheduleSelector = () => {
+interface AvailabilitySelectorProps {
+  assistantCode: number;
+  isAdmin: boolean;
+  adminView: boolean;
+}
+
+
+const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: AvailabilitySelectorProps) => {
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
   useEffect(() => {
     fetchTimeSlots().then((slots) => setTimeSlots(slots));
-    fetchAssistantAvailability(202021525).then((availability: any) => {
-      const formattedAvailability = availability.map((item: any) => ({
+    interface AvailabilityData {
+      time_slot: {
+        id: string;
+      };
+      remote_only: boolean;
+    }
+
+    fetchAssistantAvailability(assistantCode).then((availability: AvailabilityData[]) => {
+
+      const formattedAvailability = availability.map((item: AvailabilityData) => ({
         id: item.time_slot.id,
         local: !item.remote_only,
         remote: true,
       }));
       setSelectedSlots(formattedAvailability);
     });
-  }, []);
+  }, [assistantCode]);
 
 
   const handleButtonGroupChange = (_event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
@@ -85,7 +100,7 @@ const ScheduleSelector = () => {
       const timeSlot = timeSlots.find((ts) => ts.id === slot.id);
       const timeSlotLabel = timeSlot ? `${timeSlot.day}, ${getTimeSlotLabel(timeSlot)}` : '';
       return slot.local || slot.remote
-        ? [{ assistant_code: 202021525, remote_only: !slot.local, time_slot_id: timeSlotLabel }]
+        ? [{ assistant_code: assistantCode, remote_only: !slot.local, time_slot_id: timeSlotLabel }]
         : [];
     });
 
@@ -159,4 +174,4 @@ const ScheduleSelector = () => {
   );
 };
 
-export default ScheduleSelector;
+export default AvailabilitySelector;
