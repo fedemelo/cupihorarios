@@ -3,27 +3,22 @@ import pandas as pd
 from datetime import datetime
 
 
-def display_schedule_table(schedule, horarios, dias):
-    # Extract the scheduled slots
-    scheduled_slots = schedule['scheduled_slots'] 
-    
-    # Create a list of rows to display in the table
+def extract_scheduled_slots(schedule):
+    return schedule['scheduled_slots']
+
+
+def create_schedule_rows(scheduled_slots, horarios, dias):
     rows = []
-    
-    # Iterate over the schedule and add each two entries as a row
     for i in range(0, len(scheduled_slots), 2):
         entry1 = scheduled_slots[i]
         entry2 = scheduled_slots[i + 1]
         
-        # Get the assistant nicknames
         assistant1 = entry1['assistant_availability']["assistant"]["nickname"]
         assistant2 = entry2['assistant_availability']["assistant"]["nickname"]
         
-        # Calculate the time slot and day
         time_slot = horarios[i // 2 % len(horarios)]
         day = dias[i // 2 % len(dias)]
         
-        # Add the row to the list
         rows.append({
             'Day': day,
             'Time_Slot': time_slot,
@@ -31,23 +26,32 @@ def display_schedule_table(schedule, horarios, dias):
             'Remoto': f'R: {assistant2}',
             'Start_Time': entry1['assistant_availability']['time_slot']['start_hour']
         })
-    
-    # Create a DataFrame from the rows
-    df = pd.DataFrame(rows)
+    return rows
 
-    # Sort the DataFrame by 'Time Slot' and 'Day'
+
+def create_schedule_dataframe(rows, dias):
+    df = pd.DataFrame(rows)
     df['Day'] = pd.Categorical(df['Day'], categories=dias, ordered=True)
     df.sort_values(by=['Day', 'Time_Slot'], inplace=True)
-    # Drop the intermediate 'Time Slot' column and keep the combined names
     df['Combined'] = df['Presencial'] + ' \n ' + df['Remoto']
     df.drop(columns=['Presencial', 'Remoto'], inplace=True)
-    
-    # Pivot the DataFrame to create a matrix with days as columns and time slots as rows
+    return df
+
+
+def create_pivot_table(df):
     pivot_df = df.pivot(index='Time_Slot', columns='Day', values='Combined')
-    
-    # Render the pivot table in Streamlit
+    return pivot_df
+
+
+def render_schedule_table(pivot_df):
     st.write("### Schedule Matrix")
     st.dataframe(pivot_df)
-
-    # Optionally, convert it to HTML and return if needed
     return pivot_df.to_html()
+
+
+def display_schedule_table(schedule, horarios, dias):
+    scheduled_slots = extract_scheduled_slots(schedule)
+    rows = create_schedule_rows(scheduled_slots, horarios, dias)
+    df = create_schedule_dataframe(rows, dias)
+    pivot_df = create_pivot_table(df)
+    return render_schedule_table(pivot_df)
