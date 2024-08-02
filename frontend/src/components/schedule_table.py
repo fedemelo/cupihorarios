@@ -36,7 +36,7 @@ def display_schedule_table(schedule, horarios, dias):
     df = pd.DataFrame(rows)
 
     # Sort the DataFrame by 'Time Slot' and 'Day'
-    df['Day'] = pd.Categorical(df['Day'], categories=['MONDAY', 'TUESDAY', 'WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY'], ordered=True)
+    df['Day'] = pd.Categorical(df['Day'], categories=dias, ordered=True)
     df.sort_values(by=['Day', 'Time_Slot'], inplace=True)
     # Drop the intermediate 'Time Slot' column and keep the combined names
     df['Combined'] = df['Presencial'] + ' \n ' + df['Remoto']

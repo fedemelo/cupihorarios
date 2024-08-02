@@ -4,14 +4,14 @@
       "R": "Remoto"
     },
     "dias": [
-      "MONDAY", 
-      "TUESDAY",
-      "WEDNESDAY", 
-      "THURSDAY", 
-      "FRIDAY"
+      "Monday", 
+      "Tuesday",
+      "Wednesday", 
+      "Thursday", 
+      "Friday"
     ],
     "horarios": [
-      "8:00 - 9:00", 
+      "8:00 - 9:00",
       "9:00 - 9:30",
       "9:30 - 10:30", 
       "10:30 - 11:00",

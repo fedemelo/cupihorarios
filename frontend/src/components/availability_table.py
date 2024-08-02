@@ -12,7 +12,10 @@ def display_availability_table(asistentes, selected_times, dias, horarios, llave
     selected_assistant_name = st.selectbox("Selecciona un asistente:", nombres_asistentes)
     
     # Find the selected assistant
-    selected_assistant = next((asistente for asistente in asistentes if f"{asistente['first_names']} {asistente['last_names']}" == selected_assistant_name), None)
+    selected_assistant = next((asistente for asistente 
+                               in asistentes 
+                               if f"{asistente['first_names']} {asistente['last_names']}" == selected_assistant_name)
+                               , None)
     
     # Update session state if the selected assistant has changed
     if selected_assistant and st.session_state.selected_assistant != selected_assistant['code']:
@@ -21,7 +24,10 @@ def display_availability_table(asistentes, selected_times, dias, horarios, llave
 
     # Initialize the matrix if it's not in session state
     if 'availability_matrix' not in st.session_state or st.session_state.availability_matrix is None:
-        st.session_state.availability_matrix = {day: {hour: [False, False] for hour in horarios} for day in dias}
+        st.session_state.availability_matrix = {day: 
+                                                    {hour: [False, False] 
+                                                    for hour in horarios} 
+                                                for day in dias}
     
     # Fetch availability and time slots if the assistant is selected
     if selected_assistant:

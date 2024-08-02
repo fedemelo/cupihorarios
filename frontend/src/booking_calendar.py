@@ -42,14 +42,6 @@ st.markdown("<h1 class='title'>Cupi-horarios</h1>", unsafe_allow_html=True)
 
 selected_tab = display_option_menu()
 
-
-print(assistants)
-print(selected_times)
-print(dias)
-print(horarios)
-print(llaves_turno)
-print(selected_tab)
-
 if selected_tab == "Horario":
     display_schedule_table(schedule, horarios, dias)
 elif selected_tab == "Disponibilidad":
@@ -61,14 +53,15 @@ st.markdown("<div style='text-align: center; margin-top: 20px;'>",
 if st.button("Guardar"):
     st.markdown(
         f"<h2 class='subtitle'>Seleccionaste las siguientes franjas horarias para {selected_tab}:</h2>", unsafe_allow_html=True)
-    if selected_tab == "Horario":
+    if selected_tab == "Horario":  # Genera un nuevo
         for day, times in selected_times[selected_tab].items():
-            selected_slots = [f"{time}: {', '.join(t)}" for time, t in times.items() if any(
-                x != 'N' for x in t)]
+            selected_slots = [f"{time}: {', '.join(t)}" 
+                              for time, t in times.items() 
+                              if any(x != 'N' for x in t)]
             if selected_slots:
                 st.markdown(
                     f"<p class='text'><strong>{day}:</strong> {', '.join(selected_slots)}</p>", unsafe_allow_html=True)
-    elif selected_tab == "Disponibilidad":
+    elif selected_tab == "Disponibilidad":  # Guarda la dispo de un asis
         for day, times in selected_times[selected_tab].items():
             for time, modes in times.items():
                 selected_modes = [mode for mode,
