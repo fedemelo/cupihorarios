@@ -1,5 +1,5 @@
 import { Copyright } from "../../components/Copyright";
-import { Box } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import MenuAppBar from "../../components/MenuAppBar";
 import { useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
@@ -46,7 +46,13 @@ export default function MainPage() {
     <>
       <MenuAppBar user={user} isAdmin={isAdmin} setAdminView={setAdminView} />
       <Box>
-        {schedule && <ScheduleTable schedule={schedule} />}
+        {schedule ? <ScheduleTable schedule={schedule} /> :
+          <Container>
+            <Typography variant="h4" align="center" marginBlock={5}>
+              Aún faltan asistentes por llenar su disponibilidad. Una vez todos la hayan llenado, se podrá ver el horario oficial.
+            </Typography>
+          </Container>}
+
       </Box>
       <Copyright />
     </>

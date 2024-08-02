@@ -150,7 +150,7 @@ export default function MenuAppBar({
                   }}
                 >
                   <Typography textAlign="center">
-                    Cambiar de rol administrador / tutor
+                    Cambiar de rol administrador / asistente
                   </Typography>
                 </MenuItem>
               )}
