@@ -18,15 +18,24 @@ interface AvailabilitySelectorProps {
   adminView: boolean;
 }
 
-
 const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: AvailabilitySelectorProps) => {
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  // Mapping of English days to Spanish days
+  const dayTranslationMap: { [key: string]: string } = {
+    'Monday': 'Lunes',
+    'Tuesday': 'Martes',
+    'Wednesday': 'Miércoles',
+    'Thursday': 'Jueves',
+    'Friday': 'Viernes',
+  };
+
+  const themeColor = '#465157'; // Color del título
 
   useEffect(() => {
     fetchTimeSlots().then((slots) => setTimeSlots(slots));
+
     interface AvailabilityData {
       time_slot: {
         id: string;
@@ -35,7 +44,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
     }
 
     fetchAssistantAvailability(assistantCode).then((availability: AvailabilityData[]) => {
-
       const formattedAvailability = availability.map((item: AvailabilityData) => ({
         id: item.time_slot.id,
         local: !item.remote_only,
@@ -44,7 +52,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
       setSelectedSlots(formattedAvailability);
     });
   }, [assistantCode]);
-
 
   const handleButtonGroupChange = (_event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
     setSelectedSlots((prev) => {
@@ -64,10 +71,10 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
         return prev.map((slot) =>
           slot.id === slotId
             ? {
-              ...slot,
-              local: newSelection.includes('local'),
-              remote: newSelection.includes('remote'),
-            }
+                ...slot,
+                local: newSelection.includes('local'),
+                remote: newSelection.includes('remote'),
+              }
             : slot
         );
       } else {
@@ -82,7 +89,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
       }
     });
   };
-
 
   const getTimeSlotLabel = (slot: TimeSlot) => {
     return `${slot.start_hour.toString().padStart(4, '0').slice(0, 2)}:${slot.start_hour
@@ -99,7 +105,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
   const handleSave = () => {
     const availabilities: Availability[] = selectedSlots.flatMap((slot) => {
       const timeSlot = timeSlots.find((ts) => ts.id === slot.id);
-      const timeSlotLabel = timeSlot ? `${timeSlot.day}, ${getTimeSlotLabel(timeSlot)}` : '';
+      const timeSlotLabel = timeSlot ? `${dayTranslationMap[timeSlot.day]}, ${getTimeSlotLabel(timeSlot)}` : '';
       return slot.local || slot.remote
         ? [{ assistant_code: assistantCode, remote_only: !slot.local, time_slot_id: timeSlotLabel }]
         : [];
@@ -110,24 +116,35 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Selecciona tu disponibilidad
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '5rem' }}>
+        <Typography 
+          variant="h4" 
+          gutterBottom 
+          sx={{
+            fontWeight: 'bold', 
+            textAlign: 'center', 
+            color: (theme) => theme.palette.secondary.main, 
+            marginBottom: 6 // Ajustar el margen inferior del título
+          }}
+        >
+          Disponibilidad
+        </Typography>
+      </Box>
       <Grid container spacing={1}>
         <Grid item xs={2}>
           <Box>
-            <Typography variant="h6">Time</Typography>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>Horario</Typography>
             {uniqueTimes.map((time, index) => (
               <Box key={index} sx={{ height: '50px', display: 'flex', alignItems: 'center' }}>
-                <Typography>{time}</Typography>
+                <Typography variant="body1">{time}</Typography>
               </Box>
             ))}
           </Box>
         </Grid>
-        {daysOfWeek.map((day) => (
+        {Object.keys(dayTranslationMap).map((day) => (
           <Grid item xs key={day}>
             <Box>
-              <Typography variant="h6">{day}</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>{dayTranslationMap[day]}</Typography>
               {uniqueTimes.map((time, index) => {
                 const slot = timeSlots.find(
                   (slot) => getTimeSlotLabel(slot) === time && slot.day === day
@@ -140,9 +157,9 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
                         value={
                           selectedSlot
                             ? [
-                              ...(selectedSlot.local ? ['local'] : []),
-                              ...(selectedSlot.remote ? ['remote'] : []),
-                            ]
+                                ...(selectedSlot.local ? ['local'] : []),
+                                ...(selectedSlot.remote ? ['remote'] : []),
+                              ]
                             : []
                         }
                         onChange={(event, newSelection) =>
@@ -151,10 +168,30 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
                         aria-label="availability"
                         sx={{ width: '100%' }}
                       >
-                        <ToggleButton value="local" aria-label="local availability">
+                        <ToggleButton
+                          value="local"
+                          aria-label="local availability"
+                          sx={{
+                            backgroundColor: selectedSlot?.local ? '#b8b8ff' : 'transparent',
+                            '&.Mui-selected': {
+                              backgroundColor: (theme) => theme.palette.secondary.main,
+                              color: '#fff'
+                            }
+                          }}
+                        >
                           <PersonPinCircle />
                         </ToggleButton>
-                        <ToggleButton value="remote" aria-label="remote availability">
+                        <ToggleButton
+                          value="remote"
+                          aria-label="remote availability"
+                          sx={{
+                            backgroundColor: selectedSlot?.remote ? '#b8b8ff' : 'transparent',
+                            '&.Mui-selected': {
+                              backgroundColor: themeColor,
+                              color: '#fff'
+                            }
+                          }}
+                        >
                           <Laptop />
                         </ToggleButton>
                       </ToggleButtonGroup>
@@ -166,9 +203,9 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ marginTop: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5, marginBottom: 2 }}>
         <Button variant="contained" color="primary" onClick={handleSave}>
-          Save
+          Guardar
         </Button>
       </Box>
     </Container>
