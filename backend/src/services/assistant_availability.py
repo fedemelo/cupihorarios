@@ -61,6 +61,12 @@ def delete_assistant_availability(db: Session, assistant_availability_id: UUID) 
     return {"message": "Assistant availability deleted successfully"}
 
 
+def delete_an_assistants_availabilities(db: Session, assistant_code: int) -> dict:
+    db.query(AssistantAvailability).filter(AssistantAvailability.assistant_code == assistant_code).delete()
+    db.commit()
+    return {"message": "Assistant availabilities deleted successfully"}
+
+
 def delete_all_assistant_availabilities(db: Session) -> dict:
     db.query(AssistantAvailability).delete()
     db.commit()

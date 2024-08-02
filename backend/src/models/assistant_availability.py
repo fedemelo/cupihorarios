@@ -12,8 +12,7 @@ class AssistantAvailability(Base):
     id = Column(String, primary_key=True)
     assistant_code = Column(Integer, ForeignKey(
         'assistants.code'), nullable=False)
-    time_slot_id = Column(String, ForeignKey(
-        'time_slots.id'), nullable=False)
+    time_slot_id = Column(String, ForeignKey('time_slots.id', ondelete='CASCADE'), nullable=False)
     remote_only = Column(Boolean, nullable=False)
 
     assistant = relationship(
