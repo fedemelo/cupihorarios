@@ -10,7 +10,9 @@ import {
   Paper,
   Container,
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
+  Box,
+  Typography
 } from '@mui/material';
 import PersonPinCircle from '@mui/icons-material/PersonPinCircle';
 
@@ -57,6 +59,20 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
 
   return (
     <Container sx={{ padding: '16px', maxWidth: '1200px', margin: 'auto' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '5rem' }}>
+        <Typography 
+          variant="h4" 
+          gutterBottom 
+          sx={{
+            fontWeight: 'bold', 
+            textAlign: 'center', 
+            color: (theme) => theme.palette.secondary.main, 
+            marginBottom: 6 // Ajustar el margen inferior del título
+          }}
+        >
+          Horario Asistentes 2024-2
+        </Typography>
+      </Box>
       <TableContainer component={Paper} sx={{ padding: '16px', backgroundColor: '#f9f9f9' }}> {/* Background color for table */}
         <Table>
           <TableHead>
