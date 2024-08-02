@@ -22,7 +22,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 
-  // Mapping of English days to Spanish days
   const dayTranslationMap: { [key: string]: string } = {
     'Monday': 'Lunes',
     'Tuesday': 'Martes',
@@ -31,7 +30,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
     'Friday': 'Viernes',
   };
 
-  const themeColor = '#465157'; // Color del título
+  const themeColor = '#465157';
 
   useEffect(() => {
     fetchTimeSlots().then((slots) => setTimeSlots(slots));
@@ -105,7 +104,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
   const handleSave = () => {
     const availabilities: Availability[] = selectedSlots.flatMap((slot) => {
       const timeSlot = timeSlots.find((ts) => ts.id === slot.id);
-      const timeSlotLabel = timeSlot ? `${dayTranslationMap[timeSlot.day]}, ${getTimeSlotLabel(timeSlot)}` : '';
+      const timeSlotLabel = timeSlot ? `${timeSlot.day}, ${getTimeSlotLabel(timeSlot)}` : '';
       return slot.local || slot.remote
         ? [{ assistant_code: assistantCode, remote_only: !slot.local, time_slot_id: timeSlotLabel }]
         : [];
@@ -116,18 +115,19 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
 
   return (
     <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '5rem' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', gap: 1, marginBlock: 2}}>
         <Typography 
           variant="h4" 
-          gutterBottom 
           sx={{
             fontWeight: 'bold', 
             textAlign: 'center', 
             color: (theme) => theme.palette.secondary.main, 
-            marginBottom: 6 // Ajustar el margen inferior del título
           }}
         >
           Disponibilidad
+        </Typography>
+        <Typography>
+          Por favor, ingresa tu disponibilidad horaria para todo el semestre. En cada franja horaria, selecciona si tienes disponibilidad tanto presencial como remota o únicamente remota. Al terminar, asegúrate de pulsar el botón "Guardar" en la parte inferior.
         </Typography>
       </Box>
       <Grid container spacing={1}>
@@ -204,7 +204,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
         ))}
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5, marginBottom: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <Button variant="contained" color="primary" onClick={handleSave} size='large'>
           Guardar
         </Button>
       </Box>
