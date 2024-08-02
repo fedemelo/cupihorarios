@@ -19,12 +19,10 @@ const deleteAssistantAvailability = async (assistant_code: number) => {
 
 
 export const postAssistantAvailability = async (availabilities: Availability[]) => {
-  const assistantCode = availabilities[0].assistant_code; // Assuming all availabilities have the same assistant code
+  const assistantCode = availabilities[0].assistant_code;
   try {
-    // First, delete the existing availability for the assistant
     await deleteAssistantAvailability(assistantCode);
     
-    // Then, post the new availabilities
     const response = await axiosInstance.post('/assistant-availability/many', availabilities);
     console.log('Post Response:', response.data);
     return response.data;

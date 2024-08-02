@@ -22,7 +22,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 
-  // Mapping of English days to Spanish days
   const dayTranslationMap: { [key: string]: string } = {
     'Monday': 'Lunes',
     'Tuesday': 'Martes',
@@ -31,7 +30,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
     'Friday': 'Viernes',
   };
 
-  const themeColor = '#465157'; // Color del título
+  const themeColor = '#465157';
 
   useEffect(() => {
     fetchTimeSlots().then((slots) => setTimeSlots(slots));
@@ -105,7 +104,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
   const handleSave = () => {
     const availabilities: Availability[] = selectedSlots.flatMap((slot) => {
       const timeSlot = timeSlots.find((ts) => ts.id === slot.id);
-      const timeSlotLabel = timeSlot ? `${dayTranslationMap[timeSlot.day]}, ${getTimeSlotLabel(timeSlot)}` : '';
+      const timeSlotLabel = timeSlot ? `${timeSlot.day}, ${getTimeSlotLabel(timeSlot)}` : '';
       return slot.local || slot.remote
         ? [{ assistant_code: assistantCode, remote_only: !slot.local, time_slot_id: timeSlotLabel }]
         : [];
