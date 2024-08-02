@@ -1,11 +1,12 @@
 import { Copyright } from "../../components/Copyright";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import MenuAppBar from "../../components/MenuAppBar";
 import { useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
-import UnauthorizedView from "../../components/UnauthorizedView";
 import AvailabilitySelector from "../../components/AvailabilitySelector";
 import { fetchIsAuthorized } from "../../requests/fetchUtils";
+import LoadingScreen from "../../components/LoadingScreen";
+import UnauthorizedScreen from "../../components/UnauthorizedScreen";
 
 export default function MainPage() {
   const { accounts } = useMsal();
@@ -24,31 +25,11 @@ export default function MainPage() {
 
 
   if (loading) {
-    return (
-      <>
-        <MenuAppBar user={user} isAdmin={isAdmin} />
-        <Box
-          display={"flex"}
-          width={"100vw"}
-          height={"90vh"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <CircularProgress />
-        </Box>
-      </>
-    );
+    return <LoadingScreen user={user} isAdmin={isAdmin} />;
   }
 
   if (!isAuthorized) {
-    return (
-      <>
-        <MenuAppBar user={user} isAdmin={isAdmin} />
-        <Box display={"flex"}>
-          <UnauthorizedView />
-        </Box>
-      </>
-    );
+    return <UnauthorizedScreen user={user} isAdmin={isAdmin} />;
   }
 
   return (

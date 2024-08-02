@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Button } from '@mui/material';
 import { PersonPinCircle, Laptop } from '@mui/icons-material';
-import { fetchTimeSlots, TimeSlot } from '../requests/fetchUtils';
+import { fetchTimeSlots } from '../requests/fetchUtils';
 import { postAssistantAvailability, Availability } from '../requests/postUtils';
 import { fetchAssistantAvailability } from '../requests/fetchUtils';
+import { TimeSlot } from '../types';
 
 interface SlotAvailability {
   id: string;

@@ -1,11 +1,5 @@
 import axios from 'axios';
-
-export interface TimeSlot {
-  start_hour: number;
-  end_hour: number;
-  day: string;
-  id: string;
-}
+import { TimeSlot, Schedule } from '../types';
 
 const BASE_URL = import.meta.env.VITE_BACK_URL;
 
@@ -58,3 +52,19 @@ export const fetchIsAuthorized = async (assistantLogin: string, setIsAuthorized:
     setLoading(false);
   }
 };
+
+
+export const fetchOfficialSchedule = async (): Promise<Schedule> => {
+  try {
+    const response = await axiosInstance.get('/official_schedule');
+    return response.data;
+  } catch (error: any) {
+    console.error(`Error fetching official schedule: ${error.response ? error.response.status : error.message}`);
+    return {
+      name: '',
+      id: '',
+      is_official: false,
+      scheduled_slots: [],
+    };
+  }
+}
