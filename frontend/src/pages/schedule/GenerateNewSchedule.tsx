@@ -35,7 +35,7 @@ export default function GenerateNewSchedule() {
 
   return (
     <>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen} sx={{ textTransform: 'none' }}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen} sx={{ textTransform: 'none' }}>
         Generar Nuevo Horario
       </Button>
       <Dialog open={open} onClose={handleClose}>

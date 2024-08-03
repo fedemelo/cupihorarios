@@ -28,7 +28,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   const [adminView, setAdminView] = useState(false);
 
   useEffect(() => {
-    fetchIsAuthorized(assistantLogin, setIsAuthorized, setAssistantCode, setIsAdmin, setLoading);
+    fetchIsAuthorized(assistantLogin, setIsAuthorized, setAssistantCode, setIsAdmin, setAdminView, setLoading);
   }, [assistantLogin]);
 
   if (loading) {

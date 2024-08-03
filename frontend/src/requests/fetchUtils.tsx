@@ -1,4 +1,4 @@
-import {axiosInstance} from './axiosInstanciator';
+import { axiosInstance } from './axiosInstanciator';
 import { TimeSlot, Schedule } from '../types';
 
 
@@ -29,7 +29,13 @@ export const fetchAssistantAvailability = async (assistantCode: number): Promise
   }
 };
 
-export const fetchIsAuthorized = async (assistantLogin: string, setIsAuthorized: (value: boolean) => void, setAssistantCode: (code: number) => void, setIsAdmin: (value: boolean) => void, setLoading: (value: boolean) => void) => {
+export const fetchIsAuthorized = async (
+  assistantLogin: string,
+  setIsAuthorized: (value: boolean) => void,
+  setAssistantCode: (code: number) => void,
+  setIsAdmin: (value: boolean) => void,
+  setAdminView: (value: boolean) => void,
+  setLoading: (value: boolean) => void) => {
   try {
     const response = await axiosInstance.get(`/assistant/by_login/${assistantLogin}`);
 
@@ -39,6 +45,7 @@ export const fetchIsAuthorized = async (assistantLogin: string, setIsAuthorized:
 
       if (response.data.is_admin) {
         setIsAdmin(true);
+        setAdminView(true);
       }
     }
   } catch (error: any) {

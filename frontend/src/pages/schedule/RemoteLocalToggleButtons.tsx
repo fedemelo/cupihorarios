@@ -1,4 +1,4 @@
-import { ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { ToggleButtonGroup, ToggleButton, useTheme } from '@mui/material';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import { LocationType } from '../../types';
@@ -10,9 +10,12 @@ interface RemoteLocalToggleButtonsProps {
 }
 
 export default function RemoteLocalToggleButtons({ filters, setFilters }: RemoteLocalToggleButtonsProps) {
-  const options: { value: LocationType; label: string; icon: JSX.Element }[] = [
-    { value: 'local', label: 'Presencial', icon: <PersonPinCircleIcon /> },
-    { value: 'remote', label: 'Remoto', icon: <LaptopIcon /> }
+
+  const theme = useTheme();
+
+  const options: { value: LocationType; label: string; icon: JSX.Element; backgroundColor: string }[] = [
+    { value: 'local', label: 'Presencial', icon: <PersonPinCircleIcon />, backgroundColor: theme.palette.secondary.main },
+    { value: 'remote', label: 'Remoto', icon: <LaptopIcon />, backgroundColor: '#465157' }
   ];
   
   return (
@@ -29,7 +32,7 @@ export default function RemoteLocalToggleButtons({ filters, setFilters }: Remote
           sx={{
             backgroundColor: filters.includes(option.value) ? '#b8b8ff' : 'transparent',
             '&.Mui-selected': {
-              backgroundColor: (theme) => theme.palette.primary.main,
+              backgroundColor: option.backgroundColor,
               color: '#fff'
             },
             textTransform: 'none'

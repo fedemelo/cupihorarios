@@ -31,8 +31,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
     'Friday': 'Viernes',
   };
 
-  const themeColor = '#465157';
-
   useEffect(() => {
     fetchTimeSlots().then((slots) => setTimeSlots(slots));
 
@@ -182,7 +180,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
                                 sx={{
                                   backgroundColor: selectedSlot?.remote ? '#b8b8ff' : 'transparent',
                                   '&.Mui-selected': {
-                                    backgroundColor: themeColor,
+                                    backgroundColor: '#465157',
                                     color: '#fff'
                                   }
                                 }}
@@ -199,8 +197,8 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
               ))}
             </Grid>
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5, marginBottom: 2 }}>
-              <Button variant="contained" color="primary" onClick={handleSave} size='large'>
-                Guardar
+              <Button variant="contained" color="primary" onClick={handleSave} size='large' sx={{textTransform: 'none'}}>
+                Guardar Horario
               </Button>
             </Box>
           </CardContent>
