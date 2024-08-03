@@ -31,3 +31,19 @@ export const postAssistantAvailability = async (availabilities: Availability[]) 
     throw error;
   }
 };
+
+
+export const createNewSchedule = async (name: string) => {
+  try {
+    const response = await axiosInstance.post('/schedule/', {
+      is_official: false,
+      name: name,
+    });
+    
+    console.log('Nuevo horario creado:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear un nuevo horario:', error);
+    throw error;
+  }
+};

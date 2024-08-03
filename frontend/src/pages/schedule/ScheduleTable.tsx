@@ -15,12 +15,16 @@ import RemoteLocalToggleButtons from './RemoteLocalToggleButtons';
 import { LocationType } from '../../types';
 import Title from '../../components/Title';
 import DownloadFromExcelButton from './DownloadFromExcelButton';
+import GenerateNewSchedule from './GenerateNewSchedule';
 
 interface ScheduleTableProps {
   schedule: Schedule;
+  assistantCode: number;
+  isAdmin: boolean;
+  adminView: boolean;
 }
 
-export default function ScheduleTable({ schedule }: ScheduleTableProps) {
+export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminView }: ScheduleTableProps) {
   const [filters, setFilters] = useState<(LocationType)[]>(['local', 'remote']);
 
   const timeSlots = Array.from(
@@ -66,6 +70,7 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
         El horario mostrado a continuación es una de las posibles configuraciones óptimas de horarios para los asistentes, que ha sido elegida para ser el horario oficial. Puedes leer los parámetros que se utilizan para generar el horario <a href="/docs">aquí</a>. Si tu disponibilidad cambió posterior a la generación del horario oficial, por favor actualízala en la pestaña de Disponibilidad e infórmalo a través de SMIP. Un administrador generará un nuevo horario basado en esta actualización, lo que probablemente modifique el horario de otros asistentes.
       </Typography>
       <Stack direction="row" spacing={1} justifyContent="space-around">
+        {isAdmin && adminView && <GenerateNewSchedule />}
         <RemoteLocalToggleButtons filters={filters} setFilters={setFilters} />
         <DownloadFromExcelButton scheduleId={schedule.id} />
       </Stack>
