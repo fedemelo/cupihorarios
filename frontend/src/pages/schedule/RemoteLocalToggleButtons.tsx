@@ -31,11 +31,11 @@ export default function RemoteLocalToggleButtons({ filters, setFilters }: Remote
             '&.Mui-selected': {
               backgroundColor: (theme) => theme.palette.primary.main,
               color: '#fff'
-            }
+            },
+            textTransform: 'none'
           }}
         >
-          {option.icon}
-          {option.label}
+          {option.icon}{option.label}
         </ToggleButton>
       ))}
     </ToggleButtonGroup>

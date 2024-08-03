@@ -1,6 +1,7 @@
 import {axiosInstance} from './axiosInstanciator';
 import { TimeSlot, Schedule } from '../types';
 
+
 export const fetchTimeSlots = async (): Promise<TimeSlot[]> => {
   try {
     const response = await axiosInstance.get('/time-slot/');

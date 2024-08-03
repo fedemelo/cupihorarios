@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Button } from '@mui/material';
+import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Button, Stack, Card, CardContent } from '@mui/material';
 import { PersonPinCircle, Laptop } from '@mui/icons-material';
 import { fetchTimeSlots } from '../../requests/fetchUtils';
 import { postAssistantAvailability, Availability } from '../../requests/postUtils';
@@ -71,10 +71,10 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
         return prev.map((slot) =>
           slot.id === slotId
             ? {
-                ...slot,
-                local: newSelection.includes('local'),
-                remote: newSelection.includes('remote'),
-              }
+              ...slot,
+              local: newSelection.includes('local'),
+              remote: newSelection.includes('remote'),
+            }
             : slot
         );
       } else {
@@ -115,93 +115,97 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
   };
 
   return (
-    <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', gap: 1, marginBlock: 2}}>
+    <Container sx={{ padding: '16px', maxWidth: '1200px', margin: 'auto' }}>
+      <Stack spacing={1}>
         <Title>
           Disponibilidad
         </Title>
         <Typography variant="body1" sx={{ textAlign: 'justify' }}>
           Por favor, ingresa tu disponibilidad horaria para todo el semestre. En cada franja horaria, selecciona si tienes disponibilidad tanto presencial como remota o únicamente remota. Al terminar, asegúrate de pulsar el botón "Guardar" en la parte inferior.
         </Typography>
-      </Box>
-      <Grid container spacing={1}>
-        <Grid item xs={2}>
-          <Box>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>Horario</Typography>
-            {uniqueTimes.map((time, index) => (
-              <Box key={index} sx={{ height: '50px', display: 'flex', alignItems: 'center' }}>
-                <Typography variant="body1">{time}</Typography>
-              </Box>
-            ))}
-          </Box>
-        </Grid>
-        {Object.keys(dayTranslationMap).map((day) => (
-          <Grid item xs key={day}>
-            <Box>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>{dayTranslationMap[day]}</Typography>
-              {uniqueTimes.map((time, index) => {
-                const slot = timeSlots.find(
-                  (slot) => getTimeSlotLabel(slot) === time && slot.day === day
-                );
-                const selectedSlot = selectedSlots.find((s) => s.id === slot?.id);
-                return (
-                  <Box key={index} sx={{ height: '50px', display: 'flex', alignItems: 'center' }}>
-                    {slot && (
-                      <ToggleButtonGroup
-                        value={
-                          selectedSlot
-                            ? [
-                                ...(selectedSlot.local ? ['local'] : []),
-                                ...(selectedSlot.remote ? ['remote'] : []),
-                              ]
-                            : []
-                        }
-                        onChange={(event, newSelection) =>
-                          handleButtonGroupChange(event, newSelection, slot.id)
-                        }
-                        aria-label="availability"
-                        sx={{ width: '100%' }}
-                      >
-                        <ToggleButton
-                          value="local"
-                          aria-label="local availability"
-                          sx={{
-                            backgroundColor: selectedSlot?.local ? '#b8b8ff' : 'transparent',
-                            '&.Mui-selected': {
-                              backgroundColor: (theme) => theme.palette.secondary.main,
-                              color: '#fff'
-                            }
-                          }}
-                        >
-                          <PersonPinCircle />
-                        </ToggleButton>
-                        <ToggleButton
-                          value="remote"
-                          aria-label="remote availability"
-                          sx={{
-                            backgroundColor: selectedSlot?.remote ? '#b8b8ff' : 'transparent',
-                            '&.Mui-selected': {
-                              backgroundColor: themeColor,
-                              color: '#fff'
-                            }
-                          }}
-                        >
-                          <Laptop />
-                        </ToggleButton>
-                      </ToggleButtonGroup>
-                    )}
+        <Card>
+          <CardContent sx={{ paddingInline: 4 }} >
+            <Grid container spacing={1}>
+              <Grid item xs={2}>
+                <Box>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>Horario</Typography>
+                  {uniqueTimes.map((time, index) => (
+                    <Box key={index} sx={{ height: '50px', display: 'flex', alignItems: 'center' }}>
+                      <Typography variant="body1">{time}</Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Grid>
+              {Object.keys(dayTranslationMap).map((day) => (
+                <Grid item xs key={day}>
+                  <Box>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>{dayTranslationMap[day]}</Typography>
+                    {uniqueTimes.map((time, index) => {
+                      const slot = timeSlots.find(
+                        (slot) => getTimeSlotLabel(slot) === time && slot.day === day
+                      );
+                      const selectedSlot = selectedSlots.find((s) => s.id === slot?.id);
+                      return (
+                        <Box key={index} sx={{ height: '50px', display: 'flex', alignItems: 'center' }}>
+                          {slot && (
+                            <ToggleButtonGroup
+                              value={
+                                selectedSlot
+                                  ? [
+                                    ...(selectedSlot.local ? ['local'] : []),
+                                    ...(selectedSlot.remote ? ['remote'] : []),
+                                  ]
+                                  : []
+                              }
+                              onChange={(event, newSelection) =>
+                                handleButtonGroupChange(event, newSelection, slot.id)
+                              }
+                              aria-label="availability"
+                              sx={{ width: '100%' }}
+                            >
+                              <ToggleButton
+                                value="local"
+                                aria-label="local availability"
+                                sx={{
+                                  backgroundColor: selectedSlot?.local ? '#b8b8ff' : 'transparent',
+                                  '&.Mui-selected': {
+                                    backgroundColor: (theme) => theme.palette.secondary.main,
+                                    color: '#fff'
+                                  }
+                                }}
+                              >
+                                <PersonPinCircle />
+                              </ToggleButton>
+                              <ToggleButton
+                                value="remote"
+                                aria-label="remote availability"
+                                sx={{
+                                  backgroundColor: selectedSlot?.remote ? '#b8b8ff' : 'transparent',
+                                  '&.Mui-selected': {
+                                    backgroundColor: themeColor,
+                                    color: '#fff'
+                                  }
+                                }}
+                              >
+                                <Laptop />
+                              </ToggleButton>
+                            </ToggleButtonGroup>
+                          )}
+                        </Box>
+                      );
+                    })}
                   </Box>
-                );
-              })}
+                </Grid>
+              ))}
+            </Grid>
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5, marginBottom: 2 }}>
+              <Button variant="contained" color="primary" onClick={handleSave} size='large'>
+                Guardar
+              </Button>
             </Box>
-          </Grid>
-        ))}
-      </Grid>
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5, marginBottom: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSave} size='large'>
-          Guardar
-        </Button>
-      </Box>
+          </CardContent>
+        </Card>
+      </Stack>
     </Container>
   );
 };
