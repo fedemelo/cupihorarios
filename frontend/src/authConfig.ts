@@ -19,5 +19,3 @@ export const msalConfig = {
 export const loginRequest = {
   scopes: ["User.Read"],
 };
-
-export const IS_IN_PRODUCTION = import.meta.env.IS_IN_PRODUCTION

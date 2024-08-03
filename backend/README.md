@@ -92,10 +92,10 @@ All commands must be run in the `backend` directory.
 6. Run the server. In the `backend` directory, run the following command:
 
    ```shell
-   uvicorn src.main:app --reload --host 0.0.0.0 --port 8003
+   uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
    ```
 
-   The server will be running on http://localhost:8003/v1.0.
+   The server will be running on http://localhost:8000/v1.0.
 
 
 ## Setting up Postgres

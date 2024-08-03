@@ -1,5 +1,5 @@
 from src.schemas.schedule import ScheduleCreate, ScheduleUpdate, ScheduleResponse, FullScheduleResponse
-from fastapi import APIRouter, Depends, HTTPException, Body, status
+from fastapi import APIRouter, Depends, HTTPException, Body, status, Response
 from src.exceptions import ITEM_NOT_FOUND
 import src.services.schedule as service
 from src.config.db_config import get_db
@@ -18,7 +18,7 @@ router = APIRouter(
 NAME: str = "Schedule"
 
 
-@router.get("/{schedule_id}", response_model=FullScheduleResponse, status_code=status.HTTP_200_OK)
+@router.get("/id/{schedule_id}", response_model=FullScheduleResponse, status_code=status.HTTP_200_OK)
 def read_schedule_by_id(schedule_id: UUID, db: Session = Depends(get_db)):
     """
     Retrieve a schedule by its ID
@@ -27,6 +27,24 @@ def read_schedule_by_id(schedule_id: UUID, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", schedule_id))
     return schedule
+
+
+@router.get("/download/{schedule_id}", status_code=status.HTTP_200_OK)
+def download_schedule_as_excel_route(schedule_id: UUID, db: Session = Depends(get_db)):
+    """
+    Download a schedule as an Excel file
+    """
+    if not (schedule := service.get_schedule_by_id(db, schedule_id)):
+        raise HTTPException(
+            status_code=404, detail=f"Schedule with ID {schedule_id} not found")
+
+    excel_file = service.download_schedule_as_excel(schedule)
+    return Response(
+        content=excel_file,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={
+            "Content-Disposition": f"attachment; filename=schedule_{schedule_id}.xlsx"}
+    )
 
 
 @router.get("/", response_model=list[ScheduleResponse], status_code=status.HTTP_200_OK)
