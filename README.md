@@ -1,121 +1,71 @@
-# CupiHorarios
+# CupiHorarios: Optimal Scheduling Application for CupiTaller
 
-CupiHorarios is a RESTful API, built with FastAPI, that generates optimal schedules for the assistants of the University of the Andes' programming support center, CupiTaller. The schedule is generated based on the availability of the assistants and the number of hours they should work proportionally to their contract, striving to cover all time slots from 8:00 a.m. to 6:00 p.m. from Monday to Friday.
+CupiHorarios is a full-stack application designed to generate optimal schedules for the assistants of the programming support center, CupiTaller, at the University of the Andes. Leveraging a robust backend built with [FastAPI](https://fastapi.tiangolo.com/) and an intuitive frontend developed using [Streamlit](https://streamlit.io/), CupiHorarios efficiently creates schedules based on the availability and contractual working hours of each assistant.
 
-## Caveats
+## Key Features
+1. **Assistant Availability**: CupiHorarios allows each assistant to distinctly input their on-site and remote availability, ensuring schedules are convenient and conflict-free.
+2. **Proportional Work Hours**: Schedules are generated in alignment with the contractual hours of the assistants, ensuring a proportional distribution of work. This is specially noticeable when comparing graduate and undergraduate assistants, as the latter work approximately half as many hours as the former.
+3. **Comprehensive Time Coverage**: Strives to cover all time slots from 8:00 a.m. to 6:00 p.m., Monday to Friday, to provide consistent support throughout the week. 
+    - It may happen that, due to the availability of the assistants, it is impossible to generate a schedule that covers all intended time slots. In such cases, the best possible schedule is offered.
 
-It may happen that due to the availability of the assistants, it is impossible to generate a schedule that covers all intended time slots. In such case, the best possible schedule will be generated.
+CupiHorarios not only simplifies the scheduling process but also ensures optimal utilization of assistant resources, promoting an efficient and well-organized support center.
 
 ## Design
 
-1. [User Stories](https://github.com/fedemelo/cupi-horarios/wiki/User-Stories)
-3. [Backend Design](https://github.com/fedemelo/cupi-horarios/wiki/Backend-Design)
+Documentation on the design of the CupiHorarios application can be found in the repository's wiki. The following pages are available:
 
-## Instructions to Set Up the Local Development Environment
+- [User Stories](https://github.com/fedemelo/cupi-horarios/wiki/User-Stories)
+- [Backend Design](https://github.com/fedemelo/cupi-horarios/wiki/Backend-Design)
 
-The project must be run using [Python 3.11.3](https://www.python.org/downloads/release/python-3113/).
 
-1. Create a virtual environment
+## Local Development Environment Setup
 
-   ```shell
-   python -m venv venv
-   ```
+Documentation on how to set up the local development environment for both the CupiHorarios API and the Streamlit frontend can be found in the `README.md` files of the respective directories.
 
-2. Activate the virtual environment
+## Production Environment Setup
 
-   Unix:
+### Connection to Virtual Machine
 
-   ```shell
-   source venv/bin/activate
-   ```
+#### Mac
 
-   Windows:
+A connection from a Mac machine can be established using Corkscrew. 
 
-   ```batch
-   venv\Scripts\activate.bat
-   ```
-
-3. Install dependencies
-
-   ```shell
-   pip install -r requirements.txt
-   ```
-
-   Note for Windows users: Note that the `uvloop` package is not compatible with Windows. It must be manually removed from the ´requirements.txt´ file before running the command. Its removal will not affect the functionality of the server.
-
-4. Install GLPK solver
-
-    Mac:
+1. Install Corkscrew using Brew. 
 
     ```shell
-    brew install glpk
+    brew install corkscrew
     ```
 
-    After the installation, verify that the solver is correctly installed and accessible by running the following command:
+2. Add the following configuration to your `~/.ssh/config` file (create it if it does not exist):
 
     ```shell
-    which glpsol
+    # Cupi
+    Host 157.253.238.85
+      ProxyCommand /opt/homebrew/bin/corkscrew connect.virtual.uniandes.edu.co 443 %h %p
     ```
 
-    The output should be the path to the `glpsol` executable.
+3. connect to the virtual machine using the following command:
 
-5. Create the database.
+    ```shell
+    ssh profesor@157.253.238.85
+    ```
 
-   There are three alternatives to create the database: creating an empty database, create an database with dummy data or restore a database backup. The scripts to perform these actions are located in the `db` directory, and are, respectively, `create-empty-db.sh`, `create-full-test-db.sh` and `restore-db-backup.sh`.
+#### Windows or Linux
 
-   E.g., to restore a database backup, run the following command:
+To connect from either Windows or Linux, you can use Putty. 
 
-   Unix:
+1. Download [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).
+   
+2. In the initial configuration, which is the session configuration, in the IP field, enter the username and IP address,
+    ```shell
+    ssh profesor@157.253.238.85
+    ```
+3. On the right, in the Connection menu, under the Proxy submenu, specify the following:
+    
+    | Field          | Value                           |
+    | -------------- | ------------------------------- |
+    | Proxy type     | HTTP                            |
+    | Proxy hostname | connect.virtual.uniandes.edu.co |
+    | Port           | 443                             |
 
-   ```shell
-   cd backend/db
-   sh restore-db-backup.sh
-   ```
-
-   There's also a script to save a backup of the current database, `save-db-backup.sh`.
-
-   Windows:
-
-   The scripts are not compatible with Windows. Instead of running a script, commands on the script must be run manually in the `db` directory.
-
-   For example, to restore a database backup, run the following commands:
-
-   ```batch
-   psql -U postgres -c "DROP DATABASE IF EXISTS \"cupihorarios\";"
-   psql -U postgres -c "CREATE DATABASE \"cupihorarios\";"
-   "C:\Program Files\7-Zip\7z.exe" e ./backups/cupihorarios-backup.sql.gz -o./backups
-   psql -U postgres -d postgres -f ./backups/cupihorarios-backup.sql
-   ```
-   The decompression tool used is 7-Zip, but any other tool can be used, replacing the path on the command accordingly.
-
-6. Run the server. In the `backend` directory, run the following command:
-
-   ```shell
-   uvicorn src.main:app --reload --host 0.0.0.0 --port 8003
-   ```
-
-   The server will be running on `http://localhost:8003/v1.0`.
-
-
-## Setting up Postgres
-
-If Postgres is not installed in the local machine, the server will fail to establish a connection to a database and be unable to run.
-
-The application was built with Postgres 14. To install it and start the service:
-
-Mac:
-```shell
-brew install postgresql@14
-brew services restart postgresql@14
-```
-
-After installing Postgres, the service might still fail as it is designed to run with a specific database user and password. In order to create a new role in Postgres, run the following commands:
-
-Unix:
-
-```shell
-psql -U $(whoami) -d postgres
-CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'postgres';
-```
-
-In the example above, a role `postgres` with password `postgres` is created. After that, the application should start correctly and the scripts should work as well.
+4. Click the Open button to open the connection.

@@ -74,7 +74,7 @@ def update_assistant_availability(assistant_availability_id: UUID, assistant_ava
     return service.update_assistant_availability(db, assistant_availability_id, assistant_availability)
 
 
-@router.delete("/{assistant_availability_id}", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+@router.delete("/assistant_availability/{assistant_availability_id}", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
 def delete_assistant_availability(assistant_availability_id: UUID, db: Session = Depends(get_db)):
     """
     Delete an existing assistant availability
@@ -83,6 +83,15 @@ def delete_assistant_availability(assistant_availability_id: UUID, db: Session =
         raise HTTPException(status_code=404, detail=ITEM_NOT_FOUND.format(
             NAME, "ID", assistant_availability_id))
     return service.delete_assistant_availability(db, assistant_availability_id)
+
+
+@router.delete("/assistant/{assistant_code}", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+def delete_an_assistants_availabilities(assistant_code: int, db: Session = Depends(get_db)):
+    """
+    Delete an assistant's availabilities by their code
+    """
+    check_assistant_exists(assistant_code, db)
+    return service.delete_an_assistants_availabilities(db, assistant_code)
 
 
 @router.delete("/", response_model=Dict[str, str], status_code=status.HTTP_200_OK)

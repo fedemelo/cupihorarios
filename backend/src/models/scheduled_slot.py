@@ -12,8 +12,7 @@ class ScheduledSlot(Base):
 
     schedule_id = Column(UUID(as_uuid=True), ForeignKey(
         'schedules.id'), primary_key=True, default=uuid4)
-    assistant_availability_id = Column(String, ForeignKey(
-        'assistant_availabilities.id'), primary_key=True)
+    assistant_availability_id = Column(String, ForeignKey('assistant_availabilities.id', ondelete='CASCADE'), primary_key=True)
     is_remote = Column(Boolean, nullable=False)
 
     schedule = relationship("Schedule", back_populates="scheduled_slots")

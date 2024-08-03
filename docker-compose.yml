@@ -1,0 +1,68 @@
+name: cupihorarios
+services:
+  database_prod:
+    container_name: cupihorarios_db
+    image: postgres:16
+    env_file:
+      - ./cupihorarios_back/prod.env
+    ports:
+      - 5432:5432
+    volumes:
+      - ./cupihorarios_back/db/data/test/postgres_dump.sql:/docker-entrypoint-initdb.d/postgres_dump.sql
+    profiles:
+      - prod
+  backend_dev:
+    container_name: cupihorarios_back
+    env_file:
+      - ./cupihorarios_back/.env
+    build:
+      context: ./cupihorarios_back/
+    ports:  
+      - 8000:8000
+    profiles:
+      - dev
+  backend_prod:
+    container_name: cupihorarios_back
+    env_file:
+      - ./cupihorarios_back/prod.env
+    build:
+      context: ./cupihorarios_back/
+    ports:  
+      - 8000:8000
+    profiles:
+      - prod
+    depends_on:
+      - database_prod
+    volumes:
+      - ../certificates/server.crt:/etc/ssl/certs/server.crt
+      - ../certificates/server.key:/etc/ssl/private/server.key
+  frontend_dev:
+    container_name: cupihorarios_front
+    env_file:
+      - ./cupihorarios_front/.env
+    build:
+      dockerfile: Dockerfile
+      context: ./cupihorarios_front/
+    ports:  
+      - 443:443
+    depends_on:
+      - backend_dev
+    profiles:
+      - dev
+  frontend_prod:
+    container_name: cupihorarios_front
+    env_file:
+      - ./cupihorarios_front/prod.env
+    build:
+      dockerfile: Dockerfile.prod
+      context: ./cupihorarios_front/
+    ports:  
+      - 8080:80
+      - 4443:443
+    depends_on:
+      - backend_prod
+    profiles:
+      - prod
+    volumes:
+      - ../certificates/server.crt:/usr/local/apache2/conf/server.crt
+      - ../certificates/server.key:/usr/local/apache2/conf/server.key
