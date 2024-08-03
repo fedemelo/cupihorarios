@@ -56,7 +56,7 @@ export default function MenuAppBar({
           <Typography
             variant="h6"
             noWrap
-            component={Link} // Usa el componente Link de react-router-dom
+            component={Link} 
             to="/"
             sx={{
               mr: 2,
@@ -68,10 +68,10 @@ export default function MenuAppBar({
             CupiHorarios
           </Typography>
 
-          <Typography
+          {/* <Typography
             variant="h5"
             noWrap
-            component={Link} // Usa el componente Link de react-router-dom
+            component={Link} 
             to="/"
             sx={{
               mr: 2,
@@ -82,7 +82,7 @@ export default function MenuAppBar({
             }}
           >
             CupiHorarios
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -91,6 +91,9 @@ export default function MenuAppBar({
               </Typography>
               <Typography component={Link} to="/" sx={{ color: 'inherit', textDecoration: 'none' }}>
                 Disponibilidad
+              </Typography>
+              <Typography component={Link} to="/docs" sx={{ color: 'inherit', textDecoration: 'none' }}>
+                Documentación
               </Typography>
             </Box>
           </Box>

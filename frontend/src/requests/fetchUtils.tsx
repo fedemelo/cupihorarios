@@ -1,11 +1,5 @@
-import axios from 'axios';
+import {axiosInstance} from './axiosInstanciator';
 import { TimeSlot, Schedule } from '../types';
-
-const BASE_URL = import.meta.env.VITE_BACK_URL;
-
-export const axiosInstance = axios.create({
-  baseURL: BASE_URL,
-});
 
 export const fetchTimeSlots = async (): Promise<TimeSlot[]> => {
   try {

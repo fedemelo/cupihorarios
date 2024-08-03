@@ -21,9 +21,13 @@ type AssistantAvailability = {
   time_slot: TimeSlot;
 };
 
+export type LocationType = 'local' | 'remote';
+
+export type Day = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+
 export type ScheduledSlot = {
-  type: any;
-  day: any;
+  type: LocationType;
+  day: Day;
   is_remote: boolean;
   assistant_availability: AssistantAvailability;
 };
@@ -34,3 +38,5 @@ export type Schedule = {
   is_official: boolean;
   scheduled_slots: ScheduledSlot[];
 };
+
+

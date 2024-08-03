@@ -5,17 +5,16 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#3B41C9',  // Color principal
+      main: '#3B41C9',
     },
     secondary: {
-      main: '#FFA123',  // Color secundario
+      main: '#FFA123',
     },
     text: {
-      primary: '#465157',  // Color para el texto principal
+      primary: '#465157',
     },
     background: {
-      default: '#F8F7FF',  // Color de fondo
-      paper: '#B8B8FF',    // Color de fondo para elementos de papel (cards, dialogs, etc.)
+      default: '#F8F7FF',
     },
   },
 });

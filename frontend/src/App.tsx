@@ -1,6 +1,6 @@
-import { router } from "./router/router";
+import { router } from "./router";
 import { RouterProvider } from "react-router-dom";
-import SignInPage from "./router/pages/SignInPage";
+import SignInPage from "./pages/SignInPage";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
