@@ -1,6 +1,6 @@
 # CupiHorarios: Optimal Scheduling Application for CupiTaller
 
-CupiHorarios is a full-stack application designed to generate optimal schedules for the assistants of the programming support center, CupiTaller, at the University of the Andes. Leveraging a robust backend built with [FastAPI](https://fastapi.tiangolo.com/) and an intuitive frontend developed using [Streamlit](https://streamlit.io/), CupiHorarios efficiently creates schedules based on the availability and contractual working hours of each assistant.
+CupiHorarios is a full-stack application designed to generate optimal schedules for the assistants of the programming support center, CupiTaller, at the University of the Andes. Leveraging a robust backend built with [FastAPI](https://fastapi.tiangolo.com/) and an intuitive frontend developed using [React](https://react.dev/), CupiHorarios efficiently creates schedules based on the availability and contractual working hours of each assistant.
 
 ## Key Features
 1. **Assistant Availability**: CupiHorarios allows each assistant to distinctly input their on-site and remote availability, ensuring schedules are convenient and conflict-free.
