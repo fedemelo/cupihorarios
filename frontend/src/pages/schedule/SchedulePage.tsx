@@ -18,16 +18,17 @@ export default function SchedulePage() {
     <PageWrapper>
       {/* {({ assistantCode, isAdmin, adminView, setAdminView }) => ( */}
       {() => (
-        schedule ? (
+        <Container sx={{ padding: '16px', maxWidth: '1200px', margin: 'auto' }}>
+          {schedule ? (
           <ScheduleTable schedule={schedule} />
-        ) : (
-          <Container>
+          ) : (
             <Typography variant="h4" align="center" marginBlock={5}>
               Aún faltan asistentes por llenar su disponibilidad. Una vez todos la hayan llenado, se podrá ver el horario oficial.
             </Typography>
-          </Container>
-        )
+          )}
+        </Container>
       )}
     </PageWrapper>
+
   );
 }

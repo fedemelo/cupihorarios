@@ -8,7 +8,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Container,
   Box,
   Typography,
   Stack
@@ -59,7 +58,6 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
   });
 
   return (
-    <Container sx={{ padding: '16px', maxWidth: '1200px', margin: 'auto' }}>
       <Stack spacing={2}>
         <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
           <Title>
@@ -93,6 +91,5 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
           </Table>
         </TableContainer>
       </Stack>
-    </Container>
   );
 }
