@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 
-export const Copyright = function(props: any) {
+export default function Copyright() {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      <Typography variant="body2" color="text.secondary" align="center" marginBlockEnd={2}>
         {'Copyright © Proyecto Cupi2, '}
         {new Date().getFullYear()}
         {'.'}

@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useMsal } from '@azure/msal-react';
 import { fetchIsAuthorized } from '../requests/fetchUtils';
-import { Copyright } from '../components/Copyright';
+import Copyright from '../components/Copyright';
 import MenuAppBar from '../components/MenuAppBar';
 import LoadingScreen from '../components/LoadingScreen';
 import UnauthorizedScreen from '../components/UnauthorizedScreen';

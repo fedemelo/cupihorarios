@@ -9,7 +9,7 @@ import {
   TableRow,
   Paper,
   Typography,
-  Stack
+  Stack,
 } from '@mui/material';
 import RemoteLocalToggleButtons from './RemoteLocalToggleButtons';
 import { LocationType } from '../../types';
@@ -67,35 +67,71 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
         Horario Asistentes 2024-20
       </Title>
       <Typography variant="body1" sx={{ textAlign: 'justify' }}>
-        El horario mostrado a continuación es una de las posibles configuraciones óptimas de horarios para los asistentes, que ha sido elegida para ser el horario oficial. Puedes leer los parámetros que se utilizan para generar el horario <a href="/docs">aquí</a>. Si tu disponibilidad cambió posterior a la generación del horario oficial, por favor actualízala en la pestaña de Disponibilidad e infórmalo a través de SMIP. Un administrador generará un nuevo horario basado en esta actualización, lo que probablemente modifique el horario de otros asistentes.
+        El horario mostrado a continuación es una de las posibles configuraciones óptimas de horarios para los asistentes, que ha sido elegida para ser el horario oficial. Puedes leer el raciocinio que se utiliza al general el horario <a href="/docs">aquí</a>.
+      </Typography>
+      <Typography variant="body1" sx={{ textAlign: 'justify' }}>
+        Si tu disponibilidad cambió posterior a la generación del horario oficial, por favor actualízala en la pestaña de Disponibilidad e infórmalo a través de SMIP. Un administrador generará un nuevo horario basado en esta actualización, lo que probablemente modifique el horario de otros asistentes.
       </Typography>
       <Stack direction="row" spacing={1} justifyContent="space-around">
         {isAdmin && adminView && <GenerateNewSchedule />}
         <RemoteLocalToggleButtons filters={filters} setFilters={setFilters} />
         <DownloadFromExcelButton scheduleId={schedule.id} />
       </Stack>
-      <TableContainer component={Paper} sx={{ padding: '16px' }}>
+      <TableContainer component={Paper} sx={{ padding: '4px', paddingInline: '8px' }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ width: '20%' }}>Time Slot</TableCell>
+              <TableCell sx={{ width: '20%' }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>Horario</Typography>
+              </TableCell>
               {columns.map(column => (
-                <TableCell key={column} sx={{ width: '8%' }}>{column}</TableCell>
+                <TableCell key={column}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>{translateDay(column)}</Typography>
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {timeSlots.map(timeSlot => (
               <TableRow key={timeSlot}>
-                <TableCell sx={{ width: '20%' }}>{timeSlot}</TableCell>
+                <TableCell sx={{ width: '20%' }}>
+                  <Typography variant="body1">
+                    {timeSlot}
+                  </Typography>
+                </TableCell>
                 {columns.map(column => (
-                  <TableCell key={column} sx={{ width: '8%' }}>{tableData[timeSlot][column]}</TableCell>
+                  <TableCell key={column} >
+                    <Typography variant="body1">
+                      {tableData[timeSlot][column]}
+                    </Typography>
+                  </TableCell>
                 ))}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Stack>
+    </Stack >
   );
+}
+
+function translateDay(day: string) {
+  switch (day) {
+    case 'Monday':
+      return 'Lunes';
+    case 'Tuesday':
+      return 'Martes';
+    case 'Wednesday':
+      return 'Miércoles';
+    case 'Thursday':
+      return 'Jueves';
+    case 'Friday':
+      return 'Viernes';
+    case 'Saturday':
+      return 'Sábado';
+    case 'Sunday':
+      return 'Domingo';
+    default:
+      return 'Día desconocido';
+  }
 }
