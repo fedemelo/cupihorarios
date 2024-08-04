@@ -4,65 +4,69 @@ services:
     container_name: cupihorarios_db
     image: postgres:16
     env_file:
-      - ./cupihorarios_back/prod.env
+      - ./backend/prod.env
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
-      - ./cupihorarios_back/db/data/test/postgres_dump.sql:/docker-entrypoint-initdb.d/postgres_dump.sql
+      - ./backend/db/backups/postgres_dump.sql:/docker-entrypoint-initdb.d/postgres_dump.sql
     profiles:
       - prod
+
   backend_dev:
     container_name: cupihorarios_back
     env_file:
-      - ./cupihorarios_back/.env
+      - ./backend/.env
     build:
-      context: ./cupihorarios_back/
+      context: ./backend/
     ports:  
-      - 8000:8000
+      - 8001:8000
     profiles:
       - dev
+
   backend_prod:
     container_name: cupihorarios_back
     env_file:
-      - ./cupihorarios_back/prod.env
+      - ./backend/prod.env
     build:
-      context: ./cupihorarios_back/
+      context: ./backend/
     ports:  
-      - 8000:8000
+      - 8001:8000
     profiles:
       - prod
     depends_on:
       - database_prod
     volumes:
-      - ../certificates/server.crt:/etc/ssl/certs/server.crt
-      - ../certificates/server.key:/etc/ssl/private/server.key
+      - ../certificates/server.crt:/etc/ssl/certs/server.crt:ro
+      - ../certificates/server.key:/etc/ssl/private/server.key:ro
+
   frontend_dev:
     container_name: cupihorarios_front
     env_file:
-      - ./cupihorarios_front/.env
+      - ./frontend/.env
     build:
       dockerfile: Dockerfile
-      context: ./cupihorarios_front/
+      context: ./frontend/
     ports:  
       - 443:443
     depends_on:
       - backend_dev
     profiles:
       - dev
+
   frontend_prod:
     container_name: cupihorarios_front
     env_file:
-      - ./cupihorarios_front/prod.env
+      - ./frontend/prod.env
     build:
       dockerfile: Dockerfile.prod
-      context: ./cupihorarios_front/
+      context: ./frontend/
     ports:  
-      - 8080:80
-      - 4443:443
+      - 8081:80
+      - 4444:443
     depends_on:
       - backend_prod
     profiles:
       - prod
     volumes:
-      - ../certificates/server.crt:/usr/local/apache2/conf/server.crt
-      - ../certificates/server.key:/usr/local/apache2/conf/server.key
+      - ../certificates/server.crt:/usr/local/apache2/conf/server.crt:ro
+      - ../certificates/server.key:/usr/local/apache2/conf/server.key:ro
