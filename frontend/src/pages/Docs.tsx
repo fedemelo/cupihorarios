@@ -28,7 +28,7 @@ export default function Docs() {
             <Typography variant="h5">
               Utilidad
             </Typography>
-            <Typography variant="body1" sx={{ textAlign: 'justify' }}>
+            <Typography variant="body1" sx={{ textAlign: 'justify' }} component={'div'}>
               CupiHorarios ofrece las siguientes funcionalidades principales:
               <ul>
                 <li><strong>Trabajo híbrido:</strong> CupiHorarios permite que cada asistente ingrese de manera distinta su disponibilidad presencial y remota, contemplándolo a la hora de conformar el horario.</li>

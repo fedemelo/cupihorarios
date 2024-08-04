@@ -14,6 +14,8 @@ export default function SchedulePage() {
     });
   }, []);
 
+  console.log(schedule);
+
   return (
     <PageWrapper>
       {({ assistantCode, isAdmin, adminView }) => (
