@@ -62,37 +62,21 @@ All commands must be run in the `backend` directory.
 
 5. Create the database.
 
-   There are three alternatives to create the database: creating an empty database, create an database with dummy data or restore a database backup. The scripts to perform these actions are located in the `db` directory, and are, respectively, `create-empty-db.sh`, `create-full-test-db.sh` and `restore-db-backup.sh`.
+   There are three alternatives to create the database: create an empty database, create a database with dummy data or restore a database backup. The scripts to perform these actions are located inside the `db/scripts` directory.
 
-   E.g., to restore a database backup, run the following command:
+   E.g., to restore a database backup on a Unix machine, run the following command:
 
    Unix:
 
    ```shell
-   cd backend/db
+   cd backend/db/scripts
    sh restore-db-backup.sh
    ```
-
-   There's also a script to save a backup of the current database, `save-db-backup.sh`.
-
-   Windows:
-
-   The scripts are not compatible with Windows. Instead of running a script, commands on the script must be run manually in the `db` directory.
-
-   For example, to restore a database backup, run the following commands:
-
-   ```batch
-   psql -U postgres -c "DROP DATABASE IF EXISTS \"cupihorarios\";"
-   psql -U postgres -c "CREATE DATABASE \"cupihorarios\";"
-   "C:\Program Files\7-Zip\7z.exe" e ./backups/cupihorarios-backup.sql.gz -o./backups
-   psql -U postgres -d postgres -f ./backups/cupihorarios-backup.sql
-   ```
-   The decompression tool used is 7-Zip, but any other tool can be used, replacing the path on the command accordingly.
 
 6. Run the server. In the `backend` directory, run the following command:
 
    ```shell
-   uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+   python main.py
    ```
 
    The server will be running on http://localhost:8000/v1.0.

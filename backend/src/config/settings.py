@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "postgres"
     DB_HOST: str = "localhost"
     DB_PORT: str = "5432"
+    IS_IN_PRODUCTION: bool = False
+    SSL_CERT_FILE_PATH: str = "/etc/ssl/certs/server.crt"
+    SSL_KEY_FILE_PATH: str = "/etc/ssl/certs/server.key"
 
     class Config:
         case_sensitive = True
