@@ -56,17 +56,11 @@ export const fetchIsAuthorized = async (
 };
 
 
-export const fetchOfficialSchedule = async (): Promise<Schedule> => {
+export const fetchOfficialSchedule = async (): Promise<Schedule | undefined> => {
   try {
     const response = await axiosInstance.get('/official_schedule');
     return response.data;
   } catch (error: any) {
     console.error(`Error fetching official schedule: ${error.response ? error.response.status : error.message}`);
-    return {
-      name: '',
-      id: '',
-      is_official: false,
-      scheduled_slots: [],
-    };
   }
 }

@@ -9,7 +9,7 @@ export default function SchedulePage() {
   const [schedule, setSchedule] = useState<Schedule>();
 
   useEffect(() => {
-    fetchOfficialSchedule().then((schedule: Schedule) => {
+    fetchOfficialSchedule().then((schedule: Schedule | undefined) => {
       setSchedule(schedule);
     });
   }, []);
