@@ -1,5 +1,5 @@
 import { axiosInstance } from './utils';
-import { TimeSlot, Schedule } from '../types';
+import { TimeSlot, Schedule, ScheduleInfo } from '../types';
 
 
 export const fetchTimeSlots = async (): Promise<TimeSlot[]> => {
@@ -56,9 +56,20 @@ export const fetchIsAuthorized = async (
 };
 
 
+export const fetchAllSchedules = async (): Promise<ScheduleInfo[]> => {
+  try {
+    const response = await axiosInstance.get('/schedule/');
+    return response.data;
+  } catch (error: any) {
+    console.error(`Error fetching schedules: ${error.response ? error.response.status : error.message}`);
+    return [];
+  }
+}
+
+
 export const fetchOfficialSchedule = async (): Promise<Schedule | undefined> => {
   try {
-    const response = await axiosInstance.get('/official_schedule');
+    const response = await axiosInstance.get('/official-schedule');
     return response.data;
   } catch (error: any) {
     console.error(`Error fetching official schedule: ${error.response ? error.response.status : error.message}`);

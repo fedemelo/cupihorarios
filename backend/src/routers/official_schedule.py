@@ -8,7 +8,7 @@ from uuid import UUID
 
 
 router = APIRouter(
-    prefix="/official_schedule",
+    prefix="/official-schedule",
     tags=["official_schedule"],
     responses={404: {"detail": "Not found"}},
 )

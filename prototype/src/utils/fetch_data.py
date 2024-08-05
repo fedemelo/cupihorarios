@@ -13,7 +13,7 @@ def load_local_data(file_path):
 # Obtener datos del endpoint
 
 
-def fetch_chosen_schedule(mock_data, url='http://localhost:8003/v1.0/official_schedule/'):
+def fetch_chosen_schedule(mock_data, url='http://localhost:8003/v1.0/official-schedule/'):
     try:
         response = requests.get(url)
         response.raise_for_status()

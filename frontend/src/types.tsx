@@ -39,4 +39,9 @@ export type Schedule = {
   scheduled_slots: ScheduledSlot[];
 };
 
+export type ScheduleInfo = {
+  name: string;
+  id: string;
+  is_official: boolean;
+}
 

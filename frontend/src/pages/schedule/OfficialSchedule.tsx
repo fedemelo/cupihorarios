@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Schedule } from '../../types';
+import { useEffect, useState } from 'react';
+import { TimeSlot, LocationType, Schedule } from '../../types';
 import {
   Table,
   TableBody,
@@ -12,31 +12,38 @@ import {
   Stack,
 } from '@mui/material';
 import RemoteLocalToggleButtons from './RemoteLocalToggleButtons';
-import { LocationType } from '../../types';
-import Title from '../../components/Title';
 import DownloadFromExcelButton from './DownloadFromExcelButton';
-import GenerateNewSchedule from './GenerateNewSchedule';
+import Title from '../../components/Title';
+import { fetchOfficialSchedule } from '../../requests/fetchUtils';
 
-interface ScheduleTableProps {
-  schedule: Schedule;
-  assistantCode: number;
-  isAdmin: boolean;
+interface OfficialScheduleProps {
+  filters: LocationType[];
+  setFilters: (filters: LocationType[]) => void;
+  timeSlots: TimeSlot[];
   adminView: boolean;
 }
 
-export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminView }: ScheduleTableProps) {
-  const [filters, setFilters] = useState<(LocationType)[]>(['local', 'remote']);
+export default function OfficialSchedule({
+  filters,
+  setFilters,
+  timeSlots,
+  adminView,
+}: OfficialScheduleProps) {
+  const [officialSchedule, setOfficialSchedule] = useState<Schedule>();
+  const daylessTimeSlots = Array.from(new Set(timeSlots.map(slot => slot.id.split(', ')[1])));
 
-  const timeSlots = Array.from(
-    new Set(schedule.scheduled_slots.map(slot => slot.assistant_availability.time_slot.id.split(", ")[1]))
-  ).sort();
+  useEffect(() => {
+    fetchOfficialSchedule().then((schedule) => {
+      setOfficialSchedule(schedule);
+    });
+  }, []);
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const columns = days.flatMap(day => [day]);
 
   const createEmptyTable = () => {
     const table: Record<string, Record<string, string>> = {};
-    timeSlots.forEach(slot => {
+    daylessTimeSlots.forEach(slot => {
       table[slot] = {};
       columns.forEach(col => {
         table[slot][col] = '';
@@ -47,7 +54,7 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
 
   const tableData = createEmptyTable();
 
-  schedule.scheduled_slots.forEach(slot => {
+  officialSchedule?.scheduled_slots.forEach(slot => {
     const timeSlot = slot.assistant_availability.time_slot.id.split(", ")[1];
     const day = slot.assistant_availability.time_slot.day;
     const nickname = slot.assistant_availability.assistant.nickname;
@@ -63,9 +70,9 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
 
   return (
     <Stack spacing={1}>
-      <Title>
+      {!adminView && <Title>
         Horario Asistentes 2024-20
-      </Title>
+      </Title>}
       <Typography variant="body1" sx={{ textAlign: 'justify' }}>
         El horario mostrado a continuación es una de las posibles configuraciones óptimas de horarios para los asistentes, que ha sido elegida para ser el horario oficial. Puedes leer el raciocinio que se utiliza al general el horario <a href="/docs">aquí</a>.
       </Typography>
@@ -73,9 +80,8 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
         Si tu disponibilidad cambió posterior a la generación del horario oficial, por favor actualízala en la pestaña de Disponibilidad e infórmalo a través de SMIP. Un administrador generará un nuevo horario basado en esta actualización, lo que probablemente modifique el horario de otros asistentes.
       </Typography>
       <Stack direction="row" spacing={1} justifyContent="space-around">
-        {isAdmin && adminView && <GenerateNewSchedule />}
         <RemoteLocalToggleButtons filters={filters} setFilters={setFilters} />
-        <DownloadFromExcelButton scheduleId={schedule.id} />
+        {officialSchedule && <DownloadFromExcelButton scheduleId={officialSchedule.id} />}
       </Stack>
       <TableContainer component={Paper} sx={{ padding: '4px', paddingInline: '8px' }}>
         <Table>
@@ -92,7 +98,7 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
             </TableRow>
           </TableHead>
           <TableBody>
-            {timeSlots.map(timeSlot => (
+            {daylessTimeSlots.map(timeSlot => (
               <TableRow key={timeSlot}>
                 <TableCell sx={{ width: '20%' }}>
                   <Typography variant="body1">
@@ -100,7 +106,7 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
                   </Typography>
                 </TableCell>
                 {columns.map(column => (
-                  <TableCell key={column} >
+                  <TableCell key={column}>
                     <Typography variant="body1">
                       {tableData[timeSlot][column]}
                     </Typography>
@@ -111,7 +117,7 @@ export default function ScheduleTable({ schedule, assistantCode, isAdmin, adminV
           </TableBody>
         </Table>
       </TableContainer>
-    </Stack >
+    </Stack>
   );
 }
 

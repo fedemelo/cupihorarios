@@ -8,7 +8,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { createNewSchedule } from '../../requests/postUtils';
 
-export default function GenerateNewSchedule() {
+interface GenerateNewScheduleProps {
+  updateExistingSchedules?: () => void;
+}
+
+export default function GenerateNewSchedule({ updateExistingSchedules }: GenerateNewScheduleProps) {
   const [open, setOpen] = useState(false);
   const [scheduleName, setScheduleName] = useState('');
 
@@ -24,12 +28,13 @@ export default function GenerateNewSchedule() {
   const handleCreate = async () => {
     try {
       const newSchedule = await createNewSchedule(scheduleName);
+      if (updateExistingSchedules) {
+        updateExistingSchedules();
+      }
       console.log('Nuevo horario creado:', newSchedule.id);
-      // TODO: Puedes manejar la nueva programación aquí, como actualizar el estado o notificar al usuario
       handleClose();
     } catch (error) {
       console.error('Error al crear el horario:', error);
-      // TODO: Maneja el error adecuadamente, por ejemplo, mostrando un mensaje de error al usuario
     }
   };
 
