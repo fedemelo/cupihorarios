@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Stack, Card, CardContent } from '@mui/material';
-import { PersonPinCircle, Laptop } from '@mui/icons-material';
+import { useState, useEffect } from 'react';
+import { Container, Grid, Typography, Box, Stack, Card, CardContent } from '@mui/material';
 import { fetchTimeSlots, fetchAssistantAvailability } from '../../requests/fetchUtils';
-import { postAvailability } from '../../requests/postUtils';
-import { deleteAvailability } from '../../requests/deleteUtils';
-import { updateAvailability } from '../../requests/putUtils';
 import { TimeSlot } from '../../types';
 import Title from '../../components/Title';
+import ToggleButtonGroupSlot from './ToggleButtonGroupSlot';
 
 interface SlotAvailability {
   id: string;
@@ -20,7 +17,8 @@ interface AvailabilitySelectorProps {
   adminView: boolean;
 }
 
-const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: AvailabilitySelectorProps) => {
+export default function AvailabilitySelector({ assistantCode, isAdmin, adminView }: AvailabilitySelectorProps) {
+
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 
@@ -52,55 +50,24 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
     });
   }, [assistantCode]);
 
-  const handleButtonGroupChange = async (_event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
+  const handleSelectionChange = (slotId: string, newSelection: string[]) => {
     setSelectedSlots((prev) => {
       const existingSlot = prev.find((slot) => slot.id === slotId);
-      const localSelected = newSelection.includes('local');
-      const remoteSelected = newSelection.includes('remote');
-
-      if (localSelected && !remoteSelected) {  
-        // An assistant who is available locally is also available remotely
-        newSelection = ['local', 'remote'];
-      }
-      if (existingSlot && existingSlot.local && existingSlot.remote && !remoteSelected) {
-        // An assistant who is not available remotely is also not available locally
-        newSelection = [];
-      }
-
-      if (existingSlot) {
-        const updatedSlot = {
+      const updatedSlot = existingSlot
+        ? {
           ...existingSlot,
           local: newSelection.includes('local'),
           remote: newSelection.includes('remote'),
-        };
-
-        if (!existingSlot.local && !existingSlot.remote && (updatedSlot.local || updatedSlot.remote)) {
-          // If the assistant was not available at all and now is available in some way, post the availability
-          postAvailability({ assistant_code: assistantCode, remote_only: !updatedSlot.local, time_slot_id: slotId });
-        } // If the assistant was available in some way and now is not available at all, delete the availability
-        else if ((existingSlot.local || existingSlot.remote) && !updatedSlot.local && !updatedSlot.remote) {
-          deleteAvailability({ assistant_code: assistantCode, remote_only: !existingSlot.local, time_slot_id: slotId });
-        } // In any other case, update the availability
-        else {
-          updateAvailability({ assistant_code: assistantCode, remote_only: !updatedSlot.local, time_slot_id: slotId });
         }
-
-        return prev.map((slot) =>
-          slot.id === slotId ? updatedSlot : slot
-        );
-      } else {
-        const newSlot = {
+        : {
           id: slotId,
           local: newSelection.includes('local'),
           remote: newSelection.includes('remote'),
         };
-        postAvailability({ assistant_code: assistantCode, remote_only: !newSlot.local, time_slot_id: slotId });
 
-        return [
-          ...prev,
-          newSlot,
-        ];
-      }
+      return existingSlot
+        ? prev.map((slot) => (slot.id === slotId ? updatedSlot : slot))
+        : [...prev, updatedSlot];
     });
   };
 
@@ -122,8 +89,13 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
         <Title>
           Disponibilidad
         </Title>
-        <Typography variant="body1" sx={{ textAlign: 'justify' }}>
+        <Typography variant="body1" sx={{ textAlign: 'justify' }} component={'div'}>
           Por favor, ingresa tu disponibilidad horaria para todo el semestre. En cada franja horaria, selecciona si tienes disponibilidad tanto presencial como remota o únicamente remota.
+          <ul>
+            <li>Ten en cuenta que, si en algún horario estás disponible presencialmente, se considera que también tienes disponibilidad remota, pues en ese caso puedes conectarte desde la oficina. Similarmente, si en algún horario no estás disponible remotamente, se presume que tampoco estás disponible presencialmente.</li>
+            <li>Intenta seleccionar tanta disponibilidad como tengas. Si entre todos los asistentes no es posible cubrir el mínimo de horas requerido, el modelo de optimización resultará infactible.</li>
+            <li>Procura estar seguro de tu disponibilidad antes de seleccionarla. En caso de que debas modificarla después de la generación del horario, será necesario regenerar el horario para todos los asistentes.</li>
+          </ul>
         </Typography>
         <Card>
           <CardContent sx={{ paddingInline: 4 }} >
@@ -150,48 +122,12 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
                       return (
                         <Box key={index} sx={{ height: '50px', display: 'flex', alignItems: 'center' }}>
                           {slot && (
-                            <ToggleButtonGroup
-                              value={
-                                selectedSlot
-                                  ? [
-                                    ...(selectedSlot.local ? ['local'] : []),
-                                    ...(selectedSlot.remote ? ['remote'] : []),
-                                  ]
-                                  : []
-                              }
-                              onChange={(event, newSelection) =>
-                                handleButtonGroupChange(event, newSelection, slot.id)
-                              }
-                              aria-label="availability"
-                              sx={{ width: '100%' }}
-                            >
-                              <ToggleButton
-                                value="local"
-                                aria-label="local availability"
-                                sx={{
-                                  backgroundColor: selectedSlot?.local ? '#b8b8ff' : 'transparent',
-                                  '&.Mui-selected': {
-                                    backgroundColor: (theme) => theme.palette.secondary.main,
-                                    color: '#fff'
-                                  }
-                                }}
-                              >
-                                <PersonPinCircle />
-                              </ToggleButton>
-                              <ToggleButton
-                                value="remote"
-                                aria-label="remote availability"
-                                sx={{
-                                  backgroundColor: selectedSlot?.remote ? '#b8b8ff' : 'transparent',
-                                  '&.Mui-selected': {
-                                    backgroundColor: '#465157',
-                                    color: '#fff'
-                                  }
-                                }}
-                              >
-                                <Laptop />
-                              </ToggleButton>
-                            </ToggleButtonGroup>
+                            <ToggleButtonGroupSlot
+                              assistantCode={assistantCode}
+                              slotId={slot.id}
+                              selectedSlot={selectedSlot}
+                              handleSelectionChange={handleSelectionChange}
+                            />
                           )}
                         </Box>
                       );
@@ -205,6 +141,4 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
       </Stack>
     </Container>
   );
-};
-
-export default AvailabilitySelector;
+}
