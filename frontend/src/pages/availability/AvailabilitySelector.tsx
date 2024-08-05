@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Button, Stack, Card, CardContent } from '@mui/material';
+import { Container, Grid, Typography, Box, ToggleButton, ToggleButtonGroup, Stack, Card, CardContent } from '@mui/material';
 import { PersonPinCircle, Laptop } from '@mui/icons-material';
-import { fetchTimeSlots } from '../../requests/fetchUtils';
-import { postAssistantAvailability, Availability } from '../../requests/postUtils';
-import { fetchAssistantAvailability } from '../../requests/fetchUtils';
+import { fetchTimeSlots, fetchAssistantAvailability } from '../../requests/fetchUtils';
+import { postAvailability } from '../../requests/postUtils';
+import { deleteAvailability } from '../../requests/deleteUtils';
+import { updateAvailability } from '../../requests/putUtils';
 import { TimeSlot } from '../../types';
 import Title from '../../components/Title';
 
@@ -51,38 +52,53 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
     });
   }, [assistantCode]);
 
-  const handleButtonGroupChange = (_event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
+  const handleButtonGroupChange = async (_event: React.MouseEvent<HTMLElement>, newSelection: string[], slotId: string) => {
     setSelectedSlots((prev) => {
       const existingSlot = prev.find((slot) => slot.id === slotId);
       const localSelected = newSelection.includes('local');
       const remoteSelected = newSelection.includes('remote');
 
-      if (localSelected && !remoteSelected) {
+      if (localSelected && !remoteSelected) {  
+        // An assistant who is available locally is also available remotely
         newSelection = ['local', 'remote'];
       }
-
       if (existingSlot && existingSlot.local && existingSlot.remote && !remoteSelected) {
+        // An assistant who is not available remotely is also not available locally
         newSelection = [];
       }
 
       if (existingSlot) {
+        const updatedSlot = {
+          ...existingSlot,
+          local: newSelection.includes('local'),
+          remote: newSelection.includes('remote'),
+        };
+
+        if (!existingSlot.local && !existingSlot.remote && (updatedSlot.local || updatedSlot.remote)) {
+          // If the assistant was not available at all and now is available in some way, post the availability
+          postAvailability({ assistant_code: assistantCode, remote_only: !updatedSlot.local, time_slot_id: slotId });
+        } // If the assistant was available in some way and now is not available at all, delete the availability
+        else if ((existingSlot.local || existingSlot.remote) && !updatedSlot.local && !updatedSlot.remote) {
+          deleteAvailability({ assistant_code: assistantCode, remote_only: !existingSlot.local, time_slot_id: slotId });
+        } // In any other case, update the availability
+        else {
+          updateAvailability({ assistant_code: assistantCode, remote_only: !updatedSlot.local, time_slot_id: slotId });
+        }
+
         return prev.map((slot) =>
-          slot.id === slotId
-            ? {
-              ...slot,
-              local: newSelection.includes('local'),
-              remote: newSelection.includes('remote'),
-            }
-            : slot
+          slot.id === slotId ? updatedSlot : slot
         );
       } else {
+        const newSlot = {
+          id: slotId,
+          local: newSelection.includes('local'),
+          remote: newSelection.includes('remote'),
+        };
+        postAvailability({ assistant_code: assistantCode, remote_only: !newSlot.local, time_slot_id: slotId });
+
         return [
           ...prev,
-          {
-            id: slotId,
-            local: newSelection.includes('local'),
-            remote: newSelection.includes('remote'),
-          },
+          newSlot,
         ];
       }
     });
@@ -100,18 +116,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
 
   const uniqueTimes = Array.from(new Set(timeSlots.map(getTimeSlotLabel)));
 
-  const handleSave = () => {
-    const availabilities: Availability[] = selectedSlots.flatMap((slot) => {
-      const timeSlot = timeSlots.find((ts) => ts.id === slot.id);
-      const timeSlotLabel = timeSlot ? `${timeSlot.day}, ${getTimeSlotLabel(timeSlot)}` : '';
-      return slot.local || slot.remote
-        ? [{ assistant_code: assistantCode, remote_only: !slot.local, time_slot_id: timeSlotLabel }]
-        : [];
-    });
-
-    postAssistantAvailability(availabilities);
-  };
-
   return (
     <Container sx={{ padding: '16px', maxWidth: '1200px', margin: 'auto' }}>
       <Stack spacing={1}>
@@ -119,7 +123,7 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
           Disponibilidad
         </Title>
         <Typography variant="body1" sx={{ textAlign: 'justify' }}>
-          Por favor, ingresa tu disponibilidad horaria para todo el semestre. En cada franja horaria, selecciona si tienes disponibilidad tanto presencial como remota o únicamente remota. Al terminar, asegúrate de pulsar el botón "Guardar" en la parte inferior.
+          Por favor, ingresa tu disponibilidad horaria para todo el semestre. En cada franja horaria, selecciona si tienes disponibilidad tanto presencial como remota o únicamente remota.
         </Typography>
         <Card>
           <CardContent sx={{ paddingInline: 4 }} >
@@ -196,11 +200,6 @@ const AvailabilitySelector = ({ assistantCode, isAdmin, adminView }: Availabilit
                 </Grid>
               ))}
             </Grid>
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5, marginBottom: 2 }}>
-              <Button variant="contained" color="primary" onClick={handleSave} size='large' sx={{textTransform: 'none'}}>
-                Guardar Horario
-              </Button>
-            </Box>
           </CardContent>
         </Card>
       </Stack>

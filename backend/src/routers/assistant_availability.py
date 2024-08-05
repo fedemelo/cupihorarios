@@ -20,7 +20,7 @@ NAME: str = "Assistant Availability"
 
 
 @router.get("/{assistant_availability_id}", response_model=AssistantAvailabilityResponse, status_code=status.HTTP_200_OK)
-def read_assistant_availability_by_id(assistant_availability_id: UUID, db: Session = Depends(get_db)):
+def read_assistant_availability_by_id(assistant_availability_id: str, db: Session = Depends(get_db)):
     """
     Retrieve an assistant availability by its ID
     """
@@ -64,7 +64,7 @@ def create_many_assistant_availabilities(assistant_availabilities: list[Assistan
 
 
 @router.put("/{assistant_availability_id}", response_model=AssistantAvailabilityResponse, status_code=status.HTTP_200_OK)
-def update_assistant_availability(assistant_availability_id: UUID, assistant_availability: AssistantAvailabilityUpdate = Body(...), db: Session = Depends(get_db)):
+def update_assistant_availability(assistant_availability_id: str, assistant_availability: AssistantAvailabilityUpdate = Body(...), db: Session = Depends(get_db)):
     """
     Update an existing assistant availability
     """
@@ -74,8 +74,8 @@ def update_assistant_availability(assistant_availability_id: UUID, assistant_ava
     return service.update_assistant_availability(db, assistant_availability_id, assistant_availability)
 
 
-@router.delete("/assistant_availability/{assistant_availability_id}", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
-def delete_assistant_availability(assistant_availability_id: UUID, db: Session = Depends(get_db)):
+@router.delete("/{assistant_availability_id}", response_model=Dict[str, str], status_code=status.HTTP_200_OK)
+def delete_assistant_availability(assistant_availability_id: str, db: Session = Depends(get_db)):
     """
     Delete an existing assistant availability
     """

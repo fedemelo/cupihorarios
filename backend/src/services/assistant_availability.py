@@ -49,7 +49,7 @@ def update_assistant_availability(db: Session, assistant_availability_id: UUID, 
     return db.query(AssistantAvailability).filter(AssistantAvailability.id == assistant_availability_id).first()
 
 
-def delete_assistant_availability(db: Session, assistant_availability_id: UUID) -> dict:
+def delete_assistant_availability(db: Session, assistant_availability_id: str) -> dict:
     db.query(AssistantAvailability).filter(
         AssistantAvailability.id == assistant_availability_id).delete()
     db.commit()

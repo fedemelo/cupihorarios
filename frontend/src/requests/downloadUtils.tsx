@@ -1,5 +1,5 @@
 
-import { axiosInstance } from './axiosInstanciator';
+import { axiosInstance } from './utils';
 import { saveAs } from 'file-saver';
 
 

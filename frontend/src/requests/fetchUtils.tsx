@@ -1,4 +1,4 @@
-import { axiosInstance } from './axiosInstanciator';
+import { axiosInstance } from './utils';
 import { TimeSlot, Schedule } from '../types';
 
 
