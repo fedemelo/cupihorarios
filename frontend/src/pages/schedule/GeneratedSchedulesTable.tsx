@@ -40,6 +40,16 @@ export default function GeneratedSchedulesTable({ isAdmin, adminView, officialSc
     }
   };
 
+  const handleDeleteSchedule = async (scheduleId: string) => {
+    try {
+      await deleteSchedule(scheduleId);
+      updateExistingSchedules();
+      setOfficialSchedule(undefined);
+    } catch (error: any) {
+      alert('Error al eliminar el horario.');
+    }
+  }
+
   if (isAdmin && adminView) {
     return (
       <Stack spacing={1} alignItems={'center'}>
@@ -66,6 +76,8 @@ export default function GeneratedSchedulesTable({ isAdmin, adminView, officialSc
                     <TableCell>{schedule.name}</TableCell>
                     <TableCell align='center'>
                       {schedule.is_official ? (
+                        <Chip label="Horario oficial" color="secondary" />
+                      ) : (
                         <Button
                           variant="contained"
                           color="primary"
@@ -74,15 +86,13 @@ export default function GeneratedSchedulesTable({ isAdmin, adminView, officialSc
                         >
                           Seleccionar como horario oficial
                         </Button>
-                      ) : (
-                        <Chip label="Horario oficial" color="secondary" />
                       )}
                     </TableCell>
                     <TableCell align='right'>
                       <Button
                         variant="contained"
                         color="error"
-                        onClick={() => deleteSchedule(schedule.id).then(() => updateExistingSchedules())}
+                        onClick={() => handleDeleteSchedule(schedule.id)}
                         sx={{ textTransform: 'none' }}
                       >
                         Eliminar
