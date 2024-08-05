@@ -23,3 +23,15 @@ export const deleteAvailability = async (availability: AssistantAvailabilityBase
     throw error;
   }
 }
+
+
+export const deleteSchedule = async (scheduleId: string) => {
+  try {
+    const response = await axiosInstance.delete(`/schedule/${scheduleId}`);
+    console.log('Delete Response:', response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error('Error deleting schedule:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+}

@@ -48,12 +48,12 @@ export default function ScheduleView({ assistantCode, isAdmin, adminView }: Sche
         officialSchedule={officialSchedule}
         setOfficialSchedule={setOfficialSchedule}
       />}
-      <OfficialSchedule
+      {officialSchedule && <OfficialSchedule
         filters={filters}
         setFilters={setFilters}
         timeSlots={timeSlots}
         adminView={adminView}
-      />
+      />}
     </Stack>
   );
 }

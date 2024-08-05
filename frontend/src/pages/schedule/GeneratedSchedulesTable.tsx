@@ -1,6 +1,7 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Stack, Button, Chip } from '@mui/material';
 import { setOfficialSchedule as updateOfficialSchedule } from '../../requests/putUtils';
 import { fetchAllSchedules } from '../../requests/fetchUtils';
+import { deleteSchedule } from '../../requests/deleteUtils';
 import GenerateNewSchedule from './GenerateNewSchedule';
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { Schedule, ScheduleInfo } from '../../types';
@@ -49,10 +50,13 @@ export default function GeneratedSchedulesTable({ isAdmin, adminView, officialSc
               <TableHead>
                 <TableRow key="header">
                   <TableCell>
-                    <Typography variant="h6">Horarios Generados</Typography>
+                    <Typography variant="h6">Horarios</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography variant="h6">Estatus</Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant="h6">Estatus</Typography>
+                    <Typography variant="h6">Eliminar</Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -60,8 +64,8 @@ export default function GeneratedSchedulesTable({ isAdmin, adminView, officialSc
                 {schedules.map((schedule) => (
                   <TableRow key={schedule.id}>
                     <TableCell>{schedule.name}</TableCell>
-                    <TableCell align='right'>
-                      {!schedule.is_official ? (
+                    <TableCell align='center'>
+                      {schedule.is_official ? (
                         <Button
                           variant="contained"
                           color="primary"
@@ -73,6 +77,16 @@ export default function GeneratedSchedulesTable({ isAdmin, adminView, officialSc
                       ) : (
                         <Chip label="Horario oficial" color="secondary" />
                       )}
+                    </TableCell>
+                    <TableCell align='right'>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => deleteSchedule(schedule.id).then(() => updateExistingSchedules())}
+                        sx={{ textTransform: 'none' }}
+                      >
+                        Eliminar
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
