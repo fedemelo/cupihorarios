@@ -1,21 +1,5 @@
-import {axiosInstance} from './utils';
-import { deleteAllAssistantAvailabilities } from './deleteUtils';
 import { AssistantAvailabilityBase } from './utils';
-
-
-export const postAssistantAvailabilities = async (availabilities: AssistantAvailabilityBase[]) => {
-  const assistantCode = availabilities[0].assistant_code;
-  try {
-    await deleteAllAssistantAvailabilities(assistantCode);
-    
-    const response = await axiosInstance.post('/assistant-availability/many', availabilities);
-    console.log('Post Response:', response.data);
-    return response.data;
-  } catch (error: any) {
-    console.error('Error posting assistant availability:', error.response ? error.response.data : error.message);
-    throw error;
-  }
-};
+import {axiosInstance} from './utils';
 
 
 export const postAvailability = async (availability: AssistantAvailabilityBase) => {

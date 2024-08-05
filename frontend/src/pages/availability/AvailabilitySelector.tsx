@@ -4,6 +4,7 @@ import { fetchTimeSlots, fetchAssistantAvailability } from '../../requests/fetch
 import { TimeSlot } from '../../types';
 import Title from '../../components/Title';
 import ToggleButtonGroupSlot from './ToggleButtonGroupSlot';
+import CleanAvailabilityButton from './CleanAvailabilityButton';
 
 interface SlotAvailability {
   id: string;
@@ -136,6 +137,7 @@ export default function AvailabilitySelector({ assistantCode, isAdmin, adminView
                 </Grid>
               ))}
             </Grid>
+            <CleanAvailabilityButton assistantCode={assistantCode} />
           </CardContent>
         </Card>
       </Stack>
