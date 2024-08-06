@@ -65,7 +65,7 @@ if __name__ == "__main__":
             SSL_KEY_FILE_PATH, R_OK)
         if not is_ssl_file_accessible:
             print(
-                f"Could not access SSL files at {SSL_CERT_FILE_PATH} and {SSL_KEY_FILE_PATH}")
+                f"Could not access one or both SSL files at {SSL_CERT_FILE_PATH} and {SSL_KEY_FILE_PATH}")
             exit(1)
 
         run("main:app", host="0.0.0.0", port=8000, reload=False,
