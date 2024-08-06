@@ -5,11 +5,9 @@ import PageWrapper from '../PageWrapper';
 export default function AvailabilityPage() {
   return (
     <PageWrapper>
-      {({ assistantCode, isAdmin, adminView }) => (
+      {({ assistantCode }) => (
         <AvailabilitySelector
           assistantCode={assistantCode}
-          isAdmin={isAdmin}
-          adminView={adminView}
         />
       )}
     </PageWrapper>

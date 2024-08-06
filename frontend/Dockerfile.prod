@@ -6,11 +6,9 @@ COPY package.json /app/package.json
 
 COPY . /app
 
-COPY prod.env /app/.env
+RUN yarn install
 
-RUN npm install
-
-RUN npm run build
+RUN yarn build
 
 FROM httpd:2.4-alpine
 

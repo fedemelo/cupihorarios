@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box } from '@mui/material';
 import MenuAppBar from './MenuAppBar';
 import UnauthorizedView from './UnauthorizedView';

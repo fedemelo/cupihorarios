@@ -14,11 +14,9 @@ interface SlotAvailability {
 
 interface AvailabilitySelectorProps {
   assistantCode: number;
-  isAdmin: boolean;
-  adminView: boolean;
 }
 
-export default function AvailabilitySelector({ assistantCode, isAdmin, adminView }: AvailabilitySelectorProps) {
+export default function AvailabilitySelector({ assistantCode }: AvailabilitySelectorProps) {
 
   const [selectedSlots, setSelectedSlots] = useState<SlotAvailability[]>([]);
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);

@@ -7,12 +7,11 @@ import OfficialSchedule from './OfficialSchedule';
 import Title from '../../components/Title';
 
 interface ScheduleViewProps {
-  assistantCode: number;
   isAdmin: boolean;
   adminView: boolean;
 }
 
-export default function ScheduleView({ assistantCode, isAdmin, adminView }: ScheduleViewProps) {
+export default function ScheduleView({ isAdmin, adminView }: ScheduleViewProps) {
   const [filters, setFilters] = useState<(LocationType)[]>(['local', 'remote']);
   const [officialSchedule, setOfficialSchedule] = useState<Schedule>();
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);

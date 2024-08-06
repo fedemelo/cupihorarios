@@ -7,9 +7,9 @@ export default function SchedulePage() {
 
   return (
     <PageWrapper>
-      {({ assistantCode, isAdmin, adminView }) => (
+      {({ isAdmin, adminView }) => (
         <Container sx={{ padding: '16px', maxWidth: '1200px', margin: 'auto' }}>
-          <ScheduleView assistantCode={assistantCode} isAdmin={isAdmin} adminView={adminView}/>
+          <ScheduleView isAdmin={isAdmin} adminView={adminView}/>
         </Container>
       )}
     </PageWrapper>

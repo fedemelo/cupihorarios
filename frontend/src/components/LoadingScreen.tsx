@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import MenuAppBar from './MenuAppBar'; // Adjust the import path as needed
 

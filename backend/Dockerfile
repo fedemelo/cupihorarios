@@ -9,4 +9,4 @@ COPY ./ /app
 
 CMD ["python", "main.py"]
 
-EXPOSE 8000
+EXPOSE 8001
