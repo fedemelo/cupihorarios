@@ -14,7 +14,7 @@ import { useMsal } from "@azure/msal-react";
 import { Link } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
 
 interface MenuAppBarProps {
-  user: AccountInfo;
+  user: {name: string};
   isAdmin: boolean;
   setAdminView?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -89,7 +89,7 @@ export default function MenuAppBar({
               <Typography component={Link} to="/schedule" sx={{ color: 'inherit', textDecoration: 'none' }}>
                 Horario
               </Typography>
-              <Typography component={Link} to="/" sx={{ color: 'inherit', textDecoration: 'none' }}>
+              <Typography component={Link} to="/availability" sx={{ color: 'inherit', textDecoration: 'none' }}>
                 Disponibilidad
               </Typography>
               <Typography component={Link} to="/docs" sx={{ color: 'inherit', textDecoration: 'none' }}>

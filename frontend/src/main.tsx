@@ -17,9 +17,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <MsalProvider instance={msalInstance}>
             <App />
-          </MsalProvider>
         </CssBaseline>
       </ThemeProvider>
     </LocalizationProvider>

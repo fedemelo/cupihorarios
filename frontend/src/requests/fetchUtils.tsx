@@ -35,13 +35,16 @@ export const fetchIsAuthorized = async (
   setAssistantCode: (code: number) => void,
   setIsAdmin: (value: boolean) => void,
   setAdminView: (value: boolean) => void,
-  setLoading: (value: boolean) => void) => {
+  setLoading: (value: boolean) => void,
+  setUser: (value: { name: string } | ((prevVar: { name: string; }) => { name: string; })) => void
+) => {
   try {
     const response = await axiosInstance.get(`/assistant/by_login/${assistantLogin}`);
 
     if (response.status === 200) {
       setIsAuthorized(true);
       setAssistantCode(response.data.code);
+      setUser({ name: response.data.first_names + ' ' + response.data.last_names });
 
       if (response.data.is_admin) {
         setIsAdmin(true);

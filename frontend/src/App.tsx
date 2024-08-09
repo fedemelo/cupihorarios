@@ -1,22 +1,18 @@
-import { router } from "./router";
-import { RouterProvider } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import AvailabilityPage from "./pages/availability/AvailabilityPage";
+import SchedulePage from "./pages/schedule/SchedulePage";
+import Docs from "./pages/Docs";
 import SignInPage from "./pages/SignInPage";
-import {
-  AuthenticatedTemplate,
-  UnauthenticatedTemplate,
-} from "@azure/msal-react";
 
 function App() {
-  return (
-    <>
-      <AuthenticatedTemplate>
-        <RouterProvider router={router} />
-      </AuthenticatedTemplate>
-      <UnauthenticatedTemplate>
-        <SignInPage />
-      </UnauthenticatedTemplate>
-    </>
-  );
+  return <Router>
+  <Routes>
+    <Route path="/" element={<SignInPage />} />
+    <Route path="/availability" element={<AvailabilityPage />} />
+    <Route path="/schedule" element={<SchedulePage />} />
+    <Route path="/docs" element={<Docs />} />
+  </Routes>
+</Router>
 }
 
 export default App;
