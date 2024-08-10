@@ -6,6 +6,8 @@ COPY package.json /app/package.json
 
 COPY . /app
 
+COPY prod.env /app/.env
+
 RUN yarn install
 
 RUN yarn build
