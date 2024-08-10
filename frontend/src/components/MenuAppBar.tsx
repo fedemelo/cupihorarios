@@ -9,8 +9,6 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { AccountInfo, IPublicClientApplication } from "@azure/msal-browser";
-import { useMsal } from "@azure/msal-react";
 import { Link } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
 
 interface MenuAppBarProps {
@@ -19,22 +17,16 @@ interface MenuAppBarProps {
   setAdminView?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function logout(instance: IPublicClientApplication) {
-  instance.logoutRedirect().catch((e) => {
-    console.error(e);
-  });
-}
-
 export default function MenuAppBar({
   user,
   setAdminView,
   isAdmin,
 }: MenuAppBarProps) {
   const settings = [{ tag: "Cerrar sesión", clickAction: handleLogout }];
-  const { instance } = useMsal();
 
   function handleLogout() {
-    logout(instance);
+    localStorage.removeItem("login");
+    window.location.href = "/";
   }
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(

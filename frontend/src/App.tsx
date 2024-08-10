@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AvailabilityPage from "./pages/availability/AvailabilityPage";
 import SchedulePage from "./pages/schedule/SchedulePage";
 import Docs from "./pages/Docs";
