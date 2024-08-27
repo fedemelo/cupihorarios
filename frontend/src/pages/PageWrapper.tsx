@@ -1,11 +1,11 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import { useMsal } from '@azure/msal-react';
 import { fetchIsAuthorized } from '../requests/fetchUtils';
 import Copyright from '../components/Copyright';
 import MenuAppBar from '../components/MenuAppBar';
 import LoadingScreen from '../components/LoadingScreen';
 import UnauthorizedScreen from '../components/UnauthorizedScreen';
+import NotLoggedInScreen from '../components/NotLoggedInScreen';
 
 interface PageWrapperProps {
   children: (props: {
@@ -17,23 +17,28 @@ interface PageWrapperProps {
 }
 
 const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
-  const { accounts } = useMsal();
-  const assistantLogin = accounts[0].username.split('@')[0];
-  const user = accounts[0];
+  const assistantLogin = localStorage.getItem('login')?.split('@')[0];
 
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [assistantCode, setAssistantCode] = useState(0);
   const [adminView, setAdminView] = useState(false);
+  const [user, setUser] = useState({ name: "" });
 
   useEffect(() => {
-    fetchIsAuthorized(assistantLogin, setIsAuthorized, setAssistantCode, setIsAdmin, setAdminView, setLoading);
+    fetchIsAuthorized(assistantLogin??"", setIsAuthorized, setAssistantCode, setIsAdmin, setAdminView, setLoading, setUser);
   }, [assistantLogin]);
 
   if (loading) {
     return <LoadingScreen user={user} isAdmin={isAdmin} />;
   }
+
+
+  if (!assistantLogin) {
+    return <NotLoggedInScreen user={user} isAdmin={isAdmin} />;
+  }
+
 
   if (!isAuthorized) {
     return <UnauthorizedScreen user={user} isAdmin={isAdmin} />;
