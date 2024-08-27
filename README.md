@@ -69,3 +69,27 @@ To connect from either Windows or Linux, you can use Putty.
     | Port           | 443                             |
 
 4. Click the Open button to open the connection.
+
+
+## Deployment
+
+In the virtual machine, locate the `cupihorarios` directory (usually in the `~` directory) and run the following commands:
+
+1. Pull the latest changes from the repository and ensure you are in the `main` branch:
+
+    ```shell
+    git pull origin main
+    ```
+
+2. Build the production Docker images for the application:
+
+    ```shell
+    docker compose --profile prod build --no-cache
+    ```
+
+3. Start the application production containers:
+
+    ```shell
+    docker compose --profile prod up -d
+    ```
+    
