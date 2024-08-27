@@ -11,6 +11,7 @@ services:
       - ./backend/db/backups/postgres_dump.sql:/docker-entrypoint-initdb.d/postgres_dump.sql
     profiles:
       - prod
+    restart: always
 
   backend_dev:
     container_name: cupihorarios_back
@@ -38,6 +39,7 @@ services:
     volumes:
       - ../certificates/server.crt:/etc/ssl/certs/server.crt:ro
       - ../certificates/server.key:/etc/ssl/certs/server.key:ro
+    restart: always
 
   frontend_dev:
     container_name: cupihorarios_front
@@ -70,3 +72,4 @@ services:
     volumes:
       - ../certificates/server.crt:/usr/local/apache2/conf/server.crt:ro
       - ../certificates/server.key:/usr/local/apache2/conf/server.key:ro
+    restart: always
