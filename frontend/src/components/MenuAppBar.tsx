@@ -9,20 +9,12 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { AccountInfo, IPublicClientApplication } from "@azure/msal-browser";
-import { useMsal } from "@azure/msal-react";
 import { Link } from "react-router-dom"; // Asegúrate de tener react-router-dom instalado
 
 interface MenuAppBarProps {
-  user: AccountInfo;
+  user: {name: string};
   isAdmin: boolean;
   setAdminView?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function logout(instance: IPublicClientApplication) {
-  instance.logoutRedirect().catch((e) => {
-    console.error(e);
-  });
 }
 
 export default function MenuAppBar({
@@ -31,10 +23,10 @@ export default function MenuAppBar({
   isAdmin,
 }: MenuAppBarProps) {
   const settings = [{ tag: "Cerrar sesión", clickAction: handleLogout }];
-  const { instance } = useMsal();
 
   function handleLogout() {
-    logout(instance);
+    localStorage.removeItem("login");
+    window.location.href = "/";
   }
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -89,7 +81,7 @@ export default function MenuAppBar({
               <Typography component={Link} to="/schedule" sx={{ color: 'inherit', textDecoration: 'none' }}>
                 Horario
               </Typography>
-              <Typography component={Link} to="/" sx={{ color: 'inherit', textDecoration: 'none' }}>
+              <Typography component={Link} to="/availability" sx={{ color: 'inherit', textDecoration: 'none' }}>
                 Disponibilidad
               </Typography>
               <Typography component={Link} to="/docs" sx={{ color: 'inherit', textDecoration: 'none' }}>
